@@ -10,7 +10,24 @@ is between one another
 
     - Superclass Landscape that contains common characteristics of the different environment.
     - Four subclasses (Highland, Lowland, Desert and Water)
-    - Implement the Annual Cycle on Rossumøya
+
+
+###Island
+This part will focus on building the island, and implement the annual cycle to the code.
+ 
+    - Implement the Annual Cycle on Rossumøya.
+    - Design methods for migration rules.
+    - The landscape affect the island build.
+    - 
+###Animal
+This part focus on the animals on the island, and their way of acting.
+
+        - Superclass Animal that contains common characteristics of the herbivores and carnivores.
+        - Two subclasses (herbivores and carnivores)
+        - A method that allows you to change the given parameters
+
+
+
 
 
 
