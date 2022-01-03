@@ -18,7 +18,6 @@ This part will focus on building the island, and implement the annual cycle to t
     - Implement the Annual Cycle on Rossumøya.
     - Design methods for migration rules.
     - The landscape affect the island build.
-    - 
 ###Animal
 This part focus on the animals on the island, and their way of acting.
 
@@ -26,6 +25,20 @@ This part focus on the animals on the island, and their way of acting.
         - Two subclasses (herbivores and carnivores)
         - A method that allows you to change the given parameters
 
+
+## Key aspects of running and visualising a simulation
+
+###Simulation
+    - Good code structure and documentation.
+    - Not a time consuming simulation.
+    - Users can adjust the simulation setting for their preferences.
+    - Make a versatile code that can be used with different parameters.
+    - Able to stop the simulation mid way
+
+###Visualising
+    - Informative graphs.
+    - Total number of animals on the island.
+    - Histogram
 
 
 
