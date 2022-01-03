@@ -38,8 +38,14 @@ This part focus on the animals on the island, and their way of acting.
 ###Visualising
     - Informative graphs.
     - Total number of animals on the island.
-    - Histogram
+    - Histogram.
 
+## Representation of code
+
+    - Complete tests for all functions.
+    - Document while coding, and not after.
+    - Follow the PEP8 guidelines.
+    - Sphinx standard. 
 
 
 
