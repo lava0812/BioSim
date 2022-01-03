@@ -23,7 +23,7 @@ class Animals:
     """
     @classmethod
     def updated_parameters(cls):
-        #Will add something here, when as soon as I define the name of the list that contains the parameter names.
+        #Will add something here, as soon as I define the name of the list that contains the parameter names.
         pass
 
 
