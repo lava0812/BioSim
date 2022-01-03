@@ -5,6 +5,8 @@ Herbivores and Carnivores.
 These to subclasses will contain methods specifically for herbivores and carnivores.
 """
 
+import math
+
 class Animals:
     """
     This is the Animals class. This class will contain these methods:
