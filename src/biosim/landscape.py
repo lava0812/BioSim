@@ -42,7 +42,7 @@ class Lowland:
         """
         pass
 
-    def new_fooder(self):
+    def new_fodder(self):
         """
         Function to add fixed amount of fodder in the lowland
         """
