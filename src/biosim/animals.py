@@ -8,8 +8,8 @@ These to subclasses will contain methods specifically for herbivores and carnivo
 import math
 import random
 
-class Herbivores:
 
+class Herbivores:
     param_herbivores = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
@@ -27,15 +27,13 @@ class Herbivores:
         "F": 10.0
     }
 
-
-    def __init__(self,age = None, weight = None):
+    def __init__(self, age=None, weight=None):
         """
         Here we define our data for this function, and these are age and weight. Fitness is also a part of the data,
         but does not need to be included here because it is dependent on both the age and weight.
         """
         self.age = age
         self.weight = weight
-
 
     def aging(self):
         """
@@ -44,8 +42,6 @@ class Herbivores:
         """
         self.age += 1
         return self.age
-
-
 
     def weight_baby(self):
         """
@@ -56,8 +52,6 @@ class Herbivores:
         self.weight = random.gauss(param_herbivores["w_birth"], param_herbivores["sigma_birth"])
         return self.weight
 
-
-
     def weight_increase(self):
         """
         This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
@@ -65,15 +59,12 @@ class Herbivores:
         """
         pass
 
-
     def weight_decrease(self):
         """
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
         pass
-
-
 
     def fitness_herbivores(self):
         """
@@ -121,8 +112,6 @@ class Herbivores:
         """
 
 
-
-
 """
 class Animals:
     
@@ -150,10 +139,3 @@ class Animals:
 
 
 """
-
-
-
-
-
-
-
