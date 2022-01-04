@@ -37,6 +37,7 @@ class Herbivores:
         self.weight = weight
         self.fitness = None
         self.probability_die = None
+        self.probability_birth = None
 
     def aging(self):
         """
@@ -123,7 +124,10 @@ class Herbivores:
         """
         This method will handle the probability for a herbivore to give birth.
         """
-        if len()
+        if len(Lowland.disp_population()) < 2 and self.weight < (self.param_herbivores["zeta"]
+                                                                 + self.param_herbivores["sigma_birth"]):
+            self.probability_birth = 0
+
 
 
 
@@ -133,6 +137,9 @@ class Herbivores:
         """
         This method makes the herbivore mother lose zeta.
         """
+        self.weight -= Herbivores.weight_baby() * self.param_herbivores["xi"]
+
+        return self.weight
 
 
 """
