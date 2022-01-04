@@ -81,7 +81,7 @@ class Herbivores:
             Fitness will be --> (1/(1+e*^(phi_age(+a_half)))*(1/(1+e*^(-phi_weight(w_half)))
         """
 
-        if self.weigth <= 0:
+        if self.weight <= 0:
             self.fitness = 0
         else:
             self.fitness = (1 / (1 + math.e ** ((self.param_herbivores["phi_age"]) * self.param_herbivores["a_half"])) *
@@ -96,6 +96,8 @@ class Herbivores:
         into two methods. A method for the certain death of a herbivore, and a method with the probability of death
         for a herbivore.
         """
+        if self.weight == 0:
+
         pass
 
     def birth_herbivore(self):
