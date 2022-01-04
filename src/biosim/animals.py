@@ -6,6 +6,7 @@ These to subclasses will contain methods specifically for herbivores and carnivo
 """
 
 import math
+import random
 
 class Herbivores:
 
@@ -26,40 +27,59 @@ class Herbivores:
         "F": 10.0
     }
 
+
     def __init__(self,age = None, weight = None):
-        self.age = 0
+        """
+        Here we define our data for this function, and these are age and weight. Fitness is also a part of the data,
+        but does not need to be included here because it is dependent on both the age and weight.
+        """
+        self.age = age
         self.weight = weight
-
-
 
 
     def aging(self):
         """
-        This is a method for making the herbivores age. This function will be in the Animals superclass once we create it.
+        This is a method for making the herbivores age. This function will be in the Animals
+         superclass once we create it.
         """
         self.age += 1
+        return self.age
 
     def weight_baby(self):
         """
-        This method will use a Gaussian distribution for determining the weight of a Herbivore baby
+        This method will use a Gaussian distribution for determining the weight of a Herbivore baby. In the
+        Gaussian(normal distribution), w_birth is the mean value, and sigma_birth is our standard deviation.
+        Will use the random library, as it is has been recommended not to use the numpy library.
         """
-        pass
+        self.weight = random.gauss(param_herbivores["w_birth"], param_herbivores["sigma_birth"])
+        return self.weight
 
     def weight_increase(self):
         """
-        This method will increase the weight of the herbivores once it eats some fodder F.
+        This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
+        beta times the amount of fodder it eats.
         """
+
         pass
 
     def weight_decerase(self):
         """
-        This method will decrease the weight of a herbivore every year.
+        This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
+        decreases by eta times the weight
         """
         pass
 
     def fitness_herbivores(self):
         """
-        This method will update the fitness of a herbivore,
+        This method will update the fitness of a herbivore. Fitness of a herbivore is calculated using age and weight.
+        It can be smart to use if statements here.
+        """
+
+        """
+        if weight is <= 0
+            Fitness will be 0
+        else
+            Fitness 
         """
         pass
 
@@ -73,7 +93,13 @@ class Herbivores:
         """
         This is a method that makes the herbivores eat an amount of F fodder
         """
+        pass
 
+    def birth_herbivore(self):
+        """
+        This will be a function that will include the probability to mate in a cell, if there is another
+        herbivore in that cell.
+        """
 
 
 
@@ -112,21 +138,4 @@ class Animals:
 
 
 
-class Herbivores(Animals):
-    """
-    This is the Herbivores subclass and will contain these methods:
-        - Eat
-    """
-    pass
-
-
-
-
-class Carnivores(Animals):
-    """
-    This is the Carnivores subclass and will contain these methods:
-        - Eat
-        - Kill
-    """
-    pass
 
