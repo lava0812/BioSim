@@ -151,7 +151,6 @@ class Herbivores:
 
         return self.weight
 
-
 """
 class Animals:
     
