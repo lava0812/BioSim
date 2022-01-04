@@ -10,7 +10,6 @@ import random
 
 
 class Herbivores:
-
     param_herbivores = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
@@ -61,7 +60,6 @@ class Herbivores:
         """
         pass
 
-    @classmethod
     def weight_decrease(self):
         """
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
@@ -86,8 +84,9 @@ class Herbivores:
         if self.weigth <= 0:
             self.fitness = 0
         else:
-            self.fitness = (1/(1+math.e**((self.param_herbivores["phi_age"]) * self.param_herbivores["a_half"])) *
-                            1/(1+math.e**((self.param_herbivores["phi_weight"]) * self.param_herbivores["w_half"])))
+            self.fitness = (1 / (1 + math.e ** ((self.param_herbivores["phi_age"]) * self.param_herbivores["a_half"])) *
+                            1 / (1 + math.e ** (
+                                (self.param_herbivores["phi_weight"]) * self.param_herbivores["w_half"])))
 
         return self.fitness
 
@@ -98,7 +97,6 @@ class Herbivores:
         for a herbivore.
         """
         pass
-
 
     def birth_herbivore(self):
         """
