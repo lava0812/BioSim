@@ -10,10 +10,10 @@ is between one another
 
     - Superclass Landscape that contains common characteristics of the different environment.
     - Four subclasses (Highland, Lowland, Desert and Water)
-    - Highland data - 
-    - Lowland data - fodder available, animals
-    - Desert data - no fodder available
-    - Water data - not possible to be in this cell
+    - Highland || data - 
+    - Lowland || data - fodder available, animals || Method - regrowth of fodder
+    - Desert || data - no fodder available 
+    - Water || data - not possible to be in this cell
     - Methods for age, death, fodder, migration and population count
 
 
