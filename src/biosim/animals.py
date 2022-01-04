@@ -60,7 +60,8 @@ class Herbivores:
         This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
         beta times the amount of fodder it eats.
         """
-        pass
+        self.weight = self.param_herbivores["beta"] * Lowland.new_fodder()
+        return self.weight
 
     def weight_decrease(self):
         """
