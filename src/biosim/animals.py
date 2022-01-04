@@ -9,9 +9,28 @@ import math
 
 class Herbivores:
 
+    param_herbivores = {
+        "w_birth": 8.0,
+        "sigma_birth": 1.5,
+        "beta": 0.9,
+        "eta": 0.05,
+        "a_half": 40.0,
+        "phi_age": 0.6,
+        "w_half": 10.0,
+        "phi_weight": 0.1,
+        "mu": 0.25,
+        "gamma": 0.2,
+        "zeta": 3.5,
+        "xi": 1.2,
+        "omega": 0.4,
+        "F": 10.0
+    }
+
     def __init__(self,age = None, weight = None):
         self.age = 0
         self.weight = weight
+
+
 
 
     def aging(self):
@@ -28,7 +47,7 @@ class Herbivores:
 
     def weight_increase(self):
         """
-        This method will increase the weight of the herbivores once it eats some fodder
+        This method will increase the weight of the herbivores once it eats some fodder F.
         """
         pass
 
@@ -43,6 +62,17 @@ class Herbivores:
         This method will update the fitness of a herbivore,
         """
         pass
+
+    def death_herbivore(self):
+        """
+        This will be a method for the death of a herbivore.
+        """
+        pass
+
+    def eat_herbivore(self):
+        """
+        This is a method that makes the herbivores eat an amount of F fodder
+        """
 
 
 
