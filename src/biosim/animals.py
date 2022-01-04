@@ -45,6 +45,8 @@ class Herbivores:
         self.age += 1
         return self.age
 
+
+
     def weight_baby(self):
         """
         This method will use a Gaussian distribution for determining the weight of a Herbivore baby. In the
@@ -54,20 +56,24 @@ class Herbivores:
         self.weight = random.gauss(param_herbivores["w_birth"], param_herbivores["sigma_birth"])
         return self.weight
 
+
+
     def weight_increase(self):
         """
         This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
         beta times the amount of fodder it eats.
         """
-
         pass
 
-    def weight_decerase(self):
+
+    def weight_decrease(self):
         """
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
         pass
+
+
 
     def fitness_herbivores(self):
         """
@@ -79,19 +85,22 @@ class Herbivores:
         if weight is <= 0
             Fitness will be 0
         else
-            Fitness 
+            Fitness will be --> (1/(1+e*^(phi_age(+a_half)))*(1/(1+e*^(-phi_weight(w_half)))
         """
         pass
 
     def death_herbivore(self):
         """
-        This will be a method for the death of a herbivore.
+        This will be a method for the death of a herbivore. Will it be better to split up the death of a herbivore,
+        into two methods. A method for the certain death of a herbivore, and a method with the probability of death
+        for a herbivore.
         """
         pass
 
     def eat_herbivore(self):
         """
-        This is a method that makes the herbivores eat an amount of F fodder
+        This is a method that makes the herbivores eat an amount of F fodder. The F value will be imported from
+        the landscape class.
         """
         pass
 
