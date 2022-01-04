@@ -1,11 +1,11 @@
-
 """
 This file wll contain a main class Landscape(Superclass). The Landscape class will have four subclasses, Highland,
 Lowland, Desert and Water.
 """
+from animals import Herbivores
 
- class Lowland:
 
+class Lowland:
     parameters = {"f_max": 800}
 
     def __init__(self):
@@ -13,13 +13,14 @@ Lowland, Desert and Water.
         Empty list to count the population.
         Food count starts at 0 which will be updated
         """
-        self.pop = []
+        self.population = []
         self.food = 0
 
     def pop(self):
         """
         This function will add values to the empty list
         """
+        return len(self.population)
         pass
 
     def death(self):
@@ -46,4 +47,3 @@ Lowland, Desert and Water.
         reduced after the animal has consumed the fodder
         """
         pass
-
