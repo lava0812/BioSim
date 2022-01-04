@@ -10,6 +10,7 @@ import random
 
 
 class Herbivores:
+
     param_herbivores = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
@@ -34,6 +35,7 @@ class Herbivores:
         """
         self.age = age
         self.weight = weight
+        self.fitness = None
 
     def aging(self):
         """
@@ -49,7 +51,7 @@ class Herbivores:
         Gaussian(normal distribution), w_birth is the mean value, and sigma_birth is our standard deviation.
         Will use the random library, as it is has been recommended not to use the numpy library.
         """
-        self.weight = random.gauss(param_herbivores["w_birth"], param_herbivores["sigma_birth"])
+        self.weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
         return self.weight
 
     def weight_increase(self):
@@ -59,12 +61,14 @@ class Herbivores:
         """
         pass
 
+    @classmethod
     def weight_decrease(self):
         """
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
-        pass
+        self.weight = self.weight * self.param_herbivores["eta"]
+        return self.weight
 
     def fitness_herbivores(self):
         """
@@ -78,7 +82,14 @@ class Herbivores:
         else
             Fitness will be --> (1/(1+e*^(phi_age(+a_half)))*(1/(1+e*^(-phi_weight(w_half)))
         """
-        pass
+
+        if self.weigth <= 0:
+            self.fitness = 0
+        else:
+            self.fitness = (1/(1+math.e**((self.param_herbivores["phi_age"]) * self.param_herbivores["a_half"])) *
+                            1/(1+math.e**((self.param_herbivores["phi_weight"]) * self.param_herbivores["w_half"])))
+
+        return self.fitness
 
     def death_herbivore(self):
         """
@@ -88,12 +99,6 @@ class Herbivores:
         """
         pass
 
-    def eat_herbivore(self):
-        """
-        This is a method that makes the herbivores eat an amount of F fodder. The F value will be imported from
-        the landscape class.
-        """
-        pass
 
     def birth_herbivore(self):
         """
