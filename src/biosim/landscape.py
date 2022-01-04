@@ -3,6 +3,7 @@ This file wll contain a main class Landscape(Superclass). The Landscape class wi
 Lowland, Desert and Water.
 """
 from animals import Herbivores
+import random
 
 
 class Lowland:
@@ -32,17 +33,19 @@ class Lowland:
         This function will add values to the empty list
         """
         return len(self.population)
-        pass
 
     def death(self):
         """
         Removing the animals that have died from the count
         """
+
         pass
 
     def new_babies(self):
         """
         Adding the newborn babies to the population count
+
+        Will append to the population list
         """
         pass
 
@@ -51,7 +54,6 @@ class Lowland:
         Function to add fixed amount of fodder in the lowland
         """
         self.fodder = self.parameters["f_max"]
-        pass
 
     def eat(self):
         """
