@@ -112,7 +112,7 @@ class Herbivores:
             self.probability_die = 1  # Herbivore dies with certainty
         else:
             self.probability_die = self.param_herbivores["omega"] * (
-                        1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
+                    1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
         return self.probability_die
 
     def birth_herbivore(self):
@@ -128,10 +128,18 @@ class Herbivores:
                                                                  + self.param_herbivores["sigma_birth"]):
             self.probability_birth = 0
 
+        elif len(Lowland.disp_population()) > 2:
+            min(1, self.param_herbivores * self.fitness * (len(Lowland.disp_population() - 1)))
+            if self.weight <= Herbivores.birth_weight_loss():
+                # No birth!!
+                # self.weight = weight
+                pass
 
+            else:
+                # Birth!
+                pass
 
-
-        pass
+        return self.probability_birth
 
     def birth_weight_loss(self):
         """
