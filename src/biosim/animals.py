@@ -4,6 +4,8 @@ that are common for both herbivores and carnivores. The Animals class will have 
 Herbivores and Carnivores.
 These to subclasses will contain methods specifically for herbivores and carnivores.
 """
+__author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
+__email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import math
 import random
