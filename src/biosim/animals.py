@@ -35,6 +35,7 @@ class Herbivores:
         self.age = age
         self.weight = weight
         self.fitness = None
+        self.probability = None
 
     def aging(self):
         """
@@ -86,8 +87,7 @@ class Herbivores:
         else:
             self.fitness = (1 / (1 + math.e ** ((self.param_herbivores["phi_age"]) * self.param_herbivores["a_half"])) *
                             1 / (1 + math.e ** (
-                                (self.param_herbivores["phi_weight"]) * self.param_herbivores["w_half"])))
-
+                            (self.param_herbivores["phi_weight"]) * self.param_herbivores["w_half"])))
         return self.fitness
 
     def death_herbivore(self):
@@ -96,9 +96,21 @@ class Herbivores:
         into two methods. A method for the certain death of a herbivore, and a method with the probability of death
         for a herbivore.
         """
-        if self.weight == 0:
 
-        pass
+        """
+        If the weight == 0:
+            Herbivore dies with certainty
+        else
+            It will die with a probability of w(1-fitness). 
+        """
+
+        self.probability = None
+        if self.weight == 0:
+            self.probability = 1  # Herbivore dies with certainty
+        else:
+            self.probability = self.param_herbivores["omega"] * (
+                        1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
+        return self.probability
 
     def birth_herbivore(self):
         """
