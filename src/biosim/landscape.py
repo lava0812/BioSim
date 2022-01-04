@@ -16,6 +16,13 @@ class Lowland:
         self.population = []
         self.food = 0
 
+    def population_update(self, pop_list):
+        """
+        Append to list
+        """
+        for herbivores in pop_list:
+            self.population.append(Herbivores(age=herbivores["age"], weight=herbivores["weight"]))
+
     def pop(self):
         """
         This function will add values to the empty list
@@ -39,6 +46,7 @@ class Lowland:
         """
         Function to add fixed amount of fodder in the lowland
         """
+        s
         pass
 
     def eat(self):
