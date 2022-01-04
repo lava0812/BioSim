@@ -36,7 +36,7 @@ class Herbivores:
         self.age = age
         self.weight = weight
         self.fitness = None
-        self.probability = None
+        self.probability_die = None
 
     def aging(self):
         """
@@ -106,23 +106,26 @@ class Herbivores:
             It will die with a probability of w(1-fitness). 
         """
 
-        self.probability = None
+        self.probability_die = None
         if self.weight == 0:
-            self.probability = 1  # Herbivore dies with certainty
+            self.probability_die = 1  # Herbivore dies with certainty
         else:
-            self.probability = self.param_herbivores["omega"] * (
+            self.probability_die = self.param_herbivores["omega"] * (
                         1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
-        return self.probability
+        return self.probability_die
 
     def birth_herbivore(self):
         """
-        This will be a function that will do the birth of a herbivore
+        This will be a function that will do the birth of a herbivore. This creates a new baby.
         """
 
     def birth_herbivore_probability(self):
         """
         This method will handle the probability for a herbivore to give birth.
         """
+
+
+
         pass
 
     def birth_weight_loss(self):
