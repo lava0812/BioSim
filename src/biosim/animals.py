@@ -106,10 +106,19 @@ class Herbivores:
 
     def birth_herbivore(self):
         """
-        This will be a function that will include the probability to mate in a cell, if there is another
-        herbivore in that cell.
+        This will be a function that will do the birth of a herbivore
         """
 
+    def birth_herbivore_probability(self):
+        """
+        This method will handle the probability for a herbivore to give birth.
+        """
+        pass
+
+    def birth_weight_loss(self):
+        """
+        This method makes the herbivore mother lose zeta.
+        """
 
 
 
