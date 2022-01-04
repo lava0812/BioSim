@@ -129,7 +129,7 @@ class Herbivores:
             self.probability_birth = 0
 
         elif len(Lowland.disp_population()) > 2:
-            min(1, self.param_herbivores * self.fitness * (len(Lowland.disp_population() - 1)))
+            self.probability_birth = min(1, self.param_herbivores * self.fitness * (len(Lowland.disp_population() - 1)))
             if self.weight <= Herbivores.birth_weight_loss():
                 # No birth!!
                 # self.weight = weight
@@ -143,7 +143,7 @@ class Herbivores:
 
     def birth_weight_loss(self):
         """
-        This method makes the herbivore mother lose zeta.
+        This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
         """
         self.weight -= Herbivores.weight_baby() * self.param_herbivores["xi"]
 
