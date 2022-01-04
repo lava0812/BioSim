@@ -16,20 +16,33 @@ class Herbivores:
 
     def aging(self):
         """
-        A method for making the herbivores age. This function will be in the Animals superclass once we create it.
+        This is a method for making the herbivores age. This function will be in the Animals superclass once we create it.
         """
         self.age += 1
 
     def weight_baby(self):
         """
-        This will use a Gaussian distribution for determining the weight of a Herbivore baby
+        This method will use a Gaussian distribution for determining the weight of a Herbivore baby
         """
         pass
 
     def weight_increase(self):
         """
-
+        This method will increase the weight of the herbivores once it eats some fodder
         """
+        pass
+
+    def weight_decerase(self):
+        """
+        This method will decrease the weight of a herbivore every year.
+        """
+        pass
+
+    def fitness_herbivores(self):
+        """
+        This method will update the fitness of a herbivore,
+        """
+        pass
 
 
 
