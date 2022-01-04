@@ -7,6 +7,7 @@ These to subclasses will contain methods specifically for herbivores and carnivo
 
 import math
 import random
+from landscape import Lowland
 
 
 class Herbivores:
