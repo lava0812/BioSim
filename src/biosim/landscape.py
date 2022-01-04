@@ -14,7 +14,7 @@ class Lowland:
         Food count starts at 0 which will be updated
         """
         self.population = []
-        self.food = 0
+        self.fooder = 0
 
     def population_update(self, pop_list):
         """
@@ -42,11 +42,11 @@ class Lowland:
         """
         pass
 
-    def new_food(self):
+    def new_fooder(self):
         """
         Function to add fixed amount of fodder in the lowland
         """
-        s
+        self.fooder = self.parameters["f_max"]
         pass
 
     def eat(self):
