@@ -121,6 +121,7 @@ class Herbivores:
         """
         This will be a function that will do the birth of a herbivore. This creates a new baby.
         """
+        pass
 
     def birth_herbivore_probability(self):
         """
