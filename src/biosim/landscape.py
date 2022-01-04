@@ -23,6 +23,10 @@ class Lowland:
         for herbivores in pop_list:
             self.population.append(Herbivores(age=herbivores["age"], weight=herbivores["weight"]))
 
+    def disp_population(self):
+
+        return self.population
+
     def pop(self):
         """
         This function will add values to the empty list

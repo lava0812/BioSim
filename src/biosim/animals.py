@@ -123,6 +123,7 @@ class Herbivores:
         """
         This method will handle the probability for a herbivore to give birth.
         """
+        if len()
 
 
 
