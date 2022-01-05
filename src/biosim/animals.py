@@ -143,6 +143,8 @@ class Herbivores:
                 pass
 
         return self.probability_birth
+        #Use the if statement where the check of population in the landscape file instead of the animal file.
+        #Focus more on
 
     def birth_weight_loss(self):
         """
