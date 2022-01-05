@@ -63,3 +63,9 @@ class Lowland:
 
         """
         pass
+
+    def aging(self):
+        """
+        This function will iterate through all the animals in the lowland cell(population list), and use the age()
+         function from the animal class, and make the herbivores age.
+        """
