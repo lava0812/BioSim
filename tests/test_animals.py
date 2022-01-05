@@ -58,11 +58,10 @@ def test_fitness_herbivores():
     Fitness is dependent on the age and the weight of the animal.
     Test if fitness calculation is correct when age and weight is positive.
     """
-    herbivore1 = Herbivore(1,8)
+    herbivore1 = Herbivore(40, 10)
     herbivore1.fitness_herbivore()
 
-    assert herbivore1.fitness > 0.7
-
+    assert herbivore1.fitness == 0.25
 
 
 def test_fitness_herbivores_zero():
@@ -73,7 +72,6 @@ def test_fitness_herbivores_zero():
     herbivore2.fitness_herbivore()
 
     assert herbivore2.fitness == 0
-
 
 
 def test_death_herbivores():

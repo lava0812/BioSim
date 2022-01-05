@@ -80,10 +80,12 @@ class Herbivore:
         This method will update the fitness of a herbivore. Fitness of a herbivore is calculated using age and weight.
         It can be smart to use if statements here.
         """
-        q_positive = 1 / (1 + math.exp(((self.param_herbivores["phi_age"])
-                                   * self.age - self.param_herbivores["a_half"])))
-        q_negative = 1 / (1 + math.exp(((self.param_herbivores["phi_weight"])
-                                      * self.weight - self.param_herbivores["w_half"])))
+        q_positive = 1 / (1 + math.exp((self.param_herbivores["phi_age"])
+                                       * (self.age - self.param_herbivores["a_half"])
+                                       ))
+        q_negative = 1 / (1 + math.exp((-self.param_herbivores["phi_weight"])
+                                       * (self.weight - self.param_herbivores["w_half"])
+                                       ))
         if self.weight <= 0:
             self.fitness = 0
         else:
