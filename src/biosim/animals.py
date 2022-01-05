@@ -38,8 +38,8 @@ class Herbivore:
         self.weight = weight
         self.fitness = None
         self.fitness_herbivore()
-        self.probability_die = None
         self.probability_birth = None
+        self.probability_die = None
         self.death = False
         pass
 
@@ -97,13 +97,6 @@ class Herbivore:
         into two methods. A method for the certain death of a herbivore, and a method with the probability of death
         for a herbivore.
         """
-
-        """
-        If the weight == 0:
-            Herbivore dies with certainty
-        else
-            It will die with a probability of w(1-fitness). 
-        """
         probability_die = self.param_herbivores["omega"] * (1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
 
         if self.weight == 0:
@@ -118,14 +111,13 @@ class Herbivore:
         """
         pass
 
-    def birth_herbivore_probability(self):
+    def birth_herbivore_probability(self, N_herbivore):
         """
         This method will handle the probability for a herbivore to give birth.
         """
 
         """
-        if self.weight < (self.param_herbivores["zeta"] + self.param_herbivores["sigma_birth"]):
-            self.probability_birth = 0
+        
 
         elif len(Lowland.disp_population()) > 2:
             self.probability_birth = min(1, self.param_herbivores * self.fitness * (len(Lowland.disp_population() - 1)))
@@ -141,10 +133,13 @@ class Herbivore:
 
         return self.probability_birth
         # Use the if statement where the check of population in the landscape file instead of the animal file.
-        # Focus more on
         """
+        probability_birth = min(1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
+        if self.weight < (self.param_herbivores["zeta"] + self.param_herbivores["sigma_birth"]):
+            self.probability_birth = 0
+        else:
+            self.probability_birth = (1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
 
-        pass
 
     def birth_weight_loss(self):
         """

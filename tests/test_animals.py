@@ -3,6 +3,7 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 from src.biosim.animals import Herbivore
 import sys
+import pytest
 
 
 def test_aging():
@@ -48,9 +49,9 @@ def test_weight_decrease():
 
     pre_weight = herbivore.weight
     herbivore.weight_decrease()
-    after_weight = herbivore.weight
+    post_weight = herbivore.weight
 
-    assert pre_weight > after_weight
+    assert pre_weight > post_weight
 
 
 def test_fitness_herbivores():
@@ -95,4 +96,16 @@ def test_birth_herbivore_probability():
 
 
 def test_birth_weight_loss():
-    sys.exit(0)
+    """
+    Testing if weight of mother pre birth is larger than weight of mother
+    post birth.
+    """
+    herbivore = Herbivore(10, 20)
+    pre_weight = herbivore.weight
+    herbivore.birth_weight_loss()
+
+    post_weight = herbivore.weight
+
+    assert pre_weight > post_weight
+
+
