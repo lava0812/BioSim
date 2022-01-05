@@ -37,7 +37,7 @@ class Herbivore:
         self.age = age
         self.weight = weight
         self.fitness = None
-        self.fitness_herbivores()
+        self.fitness_herbivore()
         self.probability_die = None
         self.probability_birth = None
         self.death = False
@@ -73,7 +73,7 @@ class Herbivore:
         """
         self.weight = self.weight * self.param_herbivores["eta"]  # Can put this in aging
 
-    def fitness_herbivores(self):
+    def fitness_herbivore(self):
         """
         This method will update the fitness of a herbivore. Fitness of a herbivore is calculated using age and weight.
         It can be smart to use if statements here.
@@ -149,30 +149,4 @@ class Herbivore:
         self.weight -= self.weight_baby() * self.param_herbivores["xi"]
 
 
-"""
-class Animals:
-    
-    This is the Animals class. This class will contain these methods:
-        - Age
-        - Weight
-        - Fitness
-        - Migration
-        - Birth
-        - Death
 
-    Both herbivores and carnivores will have given example parameters, but it must be possible to change these
-    example values to values we prefer. Therefore we need to create a method for changing the parameters that are given
-    in the project description.
-    
-    @classmethod
-    def updated_parameters(cls):
-        #Will add something here, as soon as I define the name of the list that contains the parameter names.
-        pass
-
-
-    def __init__(self):
-        pass
-
-
-
-"""
