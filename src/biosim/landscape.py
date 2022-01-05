@@ -43,7 +43,8 @@ class Lowland:
         """
         self.fodder = self.parameters["f_max"]
 
-#    def simulate(self):
+    def
+#   def simulate(self):
 #        for individuals in self.population:
 #            individuals.feed()
 #            if individuals.birth():
