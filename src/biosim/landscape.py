@@ -52,6 +52,11 @@ class Lowland:
         for individuals in self.population:
             herbivore.aging()
 
+    def eat_fodder(self):
+        herbivore = Herbivore()
+        for individuals in self.population:
+            herbivore.weight_increase(Lowland.new_fodder())
+
 
 
 
