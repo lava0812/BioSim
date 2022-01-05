@@ -97,7 +97,8 @@ class Herbivore:
         into two methods. A method for the certain death of a herbivore, and a method with the probability of death
         for a herbivore.
         """
-        probability_die = self.param_herbivores["omega"] * (1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
+        probability_die = self.param_herbivores["omega"] * (
+                    1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
 
         if self.weight == 0:
             self.death = True  # Herbivore dies with certainty
@@ -134,12 +135,14 @@ class Herbivore:
         return self.probability_birth
         # Use the if statement where the check of population in the landscape file instead of the animal file.
         """
-        probability_birth = min(1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
+
         if self.weight < (self.param_herbivores["zeta"] + self.param_herbivores["sigma_birth"]):
             self.probability_birth = 0
         else:
-            self.probability_birth = (1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
-
+            if self.weight <= Herbivore.birth_weight_loss():
+                self.probability_birth = 0
+            elif self.weight > Herbivore.birth_weight_loss():
+                self.probability_birth = (1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
 
     def birth_weight_loss(self):
         """
