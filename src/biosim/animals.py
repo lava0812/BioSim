@@ -9,10 +9,9 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import math
 import random
-from landscape import Lowland
 
 
-class Herbivores:
+class Herbivore:
     param_herbivores = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
@@ -59,19 +58,19 @@ class Herbivores:
         """
         return random.gauss(cls.param_herbivores["w_birth"], cls.param_herbivores["sigma_birth"])
 
-    def weight_increase(self):
+    def weight_increase(self, fodder):
         """
         This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
         beta times the amount of fodder it eats.
         """
-        self.weight = self.param_herbivores["beta"] * Lowland.new_fodder()
+        self.weight = self.param_herbivores["beta"] * fodder
 
     def weight_decrease(self):
         """
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
-        self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
+        self.weight = self.weight * self.param_herbivores["eta"]  # Can put this in aging
 
     def fitness_herbivores(self):
         """
@@ -139,6 +138,7 @@ class Herbivores:
             else:
                 # Birth!
                 pass
+        #Should avoid importing stuff from the landscape file here in animals...
 
         return self.probability_birth
         # Use the if statement where the check of population in the landscape file instead of the animal file.
