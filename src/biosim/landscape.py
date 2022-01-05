@@ -25,18 +25,18 @@ class Lowland:
             self.population.append(Herbivores(age=herbivores["age"], weight=herbivores["weight"]))
 
     def disp_population(self):
-
-        return self.population
-
-    def pop(self):
         """
-        This function will add values to the empty list
+        This function will display the number of herbivores
         """
+
         return len(self.population)
 
     def death(self):
         """
         Removing the animals that have died from the count
+
+        I'm thinking about having an if statement here,
+        with the pop() method that removes animals with weight = 0 from the list
         """
 
         pass
