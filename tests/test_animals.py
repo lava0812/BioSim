@@ -74,8 +74,16 @@ def test_fitness_herbivores_zero():
     assert herbivore2.fitness == 0
 
 
-def test_death_herbivores():
-    sys.exit(0)
+def test_death_herbivores_certain():
+    herbivores = Herbivore(30, 0)
+
+    herbivores.death_herbivore()
+    assert herbivores.death == True
+
+
+# noinspection SpellCheckingInspection
+def test_death_herbivores_bychance():
+    pass
 
 
 def test_birth_herbivore():

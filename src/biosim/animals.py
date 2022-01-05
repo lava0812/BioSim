@@ -104,13 +104,11 @@ class Herbivore:
         else
             It will die with a probability of w(1-fitness). 
         """
+        probability_die = self.param_herbivores["omega"] * (1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
 
         if self.weight == 0:
-            probability_die = 1  # Herbivore dies with certainty
-        else:
-            probability_die = self.param_herbivores["omega"] * (
-                    1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
-        if probability_die >= random.random():
+            self.death = True  # Herbivore dies with certainty
+        elif probability_die >= random.random():
             self.death = True
 
     def birth_herbivore(self):
@@ -145,6 +143,7 @@ class Herbivore:
         # Use the if statement where the check of population in the landscape file instead of the animal file.
         # Focus more on
         """
+
         pass
 
     def birth_weight_loss(self):
