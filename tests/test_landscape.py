@@ -9,7 +9,7 @@ def population_update():
     pass
 
 
-def disp_population():
+def test_disp_population():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
