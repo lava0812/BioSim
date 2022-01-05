@@ -37,6 +37,7 @@ class Herbivores:
         """
         self.age = age
         self.weight = weight
+        self.fitness = None
         self.fitness_herbivores()
         self.probability_die = None
         self.probability_birth = None
@@ -48,7 +49,7 @@ class Herbivores:
          superclass once we create it.
         """
         self.age += 1
-        return self.age
+        self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
 
     def weight_baby(self):
         """
@@ -72,8 +73,9 @@ class Herbivores:
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
-        self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
-        return self.weight
+        # self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
+        # return self.weight
+        pass
 
     def fitness_herbivores(self):
         """
@@ -118,9 +120,6 @@ class Herbivores:
         if probability_die >= random.random():
             self.death = True
 
-
-
-
     def birth_herbivore(self):
         """
         This will be a function that will do the birth of a herbivore. This creates a new baby.
@@ -154,9 +153,7 @@ class Herbivores:
         """
         This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
         """
-        self.weight -= Herbivores.weight_baby() * self.param_herbivores["xi"]
-
-        #return self.weight
+        self.weight -= Herbivores.weight_baby(self) * self.param_herbivores["xi"]
 
 
 """

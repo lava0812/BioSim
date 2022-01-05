@@ -6,6 +6,8 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 from animals import Herbivores
+
+
 # import random
 
 
@@ -19,8 +21,6 @@ class Lowland:
         """
         self.population = []
         self.fodder = self.parameters["f_max"]
-
-
 
     def population_update(self, pop):
         """
@@ -36,13 +36,11 @@ class Lowland:
 
         return len(self.population)
 
-
     def new_fodder(self):
         """
         Function to add fixed amount of fodder in the lowland
         """
         self.fodder = self.parameters["f_max"]
-
 
     def simulate(self):
         for every_animal in self.population:
@@ -50,7 +48,3 @@ class Lowland:
             if every_animal.birth():
                 pass
             every_animal.death(len(self.population))
-
-
-
-
