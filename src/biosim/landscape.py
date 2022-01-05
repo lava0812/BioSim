@@ -57,6 +57,11 @@ class Lowland:
         for individuals in self.population:
             herbivore.weight_increase(Lowland.new_fodder())
 
+    def death_population(self):
+        herbivore = Herbivore()
+        for individuals in self.population:
+            herbivore.death_herbivore()
+
     def death(self):
         """
         Removing the animals that have died from the population count
