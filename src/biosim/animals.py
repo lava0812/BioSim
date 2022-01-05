@@ -43,21 +43,21 @@ class Herbivores:
         self.probability_birth = None
         self.death = False
 
-    def aging_weight_decrease(self):
+    def aging(self):
         """
         This is a method for making the herbivores age. This function will be in the Animals
          superclass once we create it.
         """
         self.age += 1
-        self.weight = self.weight * self.param_herbivores["eta"]
 
-    def weight_baby(self):
+    @classmethod
+    def weight_baby(cls):
         """
         This method will use a Gaussian distribution for determining the weight of a Herbivore baby. In the
         Gaussian(normal distribution), w_birth is the mean value, and sigma_birth is our standard deviation.
-        Will use the random library, as it is has been recommended not to use the numpy library.
+        Can be useful to do this in a classmethod.
         """
-        self.weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
+        return random.gauss(cls.param_herbivores["w_birth"], cls.param_herbivores["sigma_birth"])
 
     def weight_increase(self):
         """
@@ -71,9 +71,7 @@ class Herbivores:
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
-        # self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
-        # return self.weight
-        pass
+        self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
 
     def fitness_herbivores(self):
         """
@@ -94,7 +92,6 @@ class Herbivores:
             self.fitness = (1 / (1 + math.e ** ((self.param_herbivores["phi_age"]) * self.param_herbivores["a_half"])) *
                             1 / (1 + math.e ** (
                             (self.param_herbivores["phi_weight"]) * self.param_herbivores["w_half"])))
-        # return self.fitness
 
     def death_herbivore(self):
         """
@@ -151,7 +148,7 @@ class Herbivores:
         """
         This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
         """
-        self.weight -= Herbivores.weight_baby(self) * self.param_herbivores["xi"]
+        self.weight -= self.weight_baby() * self.param_herbivores["xi"]
 
 
 """
