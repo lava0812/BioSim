@@ -45,7 +45,7 @@ class Lowland:
         """
         Adding the newborn babies to the population count
 
-        Will append to the population list
+        Will append to the population list  --> make own list then fusion it or add directly to the population list
         """
         pass
 
@@ -59,5 +59,7 @@ class Lowland:
         """
         This part will calculate the amount of fodder, and will be
         reduced after the animal has consumed the fodder
+
+
         """
         pass
