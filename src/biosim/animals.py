@@ -30,7 +30,7 @@ class Herbivores:
         "F": 10.0
     }
 
-    def __init__(self, age=None, weight=None):
+    def __init__(self, age=0, weight=None):
         """
         Here we define our data for this function, and these are age and weight. Fitness is also a part of the data,
         but does not need to be included here because it is dependent on both the age and weight.
