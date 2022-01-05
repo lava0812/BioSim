@@ -2,8 +2,11 @@
 This file wll contain a main class Landscape(Superclass). The Landscape class will have four subclasses, Highland,
 Lowland, Desert and Water.
 """
+__author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
+__email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
+
 from animals import Herbivores
-import random
+# import random
 
 
 class Lowland:
@@ -47,6 +50,7 @@ class Lowland:
 
         Will append to the population list  --> make own list then fusion it or add directly to the population list
         """
+
         pass
 
     def new_fodder(self):
@@ -59,8 +63,6 @@ class Lowland:
         """
         This part will calculate the amount of fodder, and will be
         reduced after the animal has consumed the fodder
-
-
         """
         pass
 
