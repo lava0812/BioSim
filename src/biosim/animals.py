@@ -37,7 +37,7 @@ class Herbivores:
         """
         self.age = age
         self.weight = weight
-        self.fitness = None
+        self.fitness_herbivores()
         self.probability_die = None
         self.probability_birth = None
 

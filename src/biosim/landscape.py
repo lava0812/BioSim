@@ -18,13 +18,15 @@ class Lowland:
         Food count starts at 0 which will be updated
         """
         self.population = []
-        self.fodder = 0
+        self.fodder = self.parameters["f_max"]
 
-    def population_update(self, pop_list):
+
+
+    def population_update(self, pop):
         """
         Append to list
         """
-        for herbivores in pop_list:
+        for herbivores in pop:
             self.population.append(Herbivores(age=herbivores["age"], weight=herbivores["weight"]))
 
     def disp_population(self):
@@ -34,24 +36,6 @@ class Lowland:
 
         return len(self.population)
 
-    def death(self):
-        """
-        Removing the animals that have died from the count
-
-        I'm thinking about having an if statement here,
-        with the pop() method that removes animals with weight = 0 from the list
-        """
-
-        pass
-
-    def new_babies(self):
-        """
-        Adding the newborn babies to the population count
-
-        Will append to the population list  --> make own list then fusion it or add directly to the population list
-        """
-
-        pass
 
     def new_fodder(self):
         """
@@ -59,15 +43,14 @@ class Lowland:
         """
         self.fodder = self.parameters["f_max"]
 
-    def eat(self):
-        """
-        This part will calculate the amount of fodder, and will be
-        reduced after the animal has consumed the fodder
-        """
-        pass
 
-    def aging(self):
-        """
-        This function will iterate through all the animals in the lowland cell(population list), and use the age()
-         function from the animal class, and make the herbivores age.
-        """
+    def simulate(self):
+        for every_animal in self.population:
+            every_animal.feed()
+            if every_animal.birth():
+                pass
+            every_animal.death(len(self.population))
+
+
+
+
