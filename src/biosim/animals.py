@@ -43,13 +43,13 @@ class Herbivores:
         self.probability_birth = None
         self.death = False
 
-    def aging(self):
+    def aging_weight_decrease(self):
         """
         This is a method for making the herbivores age. This function will be in the Animals
          superclass once we create it.
         """
         self.age += 1
-        self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
+        self.weight = self.weight * self.param_herbivores["eta"]
 
     def weight_baby(self):
         """
@@ -58,7 +58,6 @@ class Herbivores:
         Will use the random library, as it is has been recommended not to use the numpy library.
         """
         self.weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
-        return self.weight
 
     def weight_increase(self):
         """
@@ -66,7 +65,6 @@ class Herbivores:
         beta times the amount of fodder it eats.
         """
         self.weight = self.param_herbivores["beta"] * Lowland.new_fodder()
-        return self.weight
 
     def weight_decrease(self):
         """
