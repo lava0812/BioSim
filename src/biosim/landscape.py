@@ -5,7 +5,7 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from animals import Herbivores
+from src.biosim.animals import Herbivore
 
 
 # import random
@@ -22,12 +22,13 @@ class Lowland:
         self.population = []
         self.fodder = self.parameters["f_max"]
 
-    def population_update(self, pop):
+    def population_update(self, pop_list):
         """
         Append to list
         """
-        for herbivores in pop:
-            self.population.append(Herbivores(age=herbivores["age"], weight=herbivores["weight"]))
+        for animal in pop_list:
+            if animal["species"] == "Herbivore":
+                self.population.append(Herbivore(age=animal["age"], weight=animal["weight"]))
 
     def disp_population(self):
         """
@@ -42,9 +43,11 @@ class Lowland:
         """
         self.fodder = self.parameters["f_max"]
 
-    def simulate(self):
-        for every_animal in self.population:
-            every_animal.feed()
-            if every_animal.birth():
-                pass
-            every_animal.death(len(self.population))
+#    def simulate(self):
+#        for individuals in self.population:
+#            individuals.feed()
+#            if individuals.birth():
+#                pass
+#            if individuals.death():
+#                return [herbivores for herbivores in self.population if not individuals.death()]
+#            individuals.age()
