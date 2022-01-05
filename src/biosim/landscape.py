@@ -58,9 +58,15 @@ class Lowland:
             herbivore.weight_increase(Lowland.new_fodder())
 
     def death(self):
+        """
+        Removing the animals that have died from the population count
+        """
         pass
 
     def newborn(self):
+        """
+        Adding the newborn babies to the popolation list
+        """
         pass
 
 
