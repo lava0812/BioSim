@@ -14,7 +14,7 @@ def test_aging():
 
 def test_weight_baby():
     """
-    Check if the baby will have a weight.
+    Check if the baby will be given a weight.
     """
     herbivore1 = Herbivore()
     herbivore2 = Herbivore()
@@ -26,6 +26,9 @@ def test_weight_baby():
 
 
 def test_weight_increase():
+    """
+    Test on the weight increase once a herbivore eats fodder.
+    """
     herbivore = Herbivore()
 
     pre_weight = herbivore.weight
@@ -36,13 +39,18 @@ def test_weight_increase():
 
 
 def test_weight_decrease():
+    """
+    Test on the weight decrease every year.
+    """
+
     herbivore = Herbivore()
+    herbivore.weight_baby()
 
     pre_weight = herbivore.weight
     herbivore.weight_decrease()
     after_weight = herbivore.weight
 
-    assert pre_weight == after_weight
+    assert pre_weight > after_weight
 
 
 def test_fitness_herbivores():
