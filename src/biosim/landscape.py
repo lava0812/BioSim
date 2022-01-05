@@ -57,6 +57,14 @@ class Lowland:
         for individuals in self.population:
             herbivore.weight_increase(Lowland.new_fodder())
 
+    def death(self):
+        pass
+
+    def newborn(self):
+        pass
+
+
+
 
 
 
