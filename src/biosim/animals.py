@@ -40,6 +40,7 @@ class Herbivores:
         self.fitness_herbivores()
         self.probability_die = None
         self.probability_birth = None
+        self.death = False
 
     def aging(self):
         """
@@ -71,7 +72,7 @@ class Herbivores:
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
-        self.weight = self.weight * self.param_herbivores["eta"]
+        self.weight = self.weight * self.param_herbivores["eta"]  # put this in aging
         return self.weight
 
     def fitness_herbivores(self):
@@ -93,7 +94,7 @@ class Herbivores:
             self.fitness = (1 / (1 + math.e ** ((self.param_herbivores["phi_age"]) * self.param_herbivores["a_half"])) *
                             1 / (1 + math.e ** (
                             (self.param_herbivores["phi_weight"]) * self.param_herbivores["w_half"])))
-        return self.fitness
+        # return self.fitness
 
     def death_herbivore(self):
         """
@@ -109,13 +110,16 @@ class Herbivores:
             It will die with a probability of w(1-fitness). 
         """
 
-        self.probability_die = None
         if self.weight == 0:
-            self.probability_die = 1  # Herbivore dies with certainty
+            probability_die = 1  # Herbivore dies with certainty
         else:
-            self.probability_die = self.param_herbivores["omega"] * (
+            probability_die = self.param_herbivores["omega"] * (
                     1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
-        return self.probability_die
+        if probability_die >= random.random():
+            self.death = True
+
+
+
 
     def birth_herbivore(self):
         """
@@ -143,8 +147,8 @@ class Herbivores:
                 pass
 
         return self.probability_birth
-        #Use the if statement where the check of population in the landscape file instead of the animal file.
-        #Focus more on
+        # Use the if statement where the check of population in the landscape file instead of the animal file.
+        # Focus more on
 
     def birth_weight_loss(self):
         """
@@ -152,7 +156,8 @@ class Herbivores:
         """
         self.weight -= Herbivores.weight_baby() * self.param_herbivores["xi"]
 
-        return self.weight
+        #return self.weight
+
 
 """
 class Animals:
