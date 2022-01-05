@@ -30,7 +30,7 @@ class Lowland:
             if animal["species"] == "Herbivore":
                 self.population.append(Herbivore(age=animal["age"], weight=animal["weight"]))
 
-    def disp_population(self):
+    def display_population(self):
         """
         This function will display the number of herbivores
         """
@@ -43,7 +43,19 @@ class Lowland:
         """
         self.fodder = self.parameters["f_max"]
 
-    def
+    def aging_population(self):
+        """
+        A method for aging all of the herbivores in the lowland cell.
+        """
+
+        herbivore = Herbivore()
+        for individuals in self.population:
+            herbivore.aging()
+
+
+
+
+
 #   def simulate(self):
 #        for individuals in self.population:
 #            individuals.feed()
@@ -52,3 +64,4 @@ class Lowland:
 #            if individuals.death():
 #                return [herbivores for herbivores in self.population if not individuals.death()]
 #            individuals.age()
+

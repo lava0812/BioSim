@@ -15,7 +15,7 @@ def disp_population():
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
     low = Lowland()
     low.population_update(pop)
-    check = low.disp_population()
+    check = low.display_population()
     assert check == 3
 
 
