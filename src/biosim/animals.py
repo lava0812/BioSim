@@ -50,14 +50,16 @@ class Herbivore:
         """
         self.age += 1
 
-    @classmethod
-    def weight_baby(cls):
+    # @classmethod
+    def weight_baby(self):
         """
         This method will use a Gaussian distribution for determining the weight of a Herbivore baby. In the
         Gaussian(normal distribution), w_birth is the mean value, and sigma_birth is our standard deviation.
         Can be useful to do this in a classmethod.
         """
-        return random.gauss(cls.param_herbivores["w_birth"], cls.param_herbivores["sigma_birth"])
+        # The random.gauss function will go as a return statement.
+        self.weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
+        return self.weight
 
     def weight_increase(self, fodder):
         """
@@ -147,6 +149,3 @@ class Herbivore:
         This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
         """
         self.weight -= self.weight_baby() * self.param_herbivores["xi"]
-
-
-
