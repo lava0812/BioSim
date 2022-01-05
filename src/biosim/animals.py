@@ -29,7 +29,7 @@ class Herbivore:
         "F": 10.0
     }
 
-    def __init__(self, age=0, weight=None):
+    def __init__(self, age=0, weight=0):
         """
         Here we define our data for this function, and these are age and weight. Fitness is also a part of the data,
         but does not need to be included here because it is dependent on both the age and weight.
@@ -41,6 +41,7 @@ class Herbivore:
         self.probability_die = None
         self.probability_birth = None
         self.death = False
+        pass
 
     def aging(self):
         """
@@ -76,13 +77,6 @@ class Herbivore:
         """
         This method will update the fitness of a herbivore. Fitness of a herbivore is calculated using age and weight.
         It can be smart to use if statements here.
-        """
-
-        """
-        if weight is <= 0
-            Fitness will be 0
-        else
-            Fitness will be --> (1/(1+e*^(phi_age(+a_half)))*(1/(1+e*^(-phi_weight(w_half)))
         """
 
         if self.weight <= 0:
@@ -125,12 +119,14 @@ class Herbivore:
         """
         This method will handle the probability for a herbivore to give birth.
         """
+
+        """
         if self.weight < (self.param_herbivores["zeta"] + self.param_herbivores["sigma_birth"]):
             self.probability_birth = 0
 
         elif len(Lowland.disp_population()) > 2:
             self.probability_birth = min(1, self.param_herbivores * self.fitness * (len(Lowland.disp_population() - 1)))
-            if self.weight <= Herbivores.birth_weight_loss():
+            if self.weight <= Herbivore.birth_weight_loss():
                 # No birth!!
                 # self.weight = weight
                 pass
@@ -138,11 +134,13 @@ class Herbivore:
             else:
                 # Birth!
                 pass
-        #Should avoid importing stuff from the landscape file here in animals...
+        # Should avoid importing stuff from the landscape file here in animals...
 
         return self.probability_birth
         # Use the if statement where the check of population in the landscape file instead of the animal file.
         # Focus more on
+        """
+        pass
 
     def birth_weight_loss(self):
         """
