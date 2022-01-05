@@ -123,6 +123,7 @@ class Herbivores:
     def birth_herbivore(self):
         """
         This will be a function that will do the birth of a herbivore. This creates a new baby.
+        This can be done in the landscape file, but I keep it here for now.
         """
         pass
 
@@ -130,8 +131,7 @@ class Herbivores:
         """
         This method will handle the probability for a herbivore to give birth.
         """
-        if len(Lowland.disp_population()) < 2 and self.weight < (self.param_herbivores["zeta"]
-                                                                 + self.param_herbivores["sigma_birth"]):
+        if self.weight < (self.param_herbivores["zeta"] + self.param_herbivores["sigma_birth"]):
             self.probability_birth = 0
 
         elif len(Lowland.disp_population()) > 2:
