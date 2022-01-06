@@ -31,4 +31,21 @@ def test_new_fodder():
     assert lowland.fodder != 0
     assert lowland.fodder == 800
 
+def test_aging_population():
+    sys.exit(0)
 
+
+def test_eat_fodder():
+    sys.exit(0)
+
+
+def test_death_population():
+    sys.exit(0)
+
+
+def test_newborn():
+    sys.exit(0)
+
+
+def test_simulate():
+    sys.exit(0)
