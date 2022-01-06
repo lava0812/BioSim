@@ -48,6 +48,7 @@ class BioSim:
 
         img_dir and img_base must either be both None or both strings.
         """
+        
 
     def set_animal_parameters(self, species, params):
         """
