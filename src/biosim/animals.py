@@ -115,7 +115,6 @@ class Herbivore:
                 return None
             else:
                 return born_baby
-        return None
 
     # def birth_weight_loss(self):
     #     """

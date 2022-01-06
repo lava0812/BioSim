@@ -8,7 +8,6 @@ import sys
 from scipy import stats
 import numpy as np
 
-
 def test_aging():
     herbivore = Herbivore()
     herbivore.aging()
@@ -113,9 +112,12 @@ def test_death_herbivores_bychance(mocker):
 
 
 def test_birth_herbivore_probability(mocker):
-    mocker.patch("random.random", return_value=0)
-    herbivores = Herbivore(10, 0)
-    herbivores.probability_birth()
+    mocker.patch("random.random", return_value=2)
+    herbivores = Herbivore(3, 14)
+    birth_herbivore = herbivores.birth_herbivore_probability(4)
+
+    assert birth_herbivore is None
+
 
 # def test_birth_weight_loss():
 #     """
