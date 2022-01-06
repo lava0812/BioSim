@@ -71,7 +71,7 @@ class Lowland:
         """
         Adding the newborn babies to the popolation list
         """
-        if herbivore < 2:
+        if len(self.population) < 2:
             return False
 
         for herbivores in self.population:
