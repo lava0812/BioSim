@@ -51,9 +51,6 @@ def test_aging_population():
     assert new_age > old_age
 
 
-
-
-
 def test_weight_loss():
     """
     Same system as aging test
@@ -73,9 +70,37 @@ def test_weight_loss():
     assert new_weight < old_weight
 
 
+def test_eat_fodder():
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
 
-#def test_death_population():
-   # sys.exit(0)
+    low = Lowland()
+    low.population_update(pop)
+    low.new_fodder()
+
+    before_weight = low.population[0].weight
+
+    low.eat_fodder()
+
+    after_weight = low.population[0].weight
+
+    assert after_weight > before_weight
+
+
+def test_death_population():
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+
+    low = Lowland()
+    low.population_update(pop)
+
+    low.population_update[1].weight = 0
+
+
+
+
 
 
 #def test_newborn():
