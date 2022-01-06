@@ -5,6 +5,8 @@ Template for BioSim class.
 # The material in this file is licensed under the BSD 3-clause license
 # https://opensource.org/licenses/BSD-3-Clause
 # (C) Copyright 2021 Hans Ekkehard Plesser / NMBU
+from biosim.landscape import Lowland
+
 
 class BioSim:
     def __init__(self, island_map, ini_pop, seed,
@@ -79,6 +81,10 @@ class BioSim:
     @property
     def year(self):
         """Last year simulated."""
+        self.new_fodder()
+
+
+
 
     @property
     def num_animals(self):

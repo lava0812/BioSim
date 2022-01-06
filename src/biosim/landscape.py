@@ -79,12 +79,7 @@ class Lowland:
         """
         Adding the newborn babies to the population list
         """
-        if len(self.population) < 2:
-            return False
 
-        if len(self.population) >= 2:
-            for herbivores in self.population:
-                return None
 
     def weight_loss(self):
         """

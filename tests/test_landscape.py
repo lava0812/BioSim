@@ -98,8 +98,13 @@ def test_death_population():
 
     low.population_update[1].weight = 0
 
+    before_population = low.population
 
+    low.death_population()
 
+    after_population = low.population
+
+    assert len(before_population) - 1 == len(after_population)
 
 
 
