@@ -45,7 +45,7 @@ class Lowland:
 
     def aging_population(self):
         """
-        A method for aging all of the herbivores in the lowland cell.
+        A method for aging all the herbivores in the lowland cell.
         """
 
         herbivore = Herbivore()
@@ -53,26 +53,29 @@ class Lowland:
             herbivore.aging()
 
     def eat_fodder(self):
+        """
+        Function to reduce the fodder
+        """
         herbivore = Herbivore()
         for individuals in self.population:
             herbivore.weight_increase(Lowland.new_fodder())
 
     def death_population(self):
-        herbivore = Herbivore()
-        for individuals in self.population:
-            herbivore.death_herbivore()
+        """
+        Remove the animals that have died from the population list
+        """
+        self.population = [animal for animal in self.population if not Herbivore.death_herbivore()]
 
-    def death(self):
-        """
-        Removing the animals that have died from the population count
-        """
-        pass
 
     def newborn(self):
         """
         Adding the newborn babies to the popolation list
         """
-        pass
+        if herbivore < 2:
+            return False
+
+        for herbivores in self.population:
+            break
 
 
 
@@ -88,4 +91,3 @@ class Lowland:
 #            if individuals.death():
 #                return [herbivores for herbivores in self.population if not individuals.death()]
 #            individuals.age()
-
