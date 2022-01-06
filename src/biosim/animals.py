@@ -116,35 +116,16 @@ class Herbivore:
         """
         This method will handle the probability for a herbivore to give birth.
         """
-
-        """
-        
-
-        elif len(Lowland.disp_population()) > 2:
-            self.probability_birth = min(1, self.param_herbivores * self.fitness * (len(Lowland.disp_population() - 1)))
-            if self.weight <= Herbivore.birth_weight_loss():
-                # No birth!!
-                # self.weight = weight
-                pass
-
-            else:
-                # Birth!
-                pass
-        # Should avoid importing stuff from the landscape file here in animals...
-
-        return self.probability_birth
-        # Use the if statement where the check of population in the landscape file instead of the animal file.
-        """
-        probability_birth = (1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
-        if self.weight < (self.param_herbivores["zeta"] + self.param_herbivores["sigma_birth"]):
+        probability = min(1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
+        if self.weight < self.param_herbivores["zeta"] * \
+                (self.param_herbivores["sigma_birth"] + self.param_herbivores["w_birth"]):
             self.probability_birth = 0
-        elif random.random() < probability_birth:
-            self.probability_birth = probability_birth
-
+            
+        elif random.random() < probability:
+            nw_baby = type(self)()
             if self.weight <= Herbivore.birth_weight_loss():
                 self.probability_birth = 0
-            elif self.weight > Herbivore.birth_weight_loss():
-                self.probability_birth = (1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
+            return None
 
     def birth_weight_loss(self):
         """
