@@ -64,7 +64,7 @@ class Lowland:
         """
         Remove the animals that have died from the population list
         """
-        self.population = [animal for animal in self.population if not Herbivore.death_herbivore()]
+        self.population = [individuals for individuals in self.population if not Herbivore.death_herbivore()]
 
 
     def newborn(self):
