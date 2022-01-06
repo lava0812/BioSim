@@ -122,7 +122,7 @@ class Herbivore:
             self.probability_birth = 0
             
         elif random.random() < probability:
-            nw_baby = type(self)()
+            born_baby = type(self)()
             if self.weight <= Herbivore.birth_weight_loss():
                 self.probability_birth = 0
             return None
