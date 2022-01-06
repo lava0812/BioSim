@@ -5,9 +5,9 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-
 from src.biosim.animals import Herbivore
 import random
+
 
 class Lowland:
     parameters = {"f_max": 800}
@@ -46,9 +46,9 @@ class Lowland:
         A method for aging all the herbivores in the lowland cell.
         """
 
-       # herbivore = Herbivore()
+        # herbivore = Herbivore()
         for individuals in self.population:
-            Herbivore.aging()
+            individuals.aging()
 
     def eat_fodder(self):
         """
@@ -57,7 +57,7 @@ class Lowland:
         random.choice(self.population)
         herbivore = Herbivore()
         for individuals in self.population:
-            herbivore.weight_increase(Lowland.new_fodder())
+            individuals.weight_increase(Lowland.new_fodder())
 
     def death_population(self):
         """
@@ -82,8 +82,7 @@ class Lowland:
         """
 
         for individuals in self.population:
-            return Herbivore.weight_decrease()
-
+            return individuals.weight_decrease()
 
 #   def simulate(self):
 #        for individuals in self.population:
