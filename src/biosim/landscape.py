@@ -78,7 +78,20 @@ class Lowland:
     def newborn(self):
         """
         Adding the newborn babies to the population list
+        Making a new list, then we can extend the population list
         """
+        individuals_count = len(self.population)
+
+        if individuals_count < 2:
+            return None
+
+        newborn_individuals = []
+        if individuals_count >= 2:
+            for individuals in self.population:
+                newborn = individuals.birth_herbivore_probability(individuals_count)
+                if newborn is not None:
+                    newborn_individuals.append(newborn)
+        self.population.extend(newborn_individuals)
 
 
     def weight_loss(self):
@@ -96,3 +109,5 @@ class Lowland:
         self.newborn()
         self.weight_loss()
         self.aging_population()
+
+
