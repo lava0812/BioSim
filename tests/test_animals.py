@@ -1,8 +1,12 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+import scipy.stats
+
 from src.biosim.animals import Herbivore
 import sys
+from scipy import stats
+import numpy as np
 
 
 def test_aging():
@@ -29,7 +33,17 @@ def test_gaussian_distribution():
     """
     Check if it actually is a gaussian distribution.
     """
-    sys.exit(0)
+    herbivores = [Herbivore() for _ in range(1000)]
+
+    weights = [h.weight for h in herbivores]
+    numpy_weights = np.array(weights)
+
+    k2, p_value = stats.normaltest(numpy_weights)
+    a = 0.05
+    print(k2, p_value)
+
+    assert a < p_value
+
     # can use scipy to check if this will be a gaussian distribution.
 
 
