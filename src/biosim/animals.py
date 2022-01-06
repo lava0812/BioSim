@@ -122,3 +122,7 @@ class Herbivore:
     #     This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
     #     """
     #     self.weight -= self.weight_baby() * self.param_herbivores["xi"]
+
+
+herbivores = Herbivore(10, 40)
+print(herbivores)
