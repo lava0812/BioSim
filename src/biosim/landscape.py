@@ -5,11 +5,9 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+
 from src.biosim.animals import Herbivore
-
-
-# import random
-
+import random
 
 class Lowland:
     parameters = {"f_max": 800}
@@ -26,9 +24,9 @@ class Lowland:
         """
         Append to list
         """
-        for animal in pop_list:
-            if animal["species"] == "Herbivore":
-                self.population.append(Herbivore(age=animal["age"], weight=animal["weight"]))
+        for individuals in pop_list:
+            if individuals["species"] == "Herbivore":
+                self.population.append(Herbivore(age=individuals["age"], weight=individuals["weight"]))
 
     def display_population(self):
         """
@@ -48,14 +46,15 @@ class Lowland:
         A method for aging all the herbivores in the lowland cell.
         """
 
-        herbivore = Herbivore()
+       # herbivore = Herbivore()
         for individuals in self.population:
-            herbivore.aging()
+            Herbivore.aging()
 
     def eat_fodder(self):
         """
         Function to reduce the fodder
         """
+        random.choice(self.population)
         herbivore = Herbivore()
         for individuals in self.population:
             herbivore.weight_increase(Lowland.new_fodder())
@@ -73,8 +72,17 @@ class Lowland:
         if len(self.population) < 2:
             return False
 
-        for herbivores in self.population:
-            break
+        if len(self.population) >= 2:
+            for herbivores in self.population:
+                return None
+
+    def weight_loss(self):
+        """
+        The annual weight loss every year
+        """
+
+        for individuals in self.population:
+            return Herbivore.weight_decrease()
 
 
 #   def simulate(self):
