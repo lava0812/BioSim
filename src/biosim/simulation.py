@@ -8,6 +8,7 @@ Template for BioSim class.
 from biosim.landscape import Lowland
 
 
+
 class BioSim:
     def __init__(self, island_map, ini_pop, seed,
                  vis_years=1, ymax_animals=None, cmax_animals=None, hist_specs=None,
