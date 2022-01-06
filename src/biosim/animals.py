@@ -135,10 +135,12 @@ class Herbivore:
         return self.probability_birth
         # Use the if statement where the check of population in the landscape file instead of the animal file.
         """
-
+        probability_birth = (1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
         if self.weight < (self.param_herbivores["zeta"] + self.param_herbivores["sigma_birth"]):
             self.probability_birth = 0
-        else:
+        elif random.random() < probability_birth:
+            self.probability_birth = probability_birth
+
             if self.weight <= Herbivore.birth_weight_loss():
                 self.probability_birth = 0
             elif self.weight > Herbivore.birth_weight_loss():
