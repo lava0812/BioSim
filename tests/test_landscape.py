@@ -3,10 +3,11 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 from src.biosim.landscape import Lowland
 import pytest
+import sys
 
 
-def population_update():
-    pass
+#def population_update():
+#   sys.exit(0)
 
 
 def test_disp_population():
@@ -31,21 +32,3 @@ def test_new_fodder():
     assert lowland.fodder == 800
 
 
-def test_aging_population():
-    pass
-
-
-def test_eat_fodder():
-    pass
-
-
-def test_death_population():
-    pass
-
-
-def test_newborn():
-    pass
-
-
-def test_simulate():
-    pass
