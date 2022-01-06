@@ -1,11 +1,8 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-import random
-
 from src.biosim.animals import Herbivore
 import sys
-import pytest
 
 
 def test_aging():
@@ -33,6 +30,7 @@ def test_gaussian_distribution():
     Check if it actually is a gaussian distribution.
     """
     sys.exit(0)
+    # can use scipy to check if this will be a gaussian distribution.
 
 
 def test_weight_increase():
@@ -94,30 +92,26 @@ def test_death_herbivores_certain():
 # noinspection SpellCheckingInspection
 def test_death_herbivores_bychance(mocker):
     mocker.patch("random.random", return_value=0)
-    herbivores = Herbivore(0, 0)
-    #herbivores.fitness_herbivore()
+    herbivores = Herbivore(10, 20)
+    herbivores.death_herbivore()
 
     assert herbivores.death == True
 
 
+def test_birth_herbivore_probability(mocker):
+    mocker.patch("random.random", return_value=0)
+    herbivores = Herbivore(10, 20)
+    herbivores.probability_birth()
 
-def test_birth_herbivore():
-    sys.exit(0)
-
-
-def test_birth_herbivore_probability():
-    sys.exit(0)
-
-
-def test_birth_weight_loss():
-    """
-    Testing if weight of mother pre birth is larger than weight of mother
-    post birth.
-    """
-    herbivore = Herbivore(10, 20)
-    pre_weight = herbivore.weight
-    herbivore.birth_weight_loss()
-
-    post_weight = herbivore.weight
-
-    assert pre_weight > post_weight
+# def test_birth_weight_loss():
+#     """
+#     Testing if weight of mother pre birth is larger than weight of mother
+#     post birth.
+#     """
+#     herbivore = Herbivore(10, 20)
+#     pre_weight = herbivore.weight
+#     herbivore.birth_weight_loss()
+#
+#     post_weight = herbivore.weight
+#
+#     assert pre_weight > post_weight

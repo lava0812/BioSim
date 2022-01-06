@@ -59,7 +59,7 @@ class Herbivore:
         """
         # The random.gauss function will go as a return statement.
         self.weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
-        return self.weight
+        # return self.weight
 
     def weight_increase(self, fodder):
         """
@@ -93,14 +93,12 @@ class Herbivore:
 
     def death_herbivore(self):
         """
-        This will be a method for the death of a herbivore. Will it be better to split up the death of a herbivore,
-        into two methods. A method for the certain death of a herbivore, and a method with the probability of death
-        for a herbivore.
+        This will be a method for the death of a herbivore.
         """
         probability_die = self.param_herbivores["omega"] * (
                 1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
 
-        if self.weight == 0:
+        if self.weight <= 0:
             self.death = True  # Herbivore dies with certainty
         elif probability_die >= random.random():
             self.death = True
@@ -111,7 +109,7 @@ class Herbivore:
         """
         probability = min(1, Herbivore.param_herbivores["gamma"] * self.fitness * (n_herbivore - 1))
         if random.random() < probability:
-            born_baby = type(self)() # Herbivore()
+            born_baby = type(self)()  # Herbivore()
 
             if self.weight < born_baby.weight * self.param_herbivores["xi"]:
                 return None
@@ -119,8 +117,8 @@ class Herbivore:
                 return born_baby
         return None
 
-    def birth_weight_loss(self):
-        """
-        This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
-        """
-        self.weight -= self.weight_baby() * self.param_herbivores["xi"]
+    # def birth_weight_loss(self):
+    #     """
+    #     This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
+    #     """
+    #     self.weight -= self.weight_baby() * self.param_herbivores["xi"]
