@@ -66,21 +66,15 @@ class Lowland:
         """
         self.population = [individuals for individuals in self.population if not Herbivore.death_herbivore()]
 
-
     def newborn(self):
         """
-        Adding the newborn babies to the popolation list
+        Adding the newborn babies to the population list
         """
         if len(self.population) < 2:
             return False
 
         for herbivores in self.population:
             break
-
-
-
-
-
 
 
 #   def simulate(self):
