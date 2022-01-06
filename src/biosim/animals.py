@@ -98,34 +98,26 @@ class Herbivore:
         for a herbivore.
         """
         probability_die = self.param_herbivores["omega"] * (
-                    1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
+                1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
 
         if self.weight == 0:
             self.death = True  # Herbivore dies with certainty
         elif probability_die >= random.random():
             self.death = True
 
-    def birth_herbivore(self):
-        """
-        This will be a function that will do the birth of a herbivore. This creates a new baby.
-        This can be done in the landscape file, but I keep it here for now.
-        """
-        pass
-
-    def birth_herbivore_probability(self, N_herbivore):
+    def birth_herbivore_probability(self, n_herbivore):
         """
         This method will handle the probability for a herbivore to give birth.
         """
-        probability = min(1, Herbivore.param_herbivores["gamma"] * self.fitness * (N_herbivore - 1))
-        if self.weight < self.param_herbivores["zeta"] * \
-                (self.param_herbivores["sigma_birth"] + self.param_herbivores["w_birth"]):
-            self.probability_birth = 0
-            
-        elif random.random() < probability:
-            born_baby = type(self)()
-            if self.weight <= Herbivore.birth_weight_loss():
-                self.probability_birth = 0
-            return None
+        probability = min(1, Herbivore.param_herbivores["gamma"] * self.fitness * (n_herbivore - 1))
+        if random.random() < probability:
+            born_baby = type(self)() # Herbivore()
+
+            if self.weight < born_baby.weight * self.param_herbivores["xi"]:
+                return None
+            else:
+                return born_baby
+        return None
 
     def birth_weight_loss(self):
         """

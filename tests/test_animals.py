@@ -1,6 +1,8 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+import random
+
 from src.biosim.animals import Herbivore
 import sys
 import pytest
@@ -90,8 +92,13 @@ def test_death_herbivores_certain():
 
 
 # noinspection SpellCheckingInspection
-def test_death_herbivores_bychance():
-    sys.exit(0)
+def test_death_herbivores_bychance(mocker):
+    mocker.patch("random.random", return_value=0)
+    herbivores = Herbivore(0, 0)
+    #herbivores.fitness_herbivore()
+
+    assert herbivores.death == True
+
 
 
 def test_birth_herbivore():
