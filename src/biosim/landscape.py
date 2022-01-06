@@ -58,11 +58,11 @@ class Lowland:
         random.shuffle(self.population)
         for individuals in self.population:
 
-            if self.fodder >= Herbivore.param_herbivores["F"]:
-                individuals.weight_increase(Herbivore.param_herbivores["F"])
-                self.fodder -= Herbivore.param_herbivores["F"]
+            if self.fodder >= individuals.param_herbivores["F"]:
+                individuals.weight_increase(individuals.param_herbivores["F"])
+                self.fodder -= individuals.param_herbivores["F"]
 
-            if self.fodder < Herbivore.param_herbivores["F"]:
+            if self.fodder < individuals.param_herbivores["F"]:
                 individuals.weight_increase(self.fodder)
                 self.fodder = 0
 

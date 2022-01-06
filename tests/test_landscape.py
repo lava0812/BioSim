@@ -24,28 +24,62 @@ def test_new_fodder():
     """
     Checks if the fodder updates
     """
-    lowland = Lowland()
-    lowland.fodder = 0
-    lowland.new_fodder()
+    low = Lowland()
+    low.fodder = 0
+    low.new_fodder()
 
-    assert lowland.fodder != 0
-    assert lowland.fodder == 800
+    assert low.fodder != 0
+    assert low.fodder == 800
+
 
 def test_aging_population():
-    sys.exit(0)
+    """
+    Test if the aging goes 1 up every year
+    Does this by checking age before and after the function
+    """
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+
+    low = Lowland()
+    low.population_update(pop)
+
+    old_age = low.population[0].age
+
+    low.aging_population()
+
+    new_age = low.population[0].age
+
+    assert new_age > old_age
 
 
-def test_eat_fodder():
-    sys.exit(0)
 
 
-def test_death_population():
-    sys.exit(0)
+
+def test_weight_loss():
+    """
+    Same system as aging test
+
+    """
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+
+    low = Lowland()
+    low.population_update(pop)
+
+    old_weight = low.population[0].weight
+
+    low.weight_loss()
+
+    new_weight = low.population[0].weight
+
+    assert new_weight < old_weight
 
 
-def test_newborn():
-    sys.exit(0)
+
+#def test_death_population():
+   # sys.exit(0)
 
 
-def test_simulate():
-    sys.exit(0)
+#def test_newborn():
+    #sys.exit(0)
+
+
+#def test_simulate():
