@@ -93,7 +93,6 @@ class Lowland:
                     newborn_individuals.append(newborn)
         self.population.extend(newborn_individuals)
 
-
     def weight_loss(self):
         """
         The annual weight loss every year
