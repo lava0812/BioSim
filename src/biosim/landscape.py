@@ -53,17 +53,27 @@ class Lowland:
     def eat_fodder(self):
         """
         Function to reduce the fodder
+        Using random shuffle to let the herbivores eat in a random order
         """
-        random.choice(self.population)
-        herbivore = Herbivore()
+        random.shuffle(self.population)
         for individuals in self.population:
-            individuals.weight_increase(Lowland.new_fodder())
+
+            if self.fodder >= Herbivore.param_herbivores["F"]:
+                individuals.weight_increase(Herbivore.param_herbivores["F"])
+                self.fodder -= Herbivore.param_herbivores["F"]
+
+            if self.fodder < Herbivore.param_herbivores["F"]:
+                individuals.weight_increase(self.fodder)
+                self.fodder = 0
+
+            if self.fodder == 0:
+                break
 
     def death_population(self):
         """
         Remove the animals that have died from the population list
         """
-        self.population = [individuals for individuals in self.population if not Herbivore.death_herbivore()]
+        self.population = [individuals for individuals in self.population if not individuals.death_herbivore()]
 
     def newborn(self):
         """
@@ -84,11 +94,10 @@ class Lowland:
         for individuals in self.population:
             return individuals.weight_decrease()
 
-#   def simulate(self):
-#        for individuals in self.population:
-#            individuals.feed()
-#            if individuals.birth():
-#                pass
-#            if individuals.death():
-#                return [herbivores for herbivores in self.population if not individuals.death()]
-#            individuals.age()
+    def simulate(self):
+        self.new_fodder()
+        self.eat_fodder()
+        self.death_population()
+        self.newborn()
+        self.weight_loss()
+        self.aging_population()
