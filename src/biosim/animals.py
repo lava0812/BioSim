@@ -176,7 +176,7 @@ class Carnivore(Animal):
     # Have to change the parameters here.
 
     def __init__(self, age=None, weight=None):
-        super().__init__(age, weight)
+        super().__init__(age=age, weight=weight)
         self.kill_p = None
 
     def kill_herbivore(self):
@@ -190,8 +190,6 @@ class Carnivore(Animal):
         else:
             self.kill_p = 1
         """
-
-        pass
 
     def weight_increase_carn(self):
         """
