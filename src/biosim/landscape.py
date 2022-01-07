@@ -11,7 +11,7 @@ from src.biosim.animals import Animal
 import random
 
 
-class Lowland:
+class Landscape:
     parameters = {"f_max": 800}
 
     def __init__(self):
@@ -20,6 +20,7 @@ class Lowland:
         Food count starts at 0 which will be updated
         """
         self.population = []
+        self.carni = []
         self.fodder = self.parameters["f_max"]
 
     def population_update(self, pop_list):
@@ -34,8 +35,7 @@ class Lowland:
         """
         This function will display the number of herbivores
         """
-
-        return len(self.population)
+        return len(self.carni)
 
     def new_fodder(self):
         """
@@ -112,8 +112,11 @@ class Lowland:
         self.aging_population()
 
 
-L = Lowland()
+L = Landscape()
 L.population = [Animal(5, 20) for i in range(50)]
 for i in range(500):
     L.simulate()
     print(len(L.population), L.fodder)
+
+
+#class Lowland(Landscape)
