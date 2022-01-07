@@ -57,8 +57,7 @@ class Animal:
 
     def aging(self):
         """
-        This is a method for making the herbivores age. This function will be in the Animals
-         superclass once we create it.
+        Aging the animals.
         """
         self.age += 1
         self.fitness_animal()
@@ -66,7 +65,7 @@ class Animal:
     # @classmethod
     def weight_baby(self):
         """
-        This method will use a Gaussian distribution for determining the weight of a Herbivore baby. In the
+        Using a Gaussian distribution for determining the weight of a newborn baby. In the
         Gaussian(normal distribution), w_birth is the mean value, and sigma_birth is our standard deviation.
         """
         # The random.gauss function will go as a return statement.
@@ -83,16 +82,18 @@ class Animal:
     #
     def weight_decrease(self):
         """
-        This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
-        decreases by eta times the weight
+        Decrease the weight of an animal, which will happen every year.
+        Updates the fitness right after.
         """
         self.weight -= self.weight * self.param["eta"]  # Can put this in aging
         self.fitness_animal()
 
     def fitness_animal(self):
         """
-        This method will update the fitness of a herbivore. Fitness of a herbivore is calculated using age and weight.
-        It can be smart to use if statements here.
+        Calculate the fitness of an animal.
+        ------------------------------
+        Param:
+        age, weight
         """
         q_positive = 1 / (1 + math.exp((self.param["phi_age"])
                                        * (self.age - self.param["a_half"])
@@ -107,7 +108,7 @@ class Animal:
 
     def death_animal(self):
         """
-        This will be a method for the death of a herbivore.
+        Death of an animal, using probability.
         """
         probability_die = self.param["omega"] * (
                 1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
@@ -120,7 +121,7 @@ class Animal:
 
     def birth(self, n_herbivore):
         """
-        This method will handle the probability for a herbivore to give birth.
+        Probability to give birth for an animal.
         """
         probability = min(1, Animal.param["gamma"] * self.fitness * (n_herbivore - 1))
         if random.random() < probability:
@@ -147,8 +148,7 @@ class Herbivore(Animal):
 
     def weight_increase(self, fodder):
         """
-        This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
-        beta times the amount of fodder it eats.
+        Increasing the weight of a herbivore once it eats some fodder F.
         """
         self.weight += self.param["beta"] * fodder
         self.fitness_animal()
@@ -175,9 +175,15 @@ class Carnivore(Animal):
 
     def __init__(self, age=None, weight=None):
         super().__init__(age, weight)
+        self.kill_p = None
 
-    def kill(self):
+
+
+
+    def kill_herbivore(self):
         """
         Create a method for killing a herbivore.
         """
+
+
         pass
