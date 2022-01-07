@@ -33,8 +33,7 @@ class Herbivore:
 
     def __init__(self, age=None, weight=None):
         """
-        Here we define our data for this function, and these are age and weight. Fitness is also a part of the data,
-        but does not need to be included here because it is dependent on both the age and weight.
+        Here we define our data for this function, and these are age and weight.
         """
         if age is None:
             self.age = 0

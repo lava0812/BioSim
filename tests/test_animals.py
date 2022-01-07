@@ -4,11 +4,7 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
-
-import scipy.stats
-
 from src.biosim.animals import Herbivore
-import sys
 from scipy import stats
 import numpy as np
 
@@ -35,7 +31,7 @@ def test_aging():
 
 def test_gaussian_distribution():
     """
-    Check if it actually is a gaussian distribution.
+    Check if weight of baby actually is a gaussian distribution.
     """
     random.seed(12345)
     weights = [Herbivore().weight_baby() for _ in range(5000)]
@@ -82,7 +78,7 @@ def test_weight_decrease():
 def test_fitness_herbivores():
     """
     Fitness is dependent on the age and the weight of the animal.
-    Test if fitness calculation is updated correctl when age and weight is positive, and
+    Test if fitness calculation is updated correct when age and weight is positive, and
     the fitness is set to 0.
     """
     herbivore1 = Herbivore(40, 10)
@@ -102,6 +98,9 @@ def test_fitness_herbivores_zero_weight():
 
 
 def test_death_herbivores_certain():
+    """
+    Test death when herbivore weight is zero.
+    """
     herbivores = Herbivore(30, 0)
 
     herbivores.death_herbivore()
@@ -110,6 +109,9 @@ def test_death_herbivores_certain():
 
 # noinspection SpellCheckingInspection
 def test_death_herbivores_bychance(mocker):
+    """
+    Test the chance of death, using mocker.
+    """
     mocker.patch("random.random", return_value=0)
     herbivores = Herbivore(10, 20)
     herbivores.death_herbivore()
@@ -118,6 +120,9 @@ def test_death_herbivores_bychance(mocker):
 
 
 def test_birth_herbivore_probability(mocker):
+    """
+    Test the probability of birth.
+    """
     mocker.patch("random.random", return_value=0)
     herbivore = Herbivore(3, 14)
     birth_herbivore = herbivore.birth_herbivore_probability(5)
