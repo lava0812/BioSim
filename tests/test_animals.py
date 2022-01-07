@@ -4,13 +4,13 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
-from src.biosim.animals import Herbivore
+from src.biosim.animals import Animal
 from scipy import stats
 import numpy as np
 
 
 def test_aging():
-    herbivore = Herbivore()
+    herbivore = Animal()
     herbivore.aging()
 
     assert herbivore.age == 1
@@ -34,7 +34,7 @@ def test_gaussian_distribution():
     Check if weight of baby actually is a gaussian distribution.
     """
     random.seed(12345)
-    weights = [Herbivore().weight_baby() for _ in range(5000)]
+    weights = [Animal().weight_baby() for _ in range(5000)]
 
     numpy_weights = np.array(weights)
 
@@ -51,7 +51,7 @@ def test_weight_increase():
     """
     Test on the weight increase once a herbivore eats fodder.
     """
-    herbivore = Herbivore()
+    herbivore = Animal()
 
     pre_weight = herbivore.weight
     herbivore.weight_increase(5)
@@ -65,7 +65,7 @@ def test_weight_decrease():
     Test on the weight decrease every year.
     """
 
-    herbivore = Herbivore(5, 10)
+    herbivore = Animal(5, 10)
     herbivore.weight_baby()
 
     pre_weight = herbivore.weight
@@ -81,9 +81,9 @@ def test_fitness_herbivores():
     Test if fitness calculation is updated correct when age and weight is positive, and
     the fitness is set to 0.
     """
-    herbivore1 = Herbivore(40, 10)
+    herbivore1 = Animal(40, 10)
     herbivore1.fitness = 0
-    herbivore1.fitness_herbivore()
+    herbivore1.fitness_animal()
     assert herbivore1.fitness > 0
 
 
@@ -91,8 +91,8 @@ def test_fitness_herbivores_zero_weight():
     """
     Test if fitness is equal to 0, when weight is zero.
     """
-    herbivore2 = Herbivore(30, 0)
-    herbivore2.fitness_herbivore()
+    herbivore2 = Animal(30, 0)
+    herbivore2.fitness_animal()
 
     assert herbivore2.fitness == 0
 
@@ -101,9 +101,9 @@ def test_death_herbivores_certain():
     """
     Test death when herbivore weight is zero.
     """
-    herbivores = Herbivore(30, 0)
+    herbivores = Animal(30, 0)
 
-    herbivores.death_herbivore()
+    herbivores.death_animal()
     assert herbivores.death == True
 
 
@@ -113,8 +113,8 @@ def test_death_herbivores_bychance(mocker):
     Test the chance of death, using mocker.
     """
     mocker.patch("random.random", return_value=0)
-    herbivores = Herbivore(10, 20)
-    herbivores.death_herbivore()
+    herbivores = Animal(10, 20)
+    herbivores.death_animal()
 
     assert herbivores.death == True
 
@@ -124,7 +124,7 @@ def test_birth(mocker):
     Test the probability of birth.
     """
     mocker.patch("random.random", return_value=0)
-    herbivore = Herbivore(3, 14)
+    herbivore = Animal(3, 14)
     birth_herbivore = herbivore.birth(5)
 
     assert birth_herbivore is not None

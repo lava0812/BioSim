@@ -7,7 +7,7 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from src.biosim.animals import Herbivore
+from src.biosim.animals import Animal
 import random
 
 
@@ -28,7 +28,7 @@ class Lowland:
         """
         for individuals in pop_list:
             if individuals["species"] == "Herbivore":
-                self.population.append(Herbivore(age=individuals["age"], weight=individuals["weight"]))
+                self.population.append(Animal(age=individuals["age"], weight=individuals["weight"]))
 
     def display_population(self):
         """
@@ -60,11 +60,11 @@ class Lowland:
         random.shuffle(self.population)
         for individuals in self.population:
 
-            if self.fodder >= individuals.param_herbivores["F"]:
-                individuals.weight_increase(individuals.param_herbivores["F"])
-                self.fodder -= individuals.param_herbivores["F"]
+            if self.fodder >= individuals.param["F"]:
+                individuals.weight_increase(individuals.param["F"])
+                self.fodder -= individuals.param["F"]
 
-            if self.fodder < individuals.param_herbivores["F"]:
+            if self.fodder < individuals.param["F"]:
                 individuals.weight_increase(self.fodder)
                 self.fodder = 0
 
@@ -75,7 +75,7 @@ class Lowland:
         """
         Remove the animals that have died from the population list
         """
-        self.population = [individuals for individuals in self.population if not individuals.death_herbivore()]
+        self.population = [individuals for individuals in self.population if not individuals.death_animal()]
 
     def newborn(self):
         """
@@ -113,7 +113,7 @@ class Lowland:
 
 
 L = Lowland()
-L.population = [Herbivore(5, 20) for i in range(50)]
+L.population = [Animal(5, 20) for i in range(50)]
 for i in range(500):
     L.simulate()
     print(len(L.population), L.fodder)
