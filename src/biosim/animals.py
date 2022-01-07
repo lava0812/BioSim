@@ -37,7 +37,7 @@ class Herbivore:
         self.age = age
         self.weight = weight
         self.fitness = None
-        self.fitness()
+        self.fitness_herbivore()
         self.probability_birth = None
         self.probability_die = None
         self.death = False
@@ -48,7 +48,7 @@ class Herbivore:
          superclass once we create it.
         """
         self.age += 1
-        self.fitness()
+        self.fitness_herbivore()
 
     # @classmethod
     def weight_baby(self):
@@ -67,7 +67,7 @@ class Herbivore:
         beta times the amount of fodder it eats.
         """
         self.weight = self.param_herbivores["beta"] * fodder
-        self.fitness()
+        self.fitness_herbivore()
 
     def weight_decrease(self):
         """
@@ -75,9 +75,9 @@ class Herbivore:
         decreases by eta times the weight
         """
         self.weight -= self.weight * self.param_herbivores["eta"]  # Can put this in aging
-        self.fitness()
+        self.fitness_herbivore()
 
-    def fitness(self):
+    def fitness_herbivore(self):
         """
         This method will update the fitness of a herbivore. Fitness of a herbivore is calculated using age and weight.
         It can be smart to use if statements here.
@@ -93,7 +93,7 @@ class Herbivore:
         else:
             self.fitness = q_positive * q_negative
 
-    def death(self):
+    def death_herbivore(self):
         """
         This will be a method for the death of a herbivore.
         """
@@ -106,7 +106,7 @@ class Herbivore:
             self.death = True
         return self.death
 
-    def birth(self, n_herbivore):
+    def birth_herbivore_probability(self, n_herbivore):
         """
         This method will handle the probability for a herbivore to give birth.
         """
