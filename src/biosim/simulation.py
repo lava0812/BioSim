@@ -4,6 +4,7 @@
 Template for BioSim class.
 """
 
+
 # The material in this file is licensed under the BSD 3-clause license
 # https://opensource.org/licenses/BSD-3-Clause
 # (C) Copyright 2021 Hans Ekkehard Plesser / NMBU
@@ -14,7 +15,6 @@ class BioSim:
                  vis_years=1, ymax_animals=None, cmax_animals=None, hist_specs=None,
                  img_dir=None, img_base=None, img_fmt='png', img_years=None,
                  log_file=None):
-
         """
         :param island_map: Multi-line string specifying island geography
         :param ini_pop: List of dictionaries specifying initial population
@@ -48,7 +48,6 @@ class BioSim:
 
         img_dir and img_base must either be both None or both strings.
         """
-        
 
     def set_animal_parameters(self, species, params):
         """
