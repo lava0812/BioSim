@@ -80,6 +80,16 @@ class Animal:
     #     self.weight += self.param["beta"] * fodder
     #     self.fitness_animal()
     #
+
+    def weight_increase_herb(self, fodder):
+        """
+        Increasing the weight of a herbivore once it eats some fodder F.
+        """
+        self.weight += self.param["beta"] * fodder
+        self.fitness_animal()
+        #The function over should be in the herbivores subclass, but it is here, just so that the tests
+        # can work.
+
     def weight_decrease(self):
         """
         Decrease the weight of an animal, which will happen every year.
