@@ -8,6 +8,7 @@ import sys
 from scipy import stats
 import numpy as np
 
+
 def test_aging():
     herbivore = Herbivore()
     herbivore.aging()
@@ -43,7 +44,7 @@ def test_gaussian_distribution():
 
     assert a > p_value
 
-    #Something wrong with this test.
+    # Something wrong with this test.
 
 
 def test_weight_increase():
@@ -117,7 +118,6 @@ def test_birth_herbivore_probability(mocker):
     birth_herbivore = herbivores.birth_herbivore_probability(4)
 
     assert birth_herbivore is None
-
 
 # def test_birth_weight_loss():
 #     """

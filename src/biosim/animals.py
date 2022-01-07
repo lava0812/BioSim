@@ -41,7 +41,7 @@ class Herbivore:
         self.probability_birth = None
         self.probability_die = None
         self.death = False
-        pass
+
 
     def aging(self):
         """
