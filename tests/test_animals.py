@@ -1,6 +1,8 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+import random
+
 import scipy.stats
 
 from src.biosim.animals import Herbivore
@@ -33,6 +35,7 @@ def test_gaussian_distribution():
     """
     Check if it actually is a gaussian distribution.
     """
+    random.seed(12345)
     weights = [Herbivore().weight_baby() for _ in range(5000)]
 
     numpy_weights = np.array(weights)
@@ -64,7 +67,7 @@ def test_weight_decrease():
     Test on the weight decrease every year.
     """
 
-    herbivore = Herbivore()
+    herbivore = Herbivore(5, 10)
     herbivore.weight_baby()
 
     pre_weight = herbivore.weight

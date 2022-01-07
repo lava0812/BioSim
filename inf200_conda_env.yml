@@ -47,3 +47,4 @@ dependencies:
     - build
     - pytest-randomly
     - tox
+    - pytest-mock
