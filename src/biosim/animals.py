@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 """
 This file will contain a main class Animals(Superclass). This Animals class will contains methods for characteristics
 that are common for both herbivores and carnivores. The Animals class will have to subclasses,
@@ -29,18 +31,27 @@ class Herbivore:
         "F": 10.0
     }
 
-    def __init__(self, age=0, weight=0):
+    def __init__(self, age=None, weight=None):
         """
         Here we define our data for this function, and these are age and weight. Fitness is also a part of the data,
         but does not need to be included here because it is dependent on both the age and weight.
         """
+        if age is None:
+            self.age = 0
+        else:
+            self.age = 0
 
-        self.age = age
-        self.weight = weight
+        if weight is None:
+            self.weight = self.weight_baby()
+        else:
+            self.weight = weight
+
+        # self.age = age
+        # self.weight = weight
         self.fitness = None
         self.fitness_herbivore()
-        #self.probability_birth = None
-        #self.probability_die = None
+        # self.probability_birth = None
+        # self.probability_die = None
         self.death = False
 
     def aging(self):
@@ -56,7 +67,6 @@ class Herbivore:
         """
         This method will use a Gaussian distribution for determining the weight of a Herbivore baby. In the
         Gaussian(normal distribution), w_birth is the mean value, and sigma_birth is our standard deviation.
-        Can be useful to do this in a classmethod.
         """
         # The random.gauss function will go as a return statement.
         weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
@@ -101,7 +111,7 @@ class Herbivore:
         probability_die = self.param_herbivores["omega"] * (
                 1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
 
-        if self.weight == 0: # Retta på fra =< til ==
+        if self.weight == 0:  # Retta på fra =< til ==
             self.death = True  # Herbivore dies with certainty
         elif probability_die >= random.random():
             self.death = True
@@ -122,39 +132,8 @@ class Herbivore:
                 self.weight -= born_baby.weight * self.param_herbivores["xi"]
                 return born_baby
 
-
-
-
-
-
-
-
-
-
     # def birth_weight_loss(self):
     #     """
     #     This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
     #     """
     #     self.weight -= self.weight_baby() * self.param_herbivores["xi"]
-
-# class Carnivore:
-#
-#     param_herbivores = {
-#         "w_birth": 10.0,
-#         "sigma_birth": 1.5,
-#         "beta": 0.9,
-#         "eta": 0.05,
-#         "a_half": 40.0,
-#         "phi_age": 0.6,
-#         "w_half": 10.0,
-#         "phi_weight": 0.1,
-#         "mu": 0.25,
-#         "gamma": 0.2,
-#         "zeta": 3.5,
-#         "xi": 1.2,
-#         "omega": 0.4,
-#         "F": 10.0
-#     }
-#
-#     def __init__(self):
-#         print(self.param_herbivores["w_borth"])

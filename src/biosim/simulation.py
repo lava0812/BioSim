@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 """
 Template for BioSim class.
 """

@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
@@ -115,11 +117,11 @@ def test_death_herbivores_bychance(mocker):
 
 
 def test_birth_herbivore_probability(mocker):
-    mocker.patch("random.random", return_value=2)
+    mocker.patch("random.random", return_value=0)
     herbivores = Herbivore(3, 14)
     birth_herbivore = herbivores.birth_herbivore_probability(4)
 
-    assert birth_herbivore is None
+    assert birth_herbivore is not None
 
 # def test_birth_weight_loss():
 #     """

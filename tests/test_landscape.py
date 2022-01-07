@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
@@ -5,9 +7,7 @@ from src.biosim.landscape import Lowland
 import pytest
 
 
-
-#def population_update():
-
+# def population_update():
 
 
 def test_disp_population():
@@ -103,8 +103,6 @@ def test_death_population():
 
     assert len(pop_b) - 1 == len(pop_a)
 
-
-
     before_population = low.population
 
     low.death_population()
@@ -113,10 +111,8 @@ def test_death_population():
 
     assert len(before_population) - 1 == len(after_population)
 
+# def test_newborn():
+# sys.exit(0)
 
 
-#def test_newborn():
-    #sys.exit(0)
-
-
-#def test_simulate():
+# def test_simulate():
