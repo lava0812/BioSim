@@ -12,9 +12,9 @@ def test_population_update():
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
     low = Lowland()
-    low.population(pop)
+    low.herb(pop)
 
-    assert len(low.population) == 3
+    assert len(low.herb) == 3
 
 
 def test_disp_population():
@@ -49,11 +49,11 @@ def test_aging_population():
     low = Lowland()
     low.population_update(pop)
 
-    old_age = low.population[0].age
+    old_age = low.herb[0].age
 
     low.aging_population()
 
-    new_age = low.population[0].age
+    new_age = low.herb[0].age
 
     assert new_age > old_age
 
@@ -68,11 +68,11 @@ def test_weight_loss():
     low = Lowland()
     low.population_update(pop)
 
-    old_weight = low.population[0].weight
+    old_weight = low.herb[0].weight
 
     low.weight_loss()
 
-    new_weight = low.population[0].weight
+    new_weight = low.herb[0].weight
 
     assert new_weight < old_weight
 
@@ -85,11 +85,11 @@ def test_eat_fodder():
     low.population_update(pop)
     low.new_fodder()
 
-    before_weight = low.population[0].weight
+    before_weight = low.herb[0].weight
 
     low.eat_fodder()
 
-    after_weight = low.population[0].weight
+    after_weight = low.herb[0].weight
 
     assert after_weight > before_weight
 
@@ -101,13 +101,13 @@ def test_death_population():
 
     low = Lowland()
     low.population_update(pop)
-    low.population[1].weight = 0
+    low.herb[1].weight = 0
 
-    before_population = low.population
+    before_population = low.herb
 
     low.death_population()
 
-    after_population = low.population
+    after_population = low.herb
 
     assert len(before_population) - 1 == len(after_population)
 
