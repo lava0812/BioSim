@@ -73,7 +73,7 @@ class Lowland:
         """
         Remove the animals that have died from the population list
         """
-        self.population = [individuals for individuals in self.population if not individuals.death_herbivore()]
+        self.population = [individuals for individuals in self.population if not individuals.death()]
 
     def newborn(self):
         """
@@ -88,7 +88,7 @@ class Lowland:
         newborn_individuals = []
         if individuals_count >= 2:
             for individuals in self.population:
-                newborn = individuals.birth_herbivore_probability(individuals_count)
+                newborn = individuals.birth(individuals_count)
                 if newborn is not None:
                     newborn_individuals.append(newborn)
         self.population.extend(newborn_individuals)

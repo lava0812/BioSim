@@ -83,7 +83,7 @@ def test_fitness_herbivores():
     Test if fitness calculation is correct when age and weight is positive.
     """
     herbivore1 = Herbivore(40, 10)
-    herbivore1.fitness_herbivore()
+    herbivore1.fitness()
 
     assert herbivore1.fitness == 0.25
 
@@ -93,7 +93,7 @@ def test_fitness_herbivores_zero():
     Test if fitness is equal to 0, when weight is zero.
     """
     herbivore2 = Herbivore(30, 0)
-    herbivore2.fitness_herbivore()
+    herbivore2.fitness()
 
     assert herbivore2.fitness == 0
 
@@ -101,7 +101,7 @@ def test_fitness_herbivores_zero():
 def test_death_herbivores_certain():
     herbivores = Herbivore(30, 0)
 
-    herbivores.death_herbivore()
+    herbivores.death()
     assert herbivores.death == True
 
 
@@ -109,7 +109,7 @@ def test_death_herbivores_certain():
 def test_death_herbivores_bychance(mocker):
     mocker.patch("random.random", return_value=0)
     herbivores = Herbivore(10, 20)
-    herbivores.death_herbivore()
+    herbivores.death()
 
     assert herbivores.death == True
 
@@ -117,7 +117,7 @@ def test_death_herbivores_bychance(mocker):
 def test_birth_herbivore_probability(mocker):
     mocker.patch("random.random", return_value=2)
     herbivores = Herbivore(3, 14)
-    birth_herbivore = herbivores.birth_herbivore_probability(4)
+    birth_herbivore = herbivores.birth(4)
 
     assert birth_herbivore is None
 
