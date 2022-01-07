@@ -16,17 +16,17 @@ def test_aging():
     assert herbivore.age == 1
 
 
-def test_weight_baby():
-    """
-    Check if the baby will be given a weight.
-    """
-    herbivore1 = Herbivore()
-    herbivore2 = Herbivore()
-
-    herbivore1.weight_baby()
-    herbivore2.weight_baby()
-
-    assert herbivore1.weight != herbivore2.weight
+# def test_weight_baby():
+#     """
+#     Check if the baby will be given a weight.
+#     """
+#     herbivore1 = Herbivore()
+#     herbivore2 = Herbivore()
+#
+#     herbivore1.weight_baby()
+#     herbivore2.weight_baby()
+#
+#     assert herbivore1.weight != herbivore2.weight
 
 
 def test_gaussian_distribution():
