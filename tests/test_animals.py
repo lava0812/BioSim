@@ -119,17 +119,17 @@ def test_death_herbivores_bychance(mocker):
     assert herbivores.death == True
 
 
-def test_birth_herbivore_probability(mocker):
+def test_birth(mocker):
     """
     Test the probability of birth.
     """
     mocker.patch("random.random", return_value=0)
     herbivore = Herbivore(3, 14)
-    birth_herbivore = herbivore.birth_herbivore_probability(5)
+    birth_herbivore = herbivore.birth(5)
 
     assert birth_herbivore is not None
     herbivore.weight = 1
-    birth_herbivore = herbivore.birth_herbivore_probability(5)
+    birth_herbivore = herbivore.birth(5)
     assert birth_herbivore is None
 
 # def test_birth_weight_loss():

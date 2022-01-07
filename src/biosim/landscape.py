@@ -90,7 +90,7 @@ class Lowland:
         newborn_individuals = []
         if individuals_count >= 2:
             for individuals in self.population:
-                newborn = individuals.birth_herbivore_probability(individuals_count)
+                newborn = individuals.birth(individuals_count)
                 if newborn is not None:
                     newborn_individuals.append(newborn)
         self.population.extend(newborn_individuals)

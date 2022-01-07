@@ -116,7 +116,7 @@ class Herbivore:
             self.death = True
         return self.death
 
-    def birth_herbivore_probability(self, n_herbivore):
+    def birth(self, n_herbivore):
         """
         This method will handle the probability for a herbivore to give birth.
         """
