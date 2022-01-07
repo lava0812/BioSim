@@ -33,16 +33,15 @@ def test_gaussian_distribution():
     """
     Check if it actually is a gaussian distribution.
     """
-    herbivores = [Herbivore().weight_baby() for _ in range(1000)]
+    weights = [Herbivore().weight_baby() for _ in range(5000)]
 
-    weights = [h.weight for h in herbivores]
     numpy_weights = np.array(weights)
 
     k2, p_value = stats.normaltest(numpy_weights)
     a = 0.05
     print(k2, p_value)
 
-    assert a > p_value
+    assert a < p_value
 
     # Something wrong with this test.
 

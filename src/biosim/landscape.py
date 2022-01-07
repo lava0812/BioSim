@@ -110,3 +110,8 @@ class Lowland:
         self.aging_population()
 
 
+L = Lowland()
+L.population = [Herbivore(5, 20) for i in range(50)]
+for i in range(300):
+    L.simulate()
+    print(len(L.population), L.fodder)

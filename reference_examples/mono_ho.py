@@ -13,6 +13,8 @@ geogr = """\
            WWW
            WLW
            WWW"""
+geogr = "L"
+
 geogr = textwrap.dedent(geogr)
 
 ini_herbs = [{'loc': (2, 2),

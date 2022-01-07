@@ -42,13 +42,13 @@ class Herbivore:
         self.probability_die = None
         self.death = False
 
-
     def aging(self):
         """
         This is a method for making the herbivores age. This function will be in the Animals
          superclass once we create it.
         """
         self.age += 1
+        self.fitness_herbivore()
 
     # @classmethod
     def weight_baby(self):
@@ -58,8 +58,8 @@ class Herbivore:
         Can be useful to do this in a classmethod.
         """
         # The random.gauss function will go as a return statement.
-        self.weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
-        # return self.weight
+        weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
+        return weight
 
     def weight_increase(self, fodder):
         """
@@ -67,13 +67,15 @@ class Herbivore:
         beta times the amount of fodder it eats.
         """
         self.weight = self.param_herbivores["beta"] * fodder
+        self.fitness_herbivore()
 
     def weight_decrease(self):
         """
         This method will decrease the weight of a herbivore every year. Every year, the weight of the animal
         decreases by eta times the weight
         """
-        self.weight = self.weight * self.param_herbivores["eta"]  # Can put this in aging
+        self.weight -= self.weight * self.param_herbivores["eta"]  # Can put this in aging
+        self.fitness_herbivore()
 
     def fitness_herbivore(self):
         """
@@ -102,6 +104,7 @@ class Herbivore:
             self.death = True  # Herbivore dies with certainty
         elif probability_die >= random.random():
             self.death = True
+        return self.death
 
     def birth_herbivore_probability(self, n_herbivore):
         """
@@ -109,11 +112,13 @@ class Herbivore:
         """
         probability = min(1, Herbivore.param_herbivores["gamma"] * self.fitness * (n_herbivore - 1))
         if random.random() < probability:
-            born_baby = type(self)()  # Herbivore()
+            weight = random.gauss(self.param_herbivores["w_birth"], self.param_herbivores["sigma_birth"])
+            born_baby = type(self)(0, int(weight))  # Herbivore()
 
             if self.weight < born_baby.weight * self.param_herbivores["xi"]:
                 return None
             else:
+                self.weight -= born_baby.weight * self.param_herbivores["xi"]
                 return born_baby
 
     # def birth_weight_loss(self):
@@ -121,3 +126,25 @@ class Herbivore:
     #     This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
     #     """
     #     self.weight -= self.weight_baby() * self.param_herbivores["xi"]
+
+# class Carnivore:
+#
+#     param_herbivores = {
+#         "w_birth": 10.0,
+#         "sigma_birth": 1.5,
+#         "beta": 0.9,
+#         "eta": 0.05,
+#         "a_half": 40.0,
+#         "phi_age": 0.6,
+#         "w_half": 10.0,
+#         "phi_weight": 0.1,
+#         "mu": 0.25,
+#         "gamma": 0.2,
+#         "zeta": 3.5,
+#         "xi": 1.2,
+#         "omega": 0.4,
+#         "F": 10.0
+#     }
+#
+#     def __init__(self):
+#         print(self.param_herbivores["w_borth"])
