@@ -7,7 +7,7 @@ from src.biosim.landscape import Lowland
 import pytest
 
 
-def population_update():
+def test_population_update():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
