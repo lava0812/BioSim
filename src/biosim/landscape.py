@@ -61,11 +61,11 @@ class Lowland:
         for individuals in self.population:
 
             if self.fodder >= individuals.param["F"]:
-                individuals.weight_increase(individuals.param["F"])
+                individuals.weight_increase_herb(individuals.param["F"])
                 self.fodder -= individuals.param["F"]
 
             if self.fodder < individuals.param["F"]:
-                individuals.weight_increase(self.fodder)
+                individuals.weight_increase_herb(self.fodder)
                 self.fodder = 0
 
             if self.fodder == 0:

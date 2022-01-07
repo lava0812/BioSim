@@ -4,7 +4,7 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
-from src.biosim.animals import Animal
+from src.biosim.animals import Animal, Herbivore, Carnivore
 from scipy import stats
 import numpy as np
 
@@ -47,14 +47,14 @@ def test_gaussian_distribution():
     # Something wrong with this test.
 
 
-def test_weight_increase():
+def test_weight_increase_herb():
     """
     Test on the weight increase once a herbivore eats fodder.
     """
-    herbivore = Animal()
+    herbivore = Herbivore(Animal)
 
     pre_weight = herbivore.weight
-    herbivore.weight_increase(5)
+    herbivore.weight_increase_herb(5)
     after_weight = herbivore.weight
 
     assert pre_weight < after_weight

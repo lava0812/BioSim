@@ -146,7 +146,7 @@ class Herbivore(Animal):
     def __init__(self, age=None, weight=None):
         super().__init__(age, weight)
 
-    def weight_increase(self, fodder):
+    def weight_increase_herb(self, fodder):
         """
         Increasing the weight of a herbivore once it eats some fodder F.
         """
@@ -156,34 +156,45 @@ class Herbivore(Animal):
 
 class Carnivore(Animal):
     param = {
-        "w_birth": 8.0,
-        "sigma_birth": 1.5,
-        "beta": 0.9,
-        "eta": 0.05,
+        "w_birth": 6.0,
+        "sigma_birth": 1.0,
+        "beta": 0.75,
+        "eta": 0.125,
         "a_half": 40.0,
-        "phi_age": 0.6,
-        "w_half": 10.0,
-        "phi_weight": 0.1,
-        "mu": 0.25,
-        "gamma": 0.2,
+        "phi_age": 0.3,
+        "w_half": 4.0,
+        "phi_weight": 0.4,
+        "mu": 0.4,
+        "gamma": 0.8,
         "zeta": 3.5,
-        "xi": 1.2,
-        "omega": 0.4,
-        "F": 10.0,
-        "DeltaPhiMax": None
+        "xi": 1.1,
+        "omega": 0.8,
+        "F": 50.0,
+        "DeltaPhiMax": 10
     }
+
+    # Have to change the parameters here.
 
     def __init__(self, age=None, weight=None):
         super().__init__(age, weight)
         self.kill_p = None
 
-
-
-
     def kill_herbivore(self):
         """
         Create a method for killing a herbivore.
+
+        if fitness_carn =< fitness of herb
+            self.kill_p = 0
+        elif 0 < fitness_carn - fitness_herb < param["DeltaPhiMax"]
+            self.kill_p = (fitness_carn - fitness_herb)/ param["DeltaPhiMax"]
+        else:
+            self.kill_p = 1
         """
 
-
         pass
+
+    def weight_increase_carn(self):
+        """
+        Create a method for the weight increase a carnivore experience after it has eaten a herbivore.
+
+        """
