@@ -7,7 +7,14 @@ from src.biosim.landscape import Lowland
 import pytest
 
 
-# def population_update():
+def population_update():
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    low = Lowland()
+    low.population(pop)
+
+    assert len(low.population) == 3
 
 
 def test_disp_population():
@@ -74,7 +81,6 @@ def test_eat_fodder():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-
     low = Lowland()
     low.population_update(pop)
     low.new_fodder()
@@ -95,13 +101,7 @@ def test_death_population():
 
     low = Lowland()
     low.population_update(pop)
-
     low.population[1].weight = 0
-    pop_b = low.population
-    low.death_population()
-    pop_a = low.population
-
-    assert len(pop_b) - 1 == len(pop_a)
 
     before_population = low.population
 
@@ -111,8 +111,5 @@ def test_death_population():
 
     assert len(before_population) - 1 == len(after_population)
 
-# def test_newborn():
-# sys.exit(0)
-
-
-# def test_simulate():
+def test_newborn():
+    pass
