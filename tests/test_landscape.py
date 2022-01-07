@@ -3,11 +3,11 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 from src.biosim.landscape import Lowland
 import pytest
-import sys
+
 
 
 #def population_update():
-#   sys.exit(0)
+
 
 
 def test_disp_population():
@@ -96,7 +96,14 @@ def test_death_population():
     low = Lowland()
     low.population_update(pop)
 
-    low.population_update[1].weight = 0
+    low.population[1].weight = 0
+    pop_b = low.population
+    low.death_population()
+    pop_a = low.population
+
+    assert len(pop_b) - 1 == len(pop_a)
+
+
 
     before_population = low.population
 
