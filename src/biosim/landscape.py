@@ -115,3 +115,4 @@ L.population = [Herbivore(5, 20) for i in range(50)]
 for i in range(500):
     L.simulate()
     print(len(L.population), L.fodder)
+

@@ -34,12 +34,13 @@ class Herbivore:
         Here we define our data for this function, and these are age and weight. Fitness is also a part of the data,
         but does not need to be included here because it is dependent on both the age and weight.
         """
+
         self.age = age
         self.weight = weight
         self.fitness = None
         self.fitness_herbivore()
-        self.probability_birth = None
-        self.probability_die = None
+        #self.probability_birth = None
+        #self.probability_die = None
         self.death = False
 
     def aging(self):
@@ -66,7 +67,7 @@ class Herbivore:
         This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
         beta times the amount of fodder it eats.
         """
-        self.weight = self.param_herbivores["beta"] * fodder
+        self.weight += self.param_herbivores["beta"] * fodder
         self.fitness_herbivore()
 
     def weight_decrease(self):
@@ -100,7 +101,7 @@ class Herbivore:
         probability_die = self.param_herbivores["omega"] * (
                 1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
 
-        if self.weight <= 0:
+        if self.weight == 0: # Retta på fra =< til ==
             self.death = True  # Herbivore dies with certainty
         elif probability_die >= random.random():
             self.death = True
@@ -120,6 +121,15 @@ class Herbivore:
             else:
                 self.weight -= born_baby.weight * self.param_herbivores["xi"]
                 return born_baby
+
+
+
+
+
+
+
+
+
 
     # def birth_weight_loss(self):
     #     """
