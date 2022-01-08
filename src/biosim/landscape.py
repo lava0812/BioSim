@@ -35,6 +35,10 @@ class Landscape:
             if individuals["species"] == "Herbivore":
                 self.herb.append(Animal(age=individuals["age"], weight=individuals["weight"]))
 
+        for individuals in pop_list:
+            if individuals["species"] == "Carnivore":
+                self.carni.append(Animal(age=individuals["age"], weight=individuals["weight"]))
+
     def display_herb(self):
         """
         This function will display the number of herbivores
@@ -58,8 +62,10 @@ class Landscape:
         A method for aging all the herbivores in the lowland cell.
         """
 
-        # herbivore = Herbivore()
         for individuals in self.herb:
+            individuals.aging()
+
+        for individuals in self.carni:
             individuals.aging()
 
     def eat_fodder(self):
@@ -86,8 +92,9 @@ class Landscape:
         Remove the animals that have died from the population list
         """
         self.herb = [individuals for individuals in self.herb if not individuals.death_animal()]
+        self.carni = [individuals for individuals in self.herb if not individuals.death_animal()]
 
-    def newborn(self):
+    def newborn_herb(self):
         """
         Adding the newborn babies to the population list
         Making a new list, then we can extend the population list
@@ -105,12 +112,33 @@ class Landscape:
                     newborn_individuals.append(newborn)
         self.herb.extend(newborn_individuals)
 
+    def newborn_carni(self):
+        """
+        Adding the newborn babies to the population list
+        Making a new list, then we can extend the population list
+        """
+        individuals_count = len(self.herb)
+
+        if individuals_count < 2:
+            return None
+
+        newborn_individuals = []
+        if individuals_count >= 2:
+            for individuals in self.carni:
+                newborn = individuals.birth(individuals_count)
+                if newborn is not None:
+                    newborn_individuals.append(newborn)
+        self.carni.extend(newborn_individuals)
+
     def weight_loss(self):
         """
         The annual weight loss every year
         """
 
         for individuals in self.herb:
+            return individuals.weight_decrease()
+
+        for individuals in self.carni:
             return individuals.weight_decrease()
 
     def prey(self, shuffled_carnivores): # Jeg hadde egentlig en "herbivores_list parameter her...
@@ -139,11 +167,14 @@ class Landscape:
             herbivores_lowest_fitness.death_animal()
             carnivore.fitness_animal()
 
+        for individuals in self.carni:
+            return individuals.weight_decrease()
+
     def simulate(self):
         self.new_fodder()
         self.eat_fodder()
         self.death_population()
-        self.newborn()
+        self.newborn_herb()
         self.weight_loss()
         self.aging_population()
 
@@ -152,7 +183,7 @@ class Lowland(Landscape):
     """
     Lowland
     """
-    parameters = {"f_max": 800}
+    parameters = {"f_max": 0}
 
     def __init__(self):
         super().__init__()
