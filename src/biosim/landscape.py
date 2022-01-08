@@ -118,9 +118,9 @@ class Landscape:
         random.shuffle(shuffled_carnivores)
 
         carnivore = shuffled_carnivores[0]
-        herbivores_list = sorted(herbivores_list, key=operator.attrgetter("fitness"), reverse=True)
-        # herbivores_list
-        herbivores_lowest_fitness = herbivores_list[0]
+        #herbivores_list = sorted(herbivores_list, key=operator.attrgetter("fitness"), reverse=True)
+        herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True) #This is a more pythonic way of sorting compared to the method above.
+        herbivores_lowest_fitness = herbivores_newlist[0]
 
         if carnivore.fitness <= herbivores_lowest_fitness.fitness:
             self.kill_p = 0
