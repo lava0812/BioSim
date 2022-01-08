@@ -8,6 +8,7 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import operator
+import sys
 
 from src.biosim.animals import Animal, Herbivore
 import random
@@ -124,18 +125,23 @@ class Landscape:
         #herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
         self.herb.sort(key=lambda x: "fitness", reverse=True)
         herbivores_lowest_fitness = self.herb[0]
+        ate = 0
 
-        if carnivore.fitness <= herbivores_lowest_fitness.fitness:
+        if ate >= self.param["F"]:
+            pass
+        elif carnivore.fitness <= herbivores_lowest_fitness.fitness:
             self.kill_p = 0
         elif 0 < carnivore.fitness - herbivores_lowest_fitness.fitness < self.param["DeltaPhiMax"] < 1:
             self.kill_p = (carnivore.fitness - herbivores_lowest_fitness.fitness) / self.param["DeltaPhiMax"]
             if self.kill_p > random.random():
+                ate += herbivores_lowest_fitness.weight
                 herbivores_lowest_fitness.death_animal()
                 carnivore.fitness_animal()
         else:
             self.kill_p = 1
 
             carnivore.weight += self.param["beta"] * herbivores_lowest_fitness.weight
+            ate += herbivores_lowest_fitness.weight
             herbivores_lowest_fitness.death_animal()
             carnivore.fitness_animal()
 
