@@ -200,6 +200,15 @@ class Carnivore(Animal):
         else:
             self.kill_p = 1
         """
+        herbivores = Herbivore(Animal)
+
+        if self.fitness <= herbivores.fitness:
+            self.kill_p = 0
+        elif 0 < self.fitness - herbivores.fitness < self.param["DeltaPhiMax"]
+            self.kill_p = (self.fitness - herbivores.fitness)/ self.param["DeltaPhiMax"]
+        else:
+            self.kill_p = 1
+
 
     def weight_increase_carn(self):
         """
