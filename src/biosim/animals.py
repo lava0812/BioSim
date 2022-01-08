@@ -62,6 +62,11 @@ class Animal:
         # self.probability_die = None
         self.death = False
 
+    def set_params(self):
+        """
+        This will be a method for adding new parameters to the function.
+        This will be a classmethod because it involves changing the class variables.
+        """
     def aging(self):
         """
         Aging the animals.
