@@ -3,7 +3,7 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from src.biosim.landscape import Lowland
+from src.biosim.landscape import Landscape
 import pytest
 
 
@@ -11,32 +11,36 @@ def test_population_update():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    low = Lowland()
-    low.herb(pop)
+    land = Landscape()
+    land.herb(pop)
 
-    assert len(low.herb) == 3
+    assert len(land.herb) == 3
 
 
 def test_disp_population():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    low = Lowland()
-    low.population_update(pop)
-    check = low.display_population()
+    land = Landscape()
+    land.population_update(pop)
+
+    check = land.display_herb()
+    check = land.display_carni()
+
     assert check == 3
+
 
 
 def test_new_fodder():
     """
     Checks if the fodder updates
     """
-    low = Lowland()
-    low.fodder = 0
-    low.new_fodder()
+    land = Landscape()
+    land.fodder = 0
+    land.new_fodder()
 
-    assert low.fodder != 0
-    assert low.fodder == 800
+    assert land.fodder != 0
+    assert land.fodder == 800
 
 
 def test_aging_population():
@@ -46,14 +50,14 @@ def test_aging_population():
     """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
-    low = Lowland()
-    low.population_update(pop)
+    land = Landscape()
+    land.population_update(pop)
 
-    old_age = low.herb[0].age
+    old_age = land.herb[0].age
 
-    low.aging_population()
+    land.aging_population()
 
-    new_age = low.herb[0].age
+    new_age = land.herb[0].age
 
     assert new_age > old_age
 
@@ -65,14 +69,14 @@ def test_weight_loss():
     """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
-    low = Lowland()
-    low.population_update(pop)
+    land = Landscape()
+    land.population_update(pop)
 
-    old_weight = low.herb[0].weight
+    old_weight = land.herb[0].weight
 
-    low.weight_loss()
+    land.weight_loss()
 
-    new_weight = low.herb[0].weight
+    new_weight = land.herb[0].weight
 
     assert new_weight < old_weight
 
@@ -81,15 +85,15 @@ def test_eat_fodder():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    low = Lowland()
-    low.population_update(pop)
-    low.new_fodder()
+    land = Landscape()
+    land.population_update(pop)
+    land.new_fodder()
 
-    before_weight = low.herb[0].weight
+    before_weight = land.herb[0].weight
 
-    low.eat_fodder()
+    land.eat_fodder()
 
-    after_weight = low.herb[0].weight
+    after_weight = land.herb[0].weight
 
     assert after_weight > before_weight
 
@@ -99,17 +103,17 @@ def test_death_population():
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
 
-    low = Lowland()
-    low.population_update(pop)
-    low.herb[1].weight = 0
+    land = Landscape()
+    land.population_update(pop)
+    land.herb[1].weight = 0
 
-    before_population = low.herb
+    before_population = land.herb
 
-    low.death_population()
+    land.death_population()
 
-    after_population = low.herb
+    after_population = land.herb
 
-    assert len(before_population) - 1 == len(after_population)
+    assert len(before_population) != len(after_population)
 
 def test_newborn():
     pass
