@@ -119,11 +119,12 @@ class Landscape:
 
         carnivore = shuffled_carnivores[0]
         herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
-        herbivores_lowest_fitness = herbivores_newlist[0]
+        self.herb.sort(key=lambda x: "fitness", reverse=True)
+        herbivores_lowest_fitness = self.herbs[0]
 
         if carnivore.fitness <= herbivores_lowest_fitness.fitness:
             self.kill_p = 0
-        elif 0 < carnivore.fitness - herbivores_lowest_fitness.fitness < self.param["DeltaPhiMax"]:
+        elif 0 < carnivore.fitness - herbivores_lowest_fitness.fitness < self.param["DeltaPhiMax"] < 1:
             self.kill_p = (carnivore.fitness - herbivores_lowest_fitness.fitness) / self.param["DeltaPhiMax"]
             if self.kill_p > random.random():
                 herbivores_lowest_fitness.death_animal()
