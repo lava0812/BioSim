@@ -113,14 +113,17 @@ class Landscape:
         for individuals in self.herb:
             return individuals.weight_decrease()
 
-    def prey(self, shuffled_carnivores, herbivores_list):
-
+    def prey(self, shuffled_carnivores): # Jeg hadde egentlig en "herbivores_list parameter her...
+        """
+        Method for the prey of an herbivore by the carnivore.
+        I have to add a way of calculating how much the carnivore has eaten.
+        """
         random.shuffle(shuffled_carnivores)
 
         carnivore = shuffled_carnivores[0]
-        herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
+        #herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
         self.herb.sort(key=lambda x: "fitness", reverse=True)
-        herbivores_lowest_fitness = self.herbs[0]
+        herbivores_lowest_fitness = self.herb[0]
 
         if carnivore.fitness <= herbivores_lowest_fitness.fitness:
             self.kill_p = 0
@@ -128,7 +131,7 @@ class Landscape:
             self.kill_p = (carnivore.fitness - herbivores_lowest_fitness.fitness) / self.param["DeltaPhiMax"]
             if self.kill_p > random.random():
                 herbivores_lowest_fitness.death_animal()
-
+                carnivore.fitness_animal()
         else:
             self.kill_p = 1
 
