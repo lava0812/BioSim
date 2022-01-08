@@ -7,6 +7,8 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+import operator
+
 from src.biosim.animals import Animal, Herbivore
 import random
 
@@ -111,22 +113,24 @@ class Landscape:
         for individuals in self.herb:
             return individuals.weight_decrease()
 
-    def prey(self, shuffled_carnivores):
+    def prey(self, shuffled_carnivores, herbivores_list):
 
         random.shuffle(shuffled_carnivores)
 
         carnivore = shuffled_carnivores[0]
-        herbivore = Herbivore(Animal)
+        herbivores_list = sorted(herbivores_list, key=operator.attrgetter("fitness"), reverse=True)
+        # herbivores_list
+        herbivores_lowest_fitness = herbivores_list[0]
 
-        if carnivore.fitness <= herbivore.fitness:
+        if carnivore.fitness <= herbivores_lowest_fitness.fitness:
             self.kill_p = 0
-        elif 0 < carnivore.fitness - herbivore.fitness < self.param["DeltaPhiMax"]:
-            self.kill_p = (carnivore.fitness - herbivore.fitness) / self.param["DeltaPhiMax"]
+        elif 0 < carnivore.fitness - herbivores_lowest_fitness.fitness < self.param["DeltaPhiMax"]:
+            self.kill_p = (carnivore.fitness - herbivores_lowest_fitness.fitness) / self.param["DeltaPhiMax"]
         else:
             self.kill_p = 1
 
-            carnivore.weight += self.param["beta"] * herbivore.weight
-            herbivore.death_animal()
+            carnivore.weight += self.param["beta"] * herbivores_lowest_fitness.weight
+            herbivores_lowest_fitness.death_animal()
             carnivore.fitness_animal()
 
     def simulate(self):
