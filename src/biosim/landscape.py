@@ -19,6 +19,7 @@ class Landscape:
         Empty list to count the population.
         Food count starts at 0 which will be updated
         """
+        self.param = None
         self.herb = []
         self.carni = []
         self.fodder = self.parameters["f_max"]
@@ -110,14 +111,23 @@ class Landscape:
         for individuals in self.herb:
             return individuals.weight_decrease()
 
-    def prey(self, carnivores):
+    def prey(self, shuffled_carnivores):
 
-        shuffled_carnivores = random.shuffle(self.carni)
+        random.shuffle(shuffled_carnivores)
+
         carnivore = shuffled_carnivores[0]
         herbivore = Herbivore(Animal)
+
         if carnivore.fitness <= herbivore.fitness:
             self.kill_p = 0
+        elif 0 < carnivore.fitness - herbivore.fitness < self.param["DeltaPhiMax"]:
+            self.kill_p = (carnivore.fitness - herbivore.fitness) / self.param["DeltaPhiMax"]
+        else:
+            self.kill_p = 1
 
+            carnivore.weight += self.param["beta"] * herbivore.weight
+            herbivore.death_animal()
+            carnivore.fitness_animal()
 
     def simulate(self):
         self.new_fodder()
@@ -146,7 +156,6 @@ class Water(Landscape):
 
     def __init__(self):
         super().__init__()
-
 
 
 L = Landscape()
