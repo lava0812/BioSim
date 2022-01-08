@@ -7,7 +7,7 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from src.biosim.animals import Animal
+from src.biosim.animals import Animal, Herbivore
 import random
 
 
@@ -22,6 +22,7 @@ class Landscape:
         self.herb = []
         self.carni = []
         self.fodder = self.parameters["f_max"]
+        self.kill_p = None
 
     def population_update(self, pop_list):
         """
@@ -109,6 +110,15 @@ class Landscape:
         for individuals in self.herb:
             return individuals.weight_decrease()
 
+    def prey(self, carnivores):
+
+        shuffled_carnivores = random.shuffle(self.carni)
+        carnivore = shuffled_carnivores[0]
+        herbivore = Herbivore(Animal)
+        if carnivore.fitness <= herbivore.fitness:
+            self.kill_p = 0
+
+
     def simulate(self):
         self.new_fodder()
         self.eat_fodder()
@@ -116,13 +126,6 @@ class Landscape:
         self.newborn()
         self.weight_loss()
         self.aging_population()
-
-
-L = Landscape()
-L.herb = [Animal(5, 20) for i in range(50)]
-for i in range(100):
-    L.simulate()
-    print(len(L.herb), L.fodder)
 
 
 class Lowland(Landscape):
@@ -135,13 +138,19 @@ class Lowland(Landscape):
         super().__init__()
 
 
-class W(Landscape):
+class Water(Landscape):
     """
-    water
+    Water
     """
-    parameters = {"f_max": 800}
+    parameters = {"f_max": 0}
 
     def __init__(self):
         super().__init__()
 
 
+
+L = Landscape()
+L.herb = [Animal(5, 20) for i in range(50)]
+for i in range(100):
+    L.simulate()
+    print(len(L.herb), L.fodder)

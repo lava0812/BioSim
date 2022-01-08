@@ -35,7 +35,14 @@ class Animal:
     def __init__(self, age=None, weight=None):
 
         """
-        Here we define our data for this function, and these are age and weight.
+        Constructor for Animal class.
+
+        Parameters:
+        -----------
+        age: int
+        Age of an animal, and the default value is set to be None.
+        weight: int
+        Weight of an animal, and the default value is set to be None.
         """
         if age is None:
             self.age = 0
@@ -65,8 +72,13 @@ class Animal:
     # @classmethod
     def weight_baby(self):
         """
-        Using a Gaussian distribution for determining the weight of a newborn baby. In the
-        Gaussian(normal distribution), w_birth is the mean value, and sigma_birth is our standard deviation.
+        Gaussian distribution for determining the weight of a newborn baby.
+        Used only for the purpose of testing.
+
+        Returns
+        -------
+        weight: int
+        Generate a weight, using random.gauss.
         """
         # The random.gauss function will go as a return statement.
         weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
@@ -101,9 +113,8 @@ class Animal:
     def fitness_animal(self):
         """
         Calculate the fitness of an animal.
-        ------------------------------
-        Param:
-        age, weight
+        -----------------------------------
+        Returns
         """
         q_positive = 1 / (1 + math.exp((self.param["phi_age"])
                                        * (self.age - self.param["a_half"])
@@ -200,17 +211,24 @@ class Carnivore(Animal):
         else:
             self.kill_p = 1
         """
-        herbivores = Herbivore(Animal)
+        herbivores = Herbivore(Animal) # Trenger ikke å kjøre fitness funksjonen, fordi den blir kjørt i initen.
 
         if self.fitness <= herbivores.fitness:
             self.kill_p = 0
+
         elif 0 < self.fitness - herbivores.fitness < self.param["DeltaPhiMax"]:
             self.kill_p = (self.fitness - herbivores.fitness) / self.param["DeltaPhiMax"]
         else:
             self.kill_p = 1
 
-    def weight_increase_carn(self):
+    def weight_increase_carn(self, weight_herbivore):
         """
         Create a method for the weight increase a carnivore experience after it has eaten a herbivore.
 
         """
+        self.weight += self.param["beta"] * weight_herbivore
+        #if fitness til carnivore - herbuvire > 0
+
+
+
+        # We will have the weight increase when a carnivore dies in the animal class.
