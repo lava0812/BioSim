@@ -87,7 +87,7 @@ class Animal:
         """
         self.weight += self.param["beta"] * fodder
         self.fitness_animal()
-        #The function over should be in the herbivores subclass, but it is here, just so that the tests
+        # The function over should be in the herbivores subclass, but it is here, just so that the tests
         # can work.
 
     def weight_decrease(self):
@@ -204,11 +204,10 @@ class Carnivore(Animal):
 
         if self.fitness <= herbivores.fitness:
             self.kill_p = 0
-        elif 0 < self.fitness - herbivores.fitness < self.param["DeltaPhiMax"]
-            self.kill_p = (self.fitness - herbivores.fitness)/ self.param["DeltaPhiMax"]
+        elif 0 < self.fitness - herbivores.fitness < self.param["DeltaPhiMax"]:
+            self.kill_p = (self.fitness - herbivores.fitness) / self.param["DeltaPhiMax"]
         else:
             self.kill_p = 1
-
 
     def weight_increase_carn(self):
         """
