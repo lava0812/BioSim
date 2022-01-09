@@ -125,6 +125,9 @@ def test_death_population():
 
     assert len(before_population) != len(after_population)
 
+def test_prey_fitness():
+    land = Landscape()
+    land.prey()
 
 # def test_newborn_herb(mocker):
 #     """
