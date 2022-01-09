@@ -44,12 +44,6 @@ class Landscape:
         """
         return len(self.herb)
 
-    def add_herbivore(self, herbivore):
-        self.herb.append(herbivore)
-
-    def add_carnivore(self, carnivore):
-        self.carni.append(carnivore)
-
     def display_carni(self):
         """
         This function will display the number of carnivores

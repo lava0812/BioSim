@@ -46,10 +46,10 @@ class Animal:
 
         """
 
-        if self.param["DeltaPhiMax"] <= 0:
-            ValueError("You need a positive integer higher than 0")
-        elif self.param["eta"] < 0:
-            ValueError("You need a positive integer higher or equal to 1")
+        #if self.param["DeltaPhiMax"] <= 0:
+        #    ValueError("You need a positive integer higher than 0")
+        #elif self.param["eta"] < 0:
+        #    ValueError("You need a positive integer higher or equal to 1")
 
         if age is None:
             self.age = 0

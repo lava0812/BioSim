@@ -106,6 +106,19 @@ def test_eat_fodder():
 
     assert after_weight > before_weight
 
+def test_eat_fodder2():
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+
+    land = Landscape()
+    land.population_update(pop)
+    land.new_fodder()
+
+
+
+
+
 
 def test_not_eat():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
