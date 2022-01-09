@@ -125,7 +125,7 @@ def test_death_population():
     assert len(before_population) != len(after_population)
 
 
-def test_pray():
+def test_prey():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
@@ -136,7 +136,13 @@ def test_pray():
     land = Landscape()
     land.population_update(pop)
 
-    before = land.po
+    before_population = len(pop)
+
+    land.prey(pop)
+
+    after_population = len(pop)
+
+    assert before_population != after_population
 
 # def test_newborn_herb(mocker):
 #     """
