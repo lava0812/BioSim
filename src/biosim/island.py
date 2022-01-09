@@ -11,7 +11,7 @@ class Island:
     def __init__(self, map, ini_population=None):
         self.ini_herbs = []
         self.ini_carns = []
-        self.map = {}
+        self.map = map
         self.ini_population = ini_population
 
     def annual_cycle(self):
