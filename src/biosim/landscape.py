@@ -56,6 +56,9 @@ class Landscape:
         """
         return len(self.carni)
 
+    def total_pop(self):
+        return self.herb + self.carni
+
     def new_fodder(self):
         """
         Function to add fixed amount of fodder in the lowland

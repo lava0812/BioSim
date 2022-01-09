@@ -126,7 +126,7 @@ def test_death_population():
 
 
 def test_prey():
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+    herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
            {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
@@ -136,14 +136,14 @@ def test_prey():
     land = Landscape()
     land.population_update(pop)
 
-    before_population = len(pop)
+    before_population = len(land.total_pop())
 
-    land.prey(pop)
+    land.prey()
 
-    after_population = len(pop)
+    after_population = len(land.total_pop())
 
     assert before_population != after_population
-
+# Hvordan teste pray
 # def test_newborn_herb(mocker):
 #     """
 #     Newborn test
