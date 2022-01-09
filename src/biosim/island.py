@@ -8,11 +8,29 @@ from src.biosim.animals import Animal, Herbivore, Carnivore
 class Island:
     landscape_types = {"L": Lowland, "W": Water}
 
-    def __init__(self, map, ini_population=None):
+    def __init__(self, map=None, initial_population=None):
+
         self.ini_herbs = []
         self.ini_carns = []
-        self.map = map
-        self.ini_population = ini_population
+        self.initial_population = initial_population
+
+        if self.initial_population is None:
+            self.initial_population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+                                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
+                                       {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+                                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+                                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+        else:
+            self.initial_population = initial_population
+
+        if self.map is None:
+            self.map = """\
+               WWW
+               WLW
+               WWW"""
+        else:
+            self.map = map
 
     def annual_cycle(self):
         """
@@ -28,8 +46,29 @@ class Island:
         """
         pass
 
+    def map_input(self):
+        """
+        Started on the map_input method here. This will take care of the error messages if
+        something is wrong with the input the user have put in.
+        """
+        map_list = self.map.split("\n")
+        length_of_first_row = len(map_list[0])
+        for rows in map_list:
+            if len(rows) != length_of_first_row:
+                ValueError("Check map input, all lines are not the same length")
+
+
+
+
+
+
+
     def create_map(self):
+
         pass
 
     def map_boundaries(self):
+        pass
+
+    def set_new_parameters(self):
         pass

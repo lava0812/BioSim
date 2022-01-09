@@ -43,7 +43,14 @@ class Animal:
         Age of an animal, and the default value is set to be None.
         weight: int
         Weight of an animal, and the default value is set to be None.
+
         """
+
+        if self.param["DeltaPhiMax"] <= 0:
+            ValueError("You need a positive integer higher than 0")
+        elif self.param["eta"] < 0:
+            ValueError("You need a positive integer higher or equal to 1")
+
         if age is None:
             self.age = 0
         else:
