@@ -195,7 +195,7 @@ def test_newborn_herb_false(mocker):
 
     land.newborn_herb()
 
-    assert len(pop) + 1 != len(land.pop)
+    assert len(pop) + 1 != len(pop)
 
 
 def test_newborn_herb(mocker):
@@ -204,16 +204,15 @@ def test_newborn_herb(mocker):
     """
     mocker.patch("random.random", return_value=0)
 
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    population = [{'species': 'Herbivore', 'age': 18, 'weight': 12.5},
+                  {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                  {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
     land = Landscape()
 
-    land.population_update(pop)
-
+    land.population_update(population)
+    population_before = len(land.herb)
     land.newborn_herb()
-
-    assert len(pop) + 1 == len(land.pop)
+    assert len(land.herb) > population_before
 
 # def test_newborn_carni(mocker):
 #     """
