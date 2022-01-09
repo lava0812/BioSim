@@ -16,7 +16,7 @@ from src.biosim.landscape import Landscape
 #  assert len(land.herb) == 3
 
 
-def test_disp_population():
+def test_disp_population_herbi():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
@@ -28,14 +28,14 @@ def test_disp_population():
     assert check == 3
 
 
-def test_disp_population_():
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+def test_disp_population_carni():
+    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+           {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
     land = Landscape()
     land.population_update(pop)
 
-    check = land.display_herb()
+    check = land.display_carni()
 
     assert check == 3
 
@@ -107,6 +107,24 @@ def test_eat_fodder():
     assert after_weight > before_weight
 
 
+def test_not_eat():
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    land = Landscape()
+    land.population_update(pop)
+    land.fodder = 0
+
+    before = land.herb[1].weight
+
+    land.eat_fodder()
+
+    assert before == land.herb[1].weight
+
+
+
+
+
 def test_death_population():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
@@ -126,19 +144,27 @@ def test_death_population():
 
 
 def test_prey():
-    herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
            {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
            {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
+    herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+
+    carnivores_list = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+
     land = Landscape()
     land.population_update(pop)
 
     before_population = len(land.total_pop())
 
-    land.prey()
+    land.prey(herbivores_list, carnivores_list)
 
     after_population = len(land.total_pop())
 
