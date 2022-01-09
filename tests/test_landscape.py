@@ -164,15 +164,31 @@ def test_death_population():
 
 
 def test_prey():
-    population= [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
+    """
+    We should test if the list gets shuffled or not here too.
+    We should also test if the method sorts the herbivore after the lowest to highest fitness.
+    """
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
+           {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+           {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+
+    herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+
+    carnivores_list = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
     land = Landscape()
-    land.population_update(population)
+    land.population_update(pop)
 
-    before_population = len(land.population_update())
+    before_population = len(land.total_pop())
 
-    land.prey
+    land.prey(herbivores_list, carnivores_list)
 
     after_population = len(land.total_pop())
 
@@ -180,6 +196,24 @@ def test_prey():
 
 
 # Hvordan teste pray
+
+
+def test_prey2():
+
+    l = Landscape()
+    l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+
+    l.herb = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    shuffled_list = l.prey()
+
+    assert l.carni != shuffled_list
+
+
+
 
 
 def test_newborn_herb_false(mocker):
