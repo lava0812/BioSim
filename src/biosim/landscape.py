@@ -50,8 +50,6 @@ class Landscape:
         """
         return len(self.carni)
 
-    def total_pop(self):
-        return self.herb + self.carni
 
     def new_fodder(self):
         """

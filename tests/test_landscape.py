@@ -164,27 +164,15 @@ def test_death_population():
 
 
 def test_prey():
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
-           {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-           {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
-
-    herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-
-    carnivores_list = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    population= [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
 
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
 
-    before_population = len(land.total_pop())
+    before_population = len(land.population_update())
 
-    land.prey(herbivores_list, carnivores_list)
+    land.prey
 
     after_population = len(land.total_pop())
 
