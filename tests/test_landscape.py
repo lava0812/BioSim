@@ -4,18 +4,16 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 from src.biosim.landscape import Landscape
-import pytest
-import random
 
 
-#def test_population_update():
+# def test_population_update():
 #    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
 #           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
 #           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
- #   land = Landscape()
- #   land.herb(pop)
+#   land = Landscape()
+#   land.herb(pop)
 
-  #  assert len(land.herb) == 3
+#  assert len(land.herb) == 3
 
 
 def test_disp_population():
@@ -28,6 +26,7 @@ def test_disp_population():
     check = land.display_herb()
 
     assert check == 3
+
 
 def test_disp_population_():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
@@ -131,14 +130,13 @@ def test_pray():
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
            {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Carnivore','age': 3, 'weight': 7.3},
-           {'species': 'Carnivore','age': 5, 'weight': 8.1}]
+           {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+           {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
     land = Landscape()
     land.population_update(pop)
 
     before = land.po
-
 
 # def test_newborn_herb(mocker):
 #     """
@@ -178,4 +176,3 @@ def test_pray():
 #     land.newborn_carni()
 
 # assert len(land.carni) > len(pop)
-
