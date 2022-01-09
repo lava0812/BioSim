@@ -17,7 +17,7 @@ class Landscape:
     def __init__(self):
         """
         Empty list to count the population.
-        Food count starts at 0 which will be updated
+        Food count starts at f_max which will be updated
         """
         self.param = None
         self.herb = []
@@ -42,6 +42,12 @@ class Landscape:
         This function will display the number of herbivores
         """
         return len(self.herb)
+
+    def add_herbivore(self, herbivore):
+        self.herb.append(herbivore)
+
+    def add_carnivore(self, carnivore):
+        self.carni.append(carnivore)
 
     def display_carni(self):
         """
@@ -100,7 +106,7 @@ class Landscape:
         individuals_count = len(self.herb)
 
         if individuals_count < 2:
-            return None
+            return False
 
         newborn_individuals = []
         if individuals_count >= 2:
@@ -118,7 +124,7 @@ class Landscape:
         individuals_count = len(self.herb)
 
         if individuals_count < 2:
-            return None
+            return False
 
         newborn_individuals = []
         if individuals_count >= 2:
@@ -199,8 +205,8 @@ class Water(Landscape):
         super().__init__()
 
 
-L = Landscape()
-L.herb = [Animal(5, 20) for i in range(50)]
-for i in range(1000):
-    L.simulate()
-    print(len(L.herb), L.fodder)
+# L = Landscape()
+# L.herb = [Animal(5, 20) for i in range(50)]
+# for i in range(1000):
+#     L.simulate()
+#     print(len(L.herb), L.fodder)

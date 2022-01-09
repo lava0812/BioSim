@@ -7,15 +7,15 @@ def simulate(self):
     self.eat_fodder()
     self.prey()
     self.death_population()
-    self.newborn_herb
+    self.newborn_herb()
     self.newborn_carni()
     self.weight_loss()
     self.aging_population()
 
 
 L = Landscape()
-L.herb = [Animal(5, 20) for i in range(50)]
-L.carni = [Animal(5, 20) for i in range(50)]
-for i in range(500):
-    L.simulate()
+L.herb = [Herbivore(age=5, weight=20) for i in range(50)]
+L.carni = [Carnivore(age=5, weight=100) for i in range(100)]
+for i in range(100):
     print(len(L.herb), len(L.carni), L.fodder)
+    L.simulate()
