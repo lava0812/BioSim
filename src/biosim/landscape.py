@@ -8,9 +8,8 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import operator
-import sys
 
-from src.biosim.animals import Animal, Herbivore
+from src.biosim.animals import Animal, Herbivore, Carnivore
 import random
 
 
@@ -189,7 +188,7 @@ class Lowland(Landscape):
     """
     Lowland
     """
-    parameters = {"f_max": 0}
+    parameters = {"f_max": 800}
 
     def __init__(self):
         super().__init__()
@@ -207,6 +206,6 @@ class Water(Landscape):
 
 L = Landscape()
 L.herb = [Animal(5, 20) for i in range(50)]
-for i in range(100):
+for i in range(1000):
     L.simulate()
     print(len(L.herb), L.fodder)

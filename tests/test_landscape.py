@@ -5,16 +5,17 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 from src.biosim.landscape import Landscape
 import pytest
+import random
 
 
-def test_population_update():
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    land = Landscape()
-    land.herb(pop)
+#def test_population_update():
+#    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+#           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+#           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+ #   land = Landscape()
+ #   land.herb(pop)
 
-    assert len(land.herb) == 3
+  #  assert len(land.herb) == 3
 
 
 def test_disp_population():
@@ -25,10 +26,19 @@ def test_disp_population():
     land.population_update(pop)
 
     check = land.display_herb()
-    check = land.display_carni()
 
     assert check == 3
 
+def test_disp_population_():
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    land = Landscape()
+    land.population_update(pop)
+
+    check = land.display_herb()
+
+    assert check == 3
 
 
 def test_new_fodder():
@@ -115,5 +125,40 @@ def test_death_population():
 
     assert len(before_population) != len(after_population)
 
-def test_newborn():
-    pass
+
+# def test_newborn_herb(mocker):
+#     """
+#     Newborn test
+#     """
+#     mocker.patch("random.random", return_value=0)
+#
+#     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+#            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+#            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+#
+#     land = Landscape()
+#
+#     land.population_update(pop)
+#
+#     land.newborn_herb()
+
+    # assert len(land.herb) > len(pop)
+
+# def test_newborn_carni(mocker):
+#     """
+#     Newborn test
+#     """
+#     mocker.patch("random.random", return_value=0)
+
+# population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+#                     {'species': 'Carnivore','age': 3, 'weight': 7.3},
+#                     {'species': 'Carnivore','age': 5, 'weight': 8.1}]
+
+#     land = Landscape()
+#
+#     land.population_update(pop)
+#
+#     land.newborn_carni()
+
+# assert len(land.carni) > len(pop)
+
