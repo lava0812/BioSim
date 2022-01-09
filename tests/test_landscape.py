@@ -141,8 +141,8 @@ def test_death_population():
 #     land.population_update(pop)
 #
 #     land.newborn_herb()
-
-    # assert len(land.herb) > len(pop)
+#
+#     assert len(pop) + 1 == len(land.pop)
 
 # def test_newborn_carni(mocker):
 #     """

@@ -141,7 +141,7 @@ class Landscape:
         for individuals in self.carni:
             return individuals.weight_decrease()
 
-    def prey(self, shuffled_carnivores): # Jeg hadde egentlig en "herbivores_list parameter her...
+    def prey(self, shuffled_carnivores):  # Jeg hadde egentlig en "herbivores_list parameter her...
         """
         Method for the prey of an herbivore by the carnivore.
         I have to add a way of calculating how much the carnivore has eaten.
@@ -149,7 +149,7 @@ class Landscape:
         random.shuffle(shuffled_carnivores)
 
         carnivore = shuffled_carnivores[0]
-        #herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
+        # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
         self.herb.sort(key=lambda x: "fitness", reverse=True)
         herbivores_lowest_fitness = self.herb[0]
         ate = 0
@@ -171,9 +171,6 @@ class Landscape:
             ate += herbivores_lowest_fitness.weight
             herbivores_lowest_fitness.death_animal()
             carnivore.fitness_animal()
-
-        for individuals in self.carni:
-            return individuals.weight_decrease()
 
     def simulate(self):
         self.new_fodder()
