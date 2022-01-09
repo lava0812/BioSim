@@ -78,7 +78,10 @@ class Landscape:
         random.shuffle(self.herb)
         for individuals in self.herb:
 
-            if self.fodder >= individuals.param["F"]:
+            if self.fodder == 0:
+                break
+
+            elif self.fodder >= individuals.param["F"]:
                 individuals.weight_increase_herb(individuals.param["F"])
                 self.fodder -= individuals.param["F"]
 
@@ -86,8 +89,7 @@ class Landscape:
                 individuals.weight_increase_herb(self.fodder)
                 self.fodder = 0
 
-            elif self.fodder == 0:
-                break
+
 
     def death_population(self):
         """

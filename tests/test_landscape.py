@@ -116,20 +116,33 @@ def test_eat_fodder2():
     land.population_update(pop)
     land.new_fodder()
 
+# def test_eat_fodder3(mocker):
+#
+#     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+#            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+#            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+#     land = Landscape()
+#     land.population_update(population)
+#     land.fodder = 0
+#     land.eat_fodder()
+
+
+
+
 
 def test_not_eat():
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
     land.fodder = 0
 
-    before = land.herb[1].weight
+    before = land.herb[0].weight
 
     land.eat_fodder()
 
-    assert before == land.herb[1].weight
+    assert before == land.herb[0].weight
 
 
 def test_death_population():
