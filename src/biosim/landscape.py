@@ -149,6 +149,7 @@ class Landscape:
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
         random.shuffle(self.carni)
         carnivore = self.carni[0]
+
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
         self.herb.sort(key=lambda x: "fitness", reverse=True)
