@@ -149,8 +149,8 @@ class Landscape:
         I have to add a way of calculating how much the carnivore has eaten.
         """
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
-        carnivores_newlist = random.shuffle(self.carni)
-        carnivore = carnivores_newlist[0]
+        random.shuffle(self.carni)
+        carnivore = self.carni[0]
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
         self.herb.sort(key=lambda x: "fitness", reverse=True)
