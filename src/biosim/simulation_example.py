@@ -17,5 +17,6 @@ L = Landscape()
 L.herb = [Herbivore(age=5, weight=20) for i in range(50)]
 L.carni = [Carnivore(age=5, weight=100) for i in range(100)]
 for i in range(100):
-    print(len(L.herb), len(L.carni), L.fodder)
+    #print(len(L.herb), len(L.carni), L.fodder)
     L.simulate()
+    print(len(L.herb), len(L.carni), L.fodder)

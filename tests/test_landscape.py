@@ -3,7 +3,7 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from src.biosim.landscape import Landscape
+from src.biosim.landscape import Landscape, Lowland, Water
 
 
 # def test_population_update():
@@ -262,3 +262,14 @@ def test_newborn_carni(mocker):
     assert len(land.carni) > population_before_carni
 
 
+def test_parameters_lowland():
+    L = Lowland()
+    f_max = L.parameters["f_max"]
+
+    assert f_max == 800
+
+def test_parameters_water():
+    L = Water()
+    f_max = L.parameters["f_max"]
+
+    assert f_max == 0

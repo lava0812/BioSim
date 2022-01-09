@@ -89,8 +89,6 @@ class Landscape:
                 individuals.weight_increase_herb(self.fodder)
                 self.fodder = 0
 
-
-
     def death_population(self):
         """
         Remove the animals that have died from the population list
@@ -153,7 +151,7 @@ class Landscape:
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
         carnivores_newlist = random.shuffle(self.carni)
         carnivore = carnivores_newlist[0]
-        #herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
+        # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
         self.herb.sort(key=lambda x: "fitness", reverse=True)
         herbivores_lowest_fitness = self.herb[0]
@@ -204,9 +202,3 @@ class Water(Landscape):
 
     def __init__(self):
         super().__init__()
-
-# L = Landscape()
-# L.herb = [Animal(5, 20) for i in range(50)]
-# for i in range(1000):
-#     L.simulate()
-#     print(len(L.herb), L.fodder)
