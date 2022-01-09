@@ -135,9 +135,6 @@ def test_not_eat():
     assert before == land.herb[1].weight
 
 
-
-
-
 def test_death_population():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
@@ -183,26 +180,40 @@ def test_prey():
 
     assert before_population != after_population
 # Hvordan teste pray
-# def test_newborn_herb(mocker):
-#     """
-#     Newborn test
-#     """
-#     mocker.patch("random.random", return_value=0)
-#
-#     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-#            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-#            {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
-#            {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-# #          {'species': 'Carnivore','age': 3, 'weight': 7.3},
-# #          {'species': 'Carnivore','age': 5, 'weight': 8.1}]
-#
-#     land = Landscape()
-#
-#     land.population_update(pop)
-#
-#     land.newborn_herb()
-#
-#     assert len(pop) + 1 == len(land.pop)
+
+
+def test_newborn_herb_false(mocker):
+    """
+    Newborn test
+    """
+    mocker.patch("random.random", return_value=0)
+
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+    land = Landscape()
+
+    land.population_update(pop)
+
+    land.newborn_herb()
+
+    assert len(pop) + 1 != len(land.pop)
+
+
+def test_newborn_herb(mocker):
+    """
+    Newborn test
+    """
+    mocker.patch("random.random", return_value=0)
+
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    land = Landscape()
+
+    land.population_update(pop)
+
+    land.newborn_herb()
+
+    assert len(pop) + 1 == len(land.pop)
 
 # def test_newborn_carni(mocker):
 #     """
