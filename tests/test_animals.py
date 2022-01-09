@@ -4,9 +4,11 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
-from src.biosim.animals import Animal, Herbivore, Carnivore
-from scipy import stats
+
 import numpy as np
+from scipy import stats
+
+from src.biosim.animals import Animal, Herbivore
 
 
 def test_aging():

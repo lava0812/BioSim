@@ -7,8 +7,9 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from src.biosim.animals import Animal
 import random
+
+from src.biosim.animals import Animal
 
 
 class Landscape:
@@ -203,7 +204,6 @@ class Water(Landscape):
 
     def __init__(self):
         super().__init__()
-
 
 # L = Landscape()
 # L.herb = [Animal(5, 20) for i in range(50)]
