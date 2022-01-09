@@ -119,7 +119,7 @@ class Landscape:
         Adding the newborn babies to the population list
         Making a new list, then we can extend the population list
         """
-        individuals_count = len(self.herb)
+        individuals_count = len(self.carni)
 
         if individuals_count < 2:
             return False

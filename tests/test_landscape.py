@@ -238,8 +238,8 @@ def test_newborn_carni(mocker):
     mocker.patch("random.random", return_value=0)
 
     population_carni = [{'species': 'Carnivore', 'age': 18, 'weight': 12.5},
-                  {'species': 'Carnivore', 'age': 9, 'weight': 10.3},
-                  {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+                        {'species': 'Carnivore', 'age': 9, 'weight': 10.3},
+                        {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
     land = Landscape()
 
     land.population_update(population_carni)
