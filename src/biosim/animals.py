@@ -67,6 +67,7 @@ class Animal:
         This will be a method for adding new parameters to the function.
         This will be a classmethod because it involves changing the class variables.
         """
+
     def aging(self):
         """
         Aging the animals.
@@ -216,7 +217,7 @@ class Carnivore(Animal):
         else:
             self.kill_p = 1
         """
-        herbivores = Herbivore(Animal) # Trenger ikke å kjøre fitness funksjonen, fordi den blir kjørt i initen.
+        herbivores = Herbivore(Animal)  # Trenger ikke å kjøre fitness funksjonen, fordi den blir kjørt i initen.
 
         if self.fitness <= herbivores.fitness:
             self.kill_p = 0
@@ -232,8 +233,6 @@ class Carnivore(Animal):
 
         """
         self.weight += self.param["beta"] * weight_herbivore
-        #if fitness til carnivore - herbuvire > 0
-
-
+        # if fitness til carnivore - herbivore > 0
 
         # We will have the weight increase when a carnivore dies in the animal class.
