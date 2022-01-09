@@ -8,7 +8,7 @@ import random
 import numpy as np
 from scipy import stats
 
-from src.biosim.animals import Animal, Herbivore
+from src.biosim.animals import Animal, Herbivore, Carnivore
 
 
 def test_aging():
@@ -133,6 +133,10 @@ def test_birth(mocker):
     herbivore.weight = 1
     birth_herbivore = herbivore.birth(5)
     assert birth_herbivore is None
+
+def test_init():
+    A = Carnivore()
+    assert A.kill_p is None
 
 # def test_birth_weight_loss():
 #     """

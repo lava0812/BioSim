@@ -213,33 +213,32 @@ class Carnivore(Animal):
         super().__init__(age=age, weight=weight)
         self.kill_p = None
 
-    def kill_herbivore(self):
-        """
-        Create a method for killing a herbivore.
-
-        if fitness_carn =< fitness of herb
-            self.kill_p = 0
-        elif 0 < fitness_carn - fitness_herb < param["DeltaPhiMax"]
-            self.kill_p = (fitness_carn - fitness_herb)/ param["DeltaPhiMax"]
-        else:
-            self.kill_p = 1
-        """
-        herbivores = Herbivore(Animal)  # Trenger ikke å kjøre fitness funksjonen, fordi den blir kjørt i initen.
-
-        if self.fitness <= herbivores.fitness:
-            self.kill_p = 0
-
-        elif 0 < self.fitness - herbivores.fitness < self.param["DeltaPhiMax"]:
-            self.kill_p = (self.fitness - herbivores.fitness) / self.param["DeltaPhiMax"]
-        else:
-            self.kill_p = 1
-
-    def weight_increase_carn(self, weight_herbivore):
-        """
-        Create a method for the weight increase a carnivore experience after it has eaten a herbivore.
-
-        """
-        self.weight += self.param["beta"] * weight_herbivore
+    # def kill_herbivore(self):
+    #     """
+    #     Create a method for killing a herbivore.
+    #
+    #     if fitness_carn =< fitness of herb
+    #         self.kill_p = 0
+    #     elif 0 < fitness_carn - fitness_herb < param["DeltaPhiMax"]
+    #         self.kill_p = (fitness_carn - fitness_herb)/ param["DeltaPhiMax"]
+    #     else:
+    #         self.kill_p = 1
+    #     """
+    #     herbivores = Herbivore(Animal)  # Trenger ikke å kjøre fitness funksjonen, fordi den blir kjørt i initen.
+    #
+    #     if self.fitness <= herbivores.fitness:
+    #         self.kill_p = 0
+    #
+    #     elif 0 < self.fitness - herbivores.fitness < self.param["DeltaPhiMax"]:
+    #         self.kill_p = (self.fitness - herbivores.fitness) / self.param["DeltaPhiMax"]
+    #     else:
+    #         self.kill_p = 1
+    # def weight_increase_carn(self, weight_herbivore):
+    #     """
+    #     Create a method for the weight increase a carnivore experience after it has eaten a herbivore.
+    #
+    #     """
+    #     self.weight += self.param["beta"] * weight_herbivore
         # if fitness til carnivore - herbivore > 0
 
         # We will have the weight increase when a carnivore dies in the animal class.

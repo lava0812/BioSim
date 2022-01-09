@@ -106,6 +106,7 @@ def test_eat_fodder():
 
     assert after_weight > before_weight
 
+
 def test_eat_fodder2():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
@@ -114,10 +115,6 @@ def test_eat_fodder2():
     land = Landscape()
     land.population_update(pop)
     land.new_fodder()
-
-
-
-
 
 
 def test_not_eat():
@@ -179,6 +176,8 @@ def test_prey():
     after_population = len(land.total_pop())
 
     assert before_population != after_population
+
+
 # Hvordan teste pray
 
 
@@ -210,24 +209,43 @@ def test_newborn_herb(mocker):
     land = Landscape()
 
     land.population_update(population)
-    population_before = len(land.herb)
+    population_before_herb = len(land.herb)
     land.newborn_herb()
-    assert len(land.herb) > population_before
 
-# def test_newborn_carni(mocker):
-#     """
-#     Newborn test
-#     """
-#     mocker.patch("random.random", return_value=0)
+    assert len(land.herb) > population_before_herb
 
-# population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-#                     {'species': 'Carnivore','age': 3, 'weight': 7.3},
-#                     {'species': 'Carnivore','age': 5, 'weight': 8.1}]
 
-#     land = Landscape()
-#
-#     land.population_update(pop)
-#
-#     land.newborn_carni()
+def test_newborn_carni_false(mocker):
+    """
+    Newborn test
+    """
+    mocker.patch("random.random", return_value=0)
 
-# assert len(land.carni) > len(pop)
+    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
+    land = Landscape()
+
+    land.population_update(pop)
+
+    land.newborn_herb()
+
+    assert len(pop) + 1 != len(pop)
+
+
+def test_newborn_carni(mocker):
+    """
+    Newborn test
+    """
+    mocker.patch("random.random", return_value=0)
+
+    population_carni = [{'species': 'Carnivore', 'age': 18, 'weight': 12.5},
+                  {'species': 'Carnivore', 'age': 9, 'weight': 10.3},
+                  {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    land = Landscape()
+
+    land.population_update(population_carni)
+    population_before_carni = len(land.carni)
+    land.newborn_carni()
+
+    assert len(land.carni) > population_before_carni
+
+

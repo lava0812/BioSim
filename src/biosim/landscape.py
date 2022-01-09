@@ -143,17 +143,17 @@ class Landscape:
         for individuals in self.carni:
             return individuals.weight_decrease()
 
-    def prey(self, carnivores_list, herbivores_list):
+    def prey(self):
         """
         Method for the prey of a herbivore by the carnivore.
         I have to add a way of calculating how much the carnivore has eaten.
         """
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
-        carnivores_newlist = random.shuffle(carnivores_list)
+        carnivores_newlist = random.shuffle(self.carni)
         carnivore = carnivores_newlist[0]
-        herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
+        #herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
-        #self.herb.sort(key=lambda x: "fitness", reverse=True)
+        self.herb.sort(key=lambda x: "fitness", reverse=True)
         herbivores_lowest_fitness = self.herb[0]
         ate = 0
 
