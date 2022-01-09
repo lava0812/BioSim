@@ -7,7 +7,7 @@ def simulate(self):
     self.eat_fodder()
     self.prey()
     self.death_population()
-    self.newborn_herb()
+    self.newborn_herb
     self.newborn_carni()
     self.weight_loss()
     self.aging_population()

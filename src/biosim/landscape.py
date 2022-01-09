@@ -7,9 +7,7 @@ Lowland, Desert and Water.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-import operator
-
-from src.biosim.animals import Animal, Herbivore, Carnivore
+from src.biosim.animals import Animal
 import random
 
 
@@ -143,7 +141,7 @@ class Landscape:
 
     def prey(self, shuffled_carnivores):  # Jeg hadde egentlig en "herbivores_list parameter her...
         """
-        Method for the prey of an herbivore by the carnivore.
+        Method for the prey of a herbivore by the carnivore.
         I have to add a way of calculating how much the carnivore has eaten.
         """
         random.shuffle(shuffled_carnivores)
