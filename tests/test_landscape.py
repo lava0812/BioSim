@@ -209,6 +209,24 @@ def test_prey2():
     assert l.carni != shuffled_list
 
 
+def test_prey2_alt():
+    carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+             {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+             {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    land = Landscape()
+    land.population_update(carni)
+
+    population_list_before = land.carni
+
+    land.prey()
+
+    population_list_after = land.carni
+
+    assert population_list_before != population_list_after
+
+
+
+
 def test_newborn_herb_false(mocker):
     """
     Newborn test
