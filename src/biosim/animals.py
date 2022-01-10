@@ -14,7 +14,23 @@ import random
 
 
 class Animal:
+    param = {}
 
+    @classmethod
+    def set_params(cls, added_parameters):
+        """
+        This will be a method for adding new parameters to the function.
+        This will be a classmethod because it involves changing the class variables.
+        """
+        for parameters in added_parameters:
+            if parameters not in cls.param:
+                raise KeyError("Invalid parameter name")
+
+        for parameters in cls.param:
+            if parameters in cls.param:
+                if added_parameters[parameters] < 0:
+                    raise ValueError("Inputted parameters can not be negative!")
+        cls.param.update(added_parameters)
 
     def __init__(self, age=None, weight=None):
 
@@ -30,9 +46,9 @@ class Animal:
 
         """
 
-        #if self.param["DeltaPhiMax"] <= 0:
+        # if self.param["DeltaPhiMax"] <= 0:
         #    ValueError("You need a positive integer higher than 0")
-        #elif self.param["eta"] < 0:
+        # elif self.param["eta"] < 0:
         #    ValueError("You need a positive integer higher or equal to 1")
 
         if age is None:
@@ -45,20 +61,11 @@ class Animal:
         else:
             self.weight = weight
 
-        # self.age = age
-        # self.weight = weight
         self.fitness = None
         self.fitness_animal()
         # self.probability_birth = None
         # self.probability_die = None
         self.death = False
-        self.param = {}
-
-    def set_params(self):
-        """
-        This will be a method for adding new parameters to the function.
-        This will be a classmethod because it involves changing the class variables.
-        """
 
     def aging(self):
         """
@@ -93,7 +100,7 @@ class Animal:
 
     def weight_increase_herb(self, fodder):
         """
-        Increasing the weight of a herbivore once it eats some fodder F.
+        Increasing the weight of a herbivore and carnivore once it eats some fodder F.
         """
         self.weight += self.param["beta"] * fodder
         self.fitness_animal()
@@ -130,34 +137,28 @@ class Animal:
         Death of an animal, using probability.
         """
         probability_die = self.param["omega"] * (
-                1 - self.fitness)  # Herbivore will die with a probability of w(1-fitness)
+                1 - self.fitness)  # Herbivore, carnivore will die with a probability of w(1-fitness)
 
         if self.weight == 0:  # Retta på fra =< til ==
-            self.death = True  # Herbivore dies with certainty
+            self.death = True  # Herbivore, carnivore dies with certainty
         elif probability_die >= random.random():
             self.death = True
         return self.death
 
-    def birth(self, n_herbivore):
+    def birth(self, n_animals_in_same_species):
         """
         Probability to give birth for an animal.
         """
-        probability = min(1, self.param["gamma"] * self.fitness * (n_herbivore - 1))
+        probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))
         if random.random() < probability:
             weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
-            born_baby = type(self)(0, int(weight))  # Herbivore()
+            born_baby = type(self)(0, int(weight))  # Herbivore()/Carnivore()
 
             if self.weight < born_baby.weight * self.param["xi"]:
                 return None
             else:
                 self.weight -= born_baby.weight * self.param["xi"]
                 return born_baby
-
-    # def birth_weight_loss(self):
-    #     """
-    #     This method makes the herbivore mother lose a weight of zeta times the weight of the baby.
-    #     """
-    #     self.weight -= self.weight_baby() * self.param_herbivores["xi"]
 
 
 class Herbivore(Animal):
@@ -175,7 +176,8 @@ class Herbivore(Animal):
         "zeta": 3.5,
         "xi": 1.2,
         "omega": 0.4,
-        "F": 10.0
+        "F": 10.0,
+        "DeltaPhiMax": None
     }
 
     def __init__(self, age=None, weight=None):
@@ -213,33 +215,3 @@ class Carnivore(Animal):
     def __init__(self, age=None, weight=None):
         super().__init__(age=age, weight=weight)
         self.kill_p = None
-
-    # def kill_herbivore(self):
-    #     """
-    #     Create a method for killing a herbivore.
-    #
-    #     if fitness_carn =< fitness of herb
-    #         self.kill_p = 0
-    #     elif 0 < fitness_carn - fitness_herb < param["DeltaPhiMax"]
-    #         self.kill_p = (fitness_carn - fitness_herb)/ param["DeltaPhiMax"]
-    #     else:
-    #         self.kill_p = 1
-    #     """
-    #     herbivores = Herbivore(Animal)  # Trenger ikke å kjøre fitness funksjonen, fordi den blir kjørt i initen.
-    #
-    #     if self.fitness <= herbivores.fitness:
-    #         self.kill_p = 0
-    #
-    #     elif 0 < self.fitness - herbivores.fitness < self.param["DeltaPhiMax"]:
-    #         self.kill_p = (self.fitness - herbivores.fitness) / self.param["DeltaPhiMax"]
-    #     else:
-    #         self.kill_p = 1
-    # def weight_increase_carn(self, weight_herbivore):
-    #     """
-    #     Create a method for the weight increase a carnivore experience after it has eaten a herbivore.
-    #
-    #     """
-    #     self.weight += self.param["beta"] * weight_herbivore
-        # if fitness til carnivore - herbivore > 0
-
-        # We will have the weight increase when a carnivore dies in the animal class.
