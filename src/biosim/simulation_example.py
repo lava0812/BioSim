@@ -20,9 +20,9 @@ for i in range(50):
     print(len(L.herb), L.fodder)
     L.simulate()
 
-L.carni = [Carnivore(age=5, weight=50) for i in range(50)]
-for i in range(50):
-    print(len(L.carni), L.fodder)
-    L.simulate()
+# L.carni = [Carnivore(age=5, weight=50) for i in range(50)]
+# for i in range(50):
+#     print(len(L.carni), L.fodder)
+#     L.simulate()
 
 

@@ -157,7 +157,9 @@ class Animal:
         """
         Probability to give birth for an animal.
         """
+
         probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))
+
         if random.random() < probability:
             weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
             born_baby = type(self)(0, int(weight))  # Herbivore()/Carnivore()

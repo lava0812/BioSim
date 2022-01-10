@@ -36,7 +36,7 @@ def test_gaussian_distribution():
     Check if weight of baby actually is a gaussian distribution.
     """
     random.seed(12345)
-    weights = [Animal().weight_baby() for _ in range(5000)]
+    weights = [Herbivore().weight_baby() for _ in range(5000)]
 
     numpy_weights = np.array(weights)
 
