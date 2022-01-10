@@ -190,22 +190,42 @@ def test_prey():
 
     after_population = land.herb
 
-    assert len(before_population) != len(after_population)
+    assert len(before_population) > len(after_population)
 
 
+# def test_prey2():
+#     l = Landscape()
+#     l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+#                {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+#                {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+#
+#     l.herb = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+#               {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+#               {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+#     shuffled_list = l.prey()
+#
+#     assert l.carni != shuffled_list
 
-def test_prey2():
-    l = Landscape()
-    l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-               {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-               {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
-    l.herb = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-              {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-              {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    shuffled_list = l.prey()
+def test_prey2_alt():
+    carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+             {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+             {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    land = Landscape()
+    land.population_update(carni)
 
-    assert l.carni != shuffled_list
+    population_list_before = land.carni
+
+    land.prey()
+
+    population_list_after = land.carni
+
+    assert population_list_before != population_list_after
+
+
+def test_pray3():
+
+    lowland = Landscape()
 
 
 def test_newborn_herb_false(mocker):
