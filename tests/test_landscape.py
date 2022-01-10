@@ -58,7 +58,7 @@ def test_new_fodder_not_updated():
     assert land.fodder != 0
 
 
-def test_aging_population():
+def test_aging_population_herbi():
     """
     Test if the aging goes 1 up every year for herbivores
     Does this by checking age before and after the function
@@ -74,7 +74,7 @@ def test_aging_population():
 
     new_age = land.herb[0].age
 
-    assert new_age > old_age
+    assert new_age == old_age + 1
 
 
 def test_aging_population_carni():
@@ -93,7 +93,7 @@ def test_aging_population_carni():
 
     new_age = land.carni[0].age
 
-    assert new_age > old_age
+    assert new_age == old_age + 1
 
 
 def test_weight_loss_herbi():
@@ -101,7 +101,7 @@ def test_weight_loss_herbi():
     Test if the herbivores lose weight over the years
 
     """
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 10}]
 
     land = Landscape()
     land.population_update(pop)
@@ -112,7 +112,7 @@ def test_weight_loss_herbi():
 
     new_weight = land.herb[0].weight
 
-    assert new_weight < old_weight
+    assert new_weight == 9.5
 
 
 def test_weight_loss_carni():
@@ -120,7 +120,7 @@ def test_weight_loss_carni():
     Test if the carnivores lose weight over the year
 
     """
-    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
+    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 10}]
 
     land = Landscape()
     land.population_update(pop)
@@ -201,7 +201,9 @@ def test_death_population():
 
     after_population = land.herb
 
-    assert len(before_population) != len(after_population)
+    assert len(after_population) == 2
+
+  #  assert len(before_population) != len(after_population)
 
 
 def test_prey():
@@ -229,6 +231,9 @@ def test_prey():
 
 
 def test_prey2():
+    """
+    Test randomize list
+    """
     random.seed(123456)
     carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
              {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
