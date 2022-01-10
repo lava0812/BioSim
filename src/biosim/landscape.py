@@ -9,7 +9,7 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
 
-from src.biosim.animals import Animal
+from src.biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
@@ -32,11 +32,11 @@ class Landscape:
         """
         for individuals in pop_list:
             if individuals["species"] == "Herbivore":
-                self.herb.append(Animal(age=individuals["age"], weight=individuals["weight"]))
+                self.herb.append(Herbivore(age=individuals["age"], weight=individuals["weight"]))
 
         for individuals in pop_list:
             if individuals["species"] == "Carnivore":
-                self.carni.append(Animal(age=individuals["age"], weight=individuals["weight"]))
+                self.carni.append(Carnivore(age=individuals["age"], weight=individuals["weight"]))
 
     def display_herb(self):
         """
@@ -49,7 +49,6 @@ class Landscape:
         This function will display the number of carnivores
         """
         return len(self.carni)
-
 
     def new_fodder(self):
         """
@@ -148,34 +147,45 @@ class Landscape:
         """
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
         random.shuffle(self.carni)
-        #carnivore = self.carni[0]
+        # carnivore = self.carni[0]
 
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
         self.herb.sort(key=lambda x: "fitness", reverse=True)
-        herbivores_lowest_fitness = self.herb[0]
         ate = 0
 
         for carnivore in self.carni:
-            print(carnivore.fitness, carnivore.param["F"], carnivore.param["DeltaPhiMax"], herbivores_lowest_fitness.fitness)
-            if ate >= carnivore.param["F"]:
-                pass
-            elif carnivore.fitness <= herbivores_lowest_fitness.fitness:
-                self.kill_p = 0
-            elif 0 < carnivore.fitness - herbivores_lowest_fitness.fitness < carnivore.param["DeltaPhiMax"]:
-                self.kill_p = (carnivore.fitness - herbivores_lowest_fitness.fitness) / carnivore.param["DeltaPhiMax"]
-                if self.kill_p < random.random():
-                    ate += herbivores_lowest_fitness.weight
-                    herbivores_lowest_fitness.death_animal()
-                    carnivore.weight += carnivore.param["beta"] * herbivores_lowest_fitness.weight
-                    carnivore.fitness_animal()
-            else:
-                self.kill_p = 1
+            for herbivores in self.herb:
 
-                carnivore.weight += carnivore.param["beta"] * herbivores_lowest_fitness.weight
-                ate += herbivores_lowest_fitness.weight
-                herbivores_lowest_fitness.death_animal()
+                kill_p = 0
+                if ate >= carnivore.param["F"] and carnivore.fitness <= herbivores.fitness:
+                    pass
+                elif 0 < carnivore.fitness - herbivores.fitness < carnivore.param["DeltaPhiMax"]:
+                    kill_p = (carnivore.fitness - herbivores.fitness) / carnivore.param["DeltaPhiMax"]
+
+                else:
+
+                    kill_p = 1
+                if kill_p < random.random():
+                    w = herbivores.weight
+                    if ate + herbivores.weight > carnivore.param["F"]:
+                        w = carnivore.param["F"] - ate
+                        ate = carnivore.param["F"]
+
+                    ate += herbivores.weight
+                    herbivores.death_animal()
+                    carnivore.weight += carnivore.param["beta"] * w
+                    carnivore.fitness_animal()
+
+
+
+                carnivore.weight += carnivore.param["beta"] * herbivores.weight
+                ate += herbivores.weight
+                herbivores.death = True
                 carnivore.fitness_animal()
+
+            self.death_population()
+
 
     def simulate(self):
         self.new_fodder()
@@ -186,6 +196,7 @@ class Landscape:
         self.newborn_carni()
         self.weight_loss()
         self.aging_population()
+
 
 class Lowland(Landscape):
     """

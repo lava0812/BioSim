@@ -169,7 +169,7 @@ def test_prey():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
-           {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+           {'species': 'Carnivore', 'age': 10, 'weight': 50},
            {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
@@ -204,6 +204,7 @@ def test_prey2():
               {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
               {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
     shuffled_list = l.prey()
+    # We should have l.population_update here too.
 
     assert l.carni != shuffled_list
 
