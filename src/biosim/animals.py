@@ -149,7 +149,7 @@ class Animal:
 
         if self.weight == 0:  # Retta på fra =< til ==
             self.death = True  # Herbivore, carnivore dies with certainty
-        elif probability_die >= random.random():
+        elif probability_die > random.random():
             self.death = True
         return self.death
 
