@@ -57,9 +57,9 @@ def test_new_fodder():
     land.new_fodder()
     assert land.fodder == 800
 
-def test_new_fodder():
+def test_new_fodder_not_updated():
     """
-    Checks if the fodder updates every year
+    Checks if the fodder updates every year, in this case it does not
     """
     land = Landscape()
     land.fodder = 0
@@ -87,6 +87,25 @@ def test_aging_population():
     assert new_age > old_age
 
 
+def test_aging_population_carni():
+    """
+    Test if the aging goes 1 up every year
+    Does this by checking age before and after the function
+    """
+    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
+
+    land = Landscape()
+    land.population_update(pop)
+
+    old_age = land.carni[0].age
+
+    land.aging_population()
+
+    new_age = land.carni[0].age
+
+    assert new_age > old_age
+
+
 def test_weight_loss():
     """
     Same system as aging test
@@ -105,6 +124,7 @@ def test_weight_loss():
 
     assert new_weight < old_weight
 
+
 def test_weight_loss_carni():
     """
     Same system as aging test
@@ -122,6 +142,7 @@ def test_weight_loss_carni():
     new_weight = land.carni[0].weight
 
     assert new_weight < old_weight
+
 
 def test_eat_fodder():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
@@ -215,6 +236,7 @@ def test_prey():
     after_population = land.herb
 
     assert len(before_population) != len(after_population)
+
 
 def test_prey2():
     random.seed(123456)
