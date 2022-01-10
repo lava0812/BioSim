@@ -19,6 +19,9 @@ from src.biosim.landscape import Landscape, Lowland, Water
 
 
 def test_disp_population_herbi():
+    """
+    This test will check if the function append the right amount of herbivores from the given list
+    """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
@@ -31,6 +34,9 @@ def test_disp_population_herbi():
 
 
 def test_disp_population_carni():
+    """
+    This will test if the function append the right amount of carnivores from the given list
+    """
     pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
            {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
@@ -44,14 +50,22 @@ def test_disp_population_carni():
 
 def test_new_fodder():
     """
-    Checks if the fodder updates
+    Checks if the fodder updates every year
+    """
+    land = Landscape()
+    land.fodder = 0
+    land.new_fodder()
+    assert land.fodder == 800
+
+def test_new_fodder():
+    """
+    Checks if the fodder updates every year
     """
     land = Landscape()
     land.fodder = 0
     land.new_fodder()
 
     assert land.fodder != 0
-    assert land.fodder == 800
 
 
 def test_aging_population():
@@ -91,6 +105,23 @@ def test_weight_loss():
 
     assert new_weight < old_weight
 
+def test_weight_loss_carni():
+    """
+    Same system as aging test
+
+    """
+    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
+
+    land = Landscape()
+    land.population_update(pop)
+
+    old_weight = land.carni[0].weight
+
+    land.weight_loss()
+
+    new_weight = land.carni[0].weight
+
+    assert new_weight < old_weight
 
 def test_eat_fodder():
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
@@ -174,14 +205,6 @@ def test_prey():
            {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
-    # herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-    #                    {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-    #                    {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    #
-    # carnivores_list = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-    #                    {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-    #                    {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
-
     land = Landscape()
     land.population_update(pop)
 
@@ -193,23 +216,7 @@ def test_prey():
 
     assert len(before_population) != len(after_population)
 
-
-# def test_prey2():
-#     l = Landscape()
-#     l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-#                {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-#                {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
-#
-#     l.herb = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-#               {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-#               {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-#     shuffled_list = l.prey()
-#     # We should have l.population_update here too.
-#
-#     assert l.carni != shuffled_list
-
-
-def test_prey2_alt():
+def test_prey2():
     random.seed(123456)
     carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
              {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
