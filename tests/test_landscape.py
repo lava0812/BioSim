@@ -173,24 +173,24 @@ def test_prey():
            {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
-    herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-
-    carnivores_list = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    # herbivores_list = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+    #                    {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+    #                    {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    #
+    # carnivores_list = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+    #                    {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+    #                    {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
     land = Landscape()
     land.population_update(pop)
 
-    before_population = len(l)
+    before_population = land.herb
 
-    land.prey(herbivores_list, carnivores_list)
+    land.prey()
 
-    after_population = len(land.total_pop())
+    after_population = land.herb
 
-    assert before_population != after_population
+    assert len(before_population) != len(after_population)
 
 
 
