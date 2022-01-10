@@ -170,8 +170,8 @@ def test_birth_one_carni():
 
 
 def test_init():
-    A = Carnivore()
-    assert A.kill_p is None
+    a = Carnivore()
+    assert a.kill_p is None
 
 # def test_birth_weight_loss():
 #     """

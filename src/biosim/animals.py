@@ -92,8 +92,10 @@ class Animal:
     def fitness_animal(self):
         """
         Calculate the fitness of an animal.
-        -----------------------------------
+
         Returns
+        -------
+
         """
 
         if self.weight <= 0:
@@ -117,6 +119,11 @@ class Animal:
     def death_animal(self):
         """
         Death of an animal, using probability.
+
+        Returns
+        -------
+        self.death: Boolean
+        Returning if death is equal to true or false.
         """
         probability_die = self.param["omega"] * (
                 1 - self.fitness)
@@ -131,6 +138,10 @@ class Animal:
     def birth(self, n_animals_in_same_species):
         """
         Probability to give birth for an animal.
+
+        Returns
+        -------
+        new_baby: Generating a new baby
         """
 
         probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))

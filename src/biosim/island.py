@@ -51,11 +51,7 @@ class Island:
         Started on the map_input method here. This will take care of the error messages if
         something is wrong with the input the user have put in.
         """
-        map_list = self.map.split("\n")
-        length_of_first_row = len(map_list[0])
-        for rows in map_list:
-            if len(rows) != length_of_first_row:
-                ValueError("Check map input, all lines are not the same length")
+
 
 
 
