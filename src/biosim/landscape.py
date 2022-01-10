@@ -1,8 +1,10 @@
 # -*- encoding: utf-8 -*-
 
 """
-This file wll contain a main class Landscape(Superclass). The Landscape class will have four subclasses, Highland,
-Lowland, Desert and Water.
+This file wll contain a main class Landscape(Superclass).
+The Landscape class will have four subclasses, Highland, Lowland, Desert and Water.
+
+We will use information from this file to build our map of Rossumøya
 """
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
@@ -13,67 +15,75 @@ from src.biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
-    parameters = {"f_max": 0}
+    parameters = {"f_max": 800}
 
     def __init__(self):
         """
-        Empty list to count the population.
-        Food count starts at f_max which will be updated
+        Empty list to count the population, and here will we append the new values every year.
+        Food count starts at f_max which will be updated every year.
         """
         self.param = None
-        self.herb = []
-        self.carni = []
+        self.herbivores = []
+        self.carnivores = []
         self.fodder = self.parameters["f_max"]
-        self.kill_p = None
+        self.kill_probability = None
 
-    def population_update(self, pop_list):
+    def population_update(self, population_list):
         """
-        Append to list
+        This function updates the population for a given list with animals.
+        It will also separately put the species in their respective list.
         """
-        for individuals in pop_list:
+        for individuals in population_list:
             if individuals["species"] == "Herbivore":
-                self.herb.append(Herbivore(age=individuals["age"], weight=individuals["weight"]))
+                self.herbivores.append(Herbivore(age=individuals["age"],
+                                                 weight=individuals["weight"]))
 
-        for individuals in pop_list:
+        for individuals in population_list:
             if individuals["species"] == "Carnivore":
-                self.carni.append(Carnivore(age=individuals["age"], weight=individuals["weight"]))
+                self.carnivores.append(Carnivore(age=individuals["age"],
+                                                 weight=individuals["weight"]))
 
-    def display_herb(self):
+    def display_herbivores(self):
         """
-        This function will display the number of herbivores
+        This function will display the number of herbivores in the self.herbivores list
+        :return: the herbivore count
         """
-        return len(self.herb)
+        return len(self.herbivores)
 
     def display_carni(self):
         """
-        This function will display the number of carnivores
+        This function will display the number of carnivores in the self.carnivores list
+        :return: the carnivore count
         """
-        return len(self.carni)
+        return len(self.carnivores)
 
     def new_fodder(self):
         """
-        Function to add fixed amount of fodder in the lowland
+        Function to add the parameter "f_max" every year in Lowland and Highland
         """
         self.fodder = self.parameters["f_max"]
 
     def aging_population(self):
         """
-        A method for aging all the herbivores in the lowland cell.
+        This function will age all the living population on Rossumøya
+        every year since it common for both carnivores and herbivores
         """
 
-        for individuals in self.herb:
+        for individuals in self.herbivores:
             individuals.aging()
 
-        for individuals in self.carni:
+        for individuals in self.carnivores:
             individuals.aging()
 
     def eat_fodder(self):
         """
-        Function to reduce the fodder
-        Using random shuffle to let the herbivores eat in a random order
+        Function to reduce the fodder after the herbivore are pleased with themselves.
+        Then remove the fodder amount that have been consumed by the herbivores
+        Using random shuffle to let the herbivores eat in a random order, and break the loop
+        if the fodder amount is on 0
         """
-        random.shuffle(self.herb)
-        for individuals in self.herb:
+        random.shuffle(self.herbivores)
+        for individuals in self.herbivores:
 
             if self.fodder == 0:
                 break
@@ -90,54 +100,59 @@ class Landscape:
         """
         Remove the animals that have died from the population list
         """
-        self.herb = [individuals for individuals in self.herb if not individuals.death_animal()]
-        self.carni = [individuals for individuals in self.carni if not individuals.death_animal()]
+        self.herbivores = [individuals for individuals in self.herbivores
+                           if not individuals.death_animal()]
+        self.carnivores = [individuals for individuals in self.carnivores
+                           if not individuals.death_animal()]
 
-    def newborn_herb(self):
+    def newborn_herbivore(self):
         """
-        Adding the newborn babies to the population list
+        Adding the newborn herbivore to the population list
         Making a new list, then we can extend the population list
+        If the amount of one species is lower than 2 the functions won't execute
         """
-        herbivore_count = len(self.herb)
+        herbivore_count = len(self.herbivores)
 
         if herbivore_count < 2:
             return False
 
-        newborn_herb = []
+        newborn_herbivore = []
         if herbivore_count >= 2:
-            for individuals in self.herb:
+            for individuals in self.herbivores:
                 newborn = individuals.birth(herbivore_count)
                 if newborn is not None:
-                    newborn_herb.append(newborn)
-        self.herb.extend(newborn_herb)
+                    newborn_herbivore.append(newborn)
+        self.herbivores.extend(newborn_herbivore)
 
-    def newborn_carni(self):
+    def newborn_carnivore(self):
         """
-        Adding the newborn babies to the population list
+        Adding the newborn carnivore to the population list
         Making a new list, then we can extend the population list
+        If the amount of one species is lower than 2 the functions won't execute
         """
-        individuals_count = len(self.carni)
+        individuals_count = len(self.carnivores)
 
         if individuals_count < 2:
             return False
 
-        newborn_individuals = []
+        newborn_carnivore = []
         if individuals_count >= 2:
-            for individuals in self.carni:
+            for individuals in self.carnivores:
                 newborn = individuals.birth(individuals_count)
                 if newborn is not None:
-                    newborn_individuals.append(newborn)
-        self.carni.extend(newborn_individuals)
+                    newborn_carnivore.append(newborn)
+        self.carnivores.extend(newborn_carnivore)
 
     def weight_loss(self):
         """
-        The annual weight loss every year
+        The animals on the island will lose a specific amount of weight,
+        and this will happen on this function
         """
 
-        for individuals in self.herb:
+        for individuals in self.herbivores:
             return individuals.weight_decrease()
 
-        for individuals in self.carni:
+        for individuals in self.carnivores:
             return individuals.weight_decrease()
 
     def prey(self):
@@ -146,27 +161,29 @@ class Landscape:
         I have to add a way of calculating how much the carnivore has eaten.
         """
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
-        random.shuffle(self.carni)
+        random.shuffle(self.carnivores)
         # carnivore = self.carni[0]
 
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
-        self.herb.sort(key=lambda x: "fitness", reverse=True)
+        self.herbivores.sort(key=lambda x: "fitness", reverse=True)
         ate = 0
 
-        for carnivore in self.carni:
-            for herbivores in self.herb:
+        for carnivore in self.carnivores:
+            for herbivores in self.herbivores:
 
-                kill_p = 0
+                kill_probability = 0
+
                 if ate >= carnivore.param["F"] and carnivore.fitness <= herbivores.fitness:
                     pass
                 elif 0 < carnivore.fitness - herbivores.fitness < carnivore.param["DeltaPhiMax"]:
-                    kill_p = (carnivore.fitness - herbivores.fitness) / carnivore.param["DeltaPhiMax"]
+                    kill_probability = (carnivore.fitness - herbivores.fitness) /\
+                             carnivore.param["DeltaPhiMax"]
 
                 else:
 
-                    kill_p = 1
-                if kill_p < random.random():
+                    kill_probability = 1
+                if kill_probability < random.random():
                     w = herbivores.weight
                     if ate + herbivores.weight > carnivore.param["F"]:
                         w = carnivore.param["F"] - ate
@@ -189,15 +206,15 @@ class Landscape:
         self.eat_fodder()
         self.prey()
         self.death_population()
-        self.newborn_herb()
-        self.newborn_carni()
+        self.newborn_herbivore()
+        self.newborn_carnivore()
         self.weight_loss()
         self.aging_population()
 
 
 class Lowland(Landscape):
     """
-    Lowland
+    This class is a subclass of the Landscape class to portray the lowland
     """
     parameters = {"f_max": 800}
 
@@ -207,7 +224,7 @@ class Lowland(Landscape):
 
 class Water(Landscape):
     """
-    Water
+    This class is a subclass of the Landscape class to portray the water
     """
     parameters = {"f_max": 0}
 

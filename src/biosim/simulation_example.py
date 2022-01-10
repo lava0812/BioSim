@@ -6,8 +6,8 @@ def simulate():
     Lowland().new_fodder()
     Lowland().eat_fodder()
     Lowland().prey()
-    Lowland().newborn_herb()
-    Lowland().newborn_carni()
+    Lowland().newborn_herbivore()
+    Lowland().newborn_carnivore()
 
     Lowland().aging_population()
     Lowland().weight_loss()
@@ -15,11 +15,11 @@ def simulate():
 
 
 L = Lowland()
-L.herb = [Herbivore(age=5, weight=20) for i in range(50)]
+L.herbivores = [Herbivore(age=5, weight=20) for i in range(50)]
 
 for i in range(50):
     L.simulate()
-    print(len(L.herb), L.fodder)
+    print(len(L.herbivores), L.fodder)
 
 #
 # L.carni = [Carnivore(age=5, weight=50) for i in range(50)]

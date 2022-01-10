@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
 
+"""
+This script purpose is to test the functions from landscape.py file.
+"""
+
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
@@ -8,7 +12,7 @@ import random
 from src.biosim.landscape import Landscape, Lowland, Water
 
 
-def test_disp_population_herbi():
+def test_disp_population_herbivores():
     """
     This test will check if the function append the right amount of herbivores from the given list
     """
@@ -18,7 +22,7 @@ def test_disp_population_herbi():
     land = Landscape()
     land.population_update(pop)
 
-    check = land.display_herb()
+    check = land.display_herbivores()
 
     assert check == 3
 
@@ -68,11 +72,11 @@ def test_aging_population_herbi():
     land = Landscape()
     land.population_update(pop)
 
-    old_age = land.herb[0].age
+    old_age = land.herbivores[0].age
 
     land.aging_population()
 
-    new_age = land.herb[0].age
+    new_age = land.herbivores[0].age
 
     assert new_age == old_age + 1
 
@@ -87,11 +91,11 @@ def test_aging_population_carni():
     land = Landscape()
     land.population_update(pop)
 
-    old_age = land.carni[0].age
+    old_age = land.carnivores[0].age
 
     land.aging_population()
 
-    new_age = land.carni[0].age
+    new_age = land.carnivores[0].age
 
     assert new_age == old_age + 1
 
@@ -106,11 +110,11 @@ def test_weight_loss_herbi():
     land = Landscape()
     land.population_update(pop)
 
-    old_weight = land.herb[0].weight
+    old_weight = land.herbivores[0].weight
 
     land.weight_loss()
 
-    new_weight = land.herb[0].weight
+    new_weight = land.herbivores[0].weight
 
     assert new_weight == 9.5
 
@@ -125,11 +129,11 @@ def test_weight_loss_carni():
     land = Landscape()
     land.population_update(pop)
 
-    old_weight = land.carni[0].weight
+    old_weight = land.carnivores[0].weight
 
     land.weight_loss()
 
-    new_weight = land.carni[0].weight
+    new_weight = land.carnivores[0].weight
 
     assert new_weight < old_weight
 
@@ -142,11 +146,11 @@ def test_eat_fodder():
     land.population_update(pop)
     land.new_fodder()
 
-    before_weight = land.herb[0].weight
+    before_weight = land.herbivores[0].weight
 
     land.eat_fodder()
 
-    after_weight = land.herb[0].weight
+    after_weight = land.herbivores[0].weight
 
     assert after_weight > before_weight
 
@@ -179,11 +183,11 @@ def test_eat_fodder_not_eat():
     land.population_update(population)
     land.fodder = 0
 
-    before = land.herb[0].weight
+    before = land.herbivores[0].weight
 
     land.eat_fodder()
 
-    assert before == land.herb[0].weight
+    assert before == land.herbivores[0].weight
 
 
 def test_death_population():
@@ -193,13 +197,13 @@ def test_death_population():
 
     land = Landscape()
     land.population_update(pop)
-    land.herb[1].weight = 0
+    land.herbivores[1].weight = 0
 
-    before_population = land.herb
+    before_population = land.herbivores
 
     land.death_population()
 
-    after_population = land.herb
+    after_population = land.herbivores
 
     assert len(after_population) == 2
 
@@ -221,11 +225,11 @@ def test_prey():
     land = Landscape()
     land.population_update(pop)
 
-    before_population = land.herb
+    before_population = land.herbivores
 
     land.prey()
 
-    after_population = land.herb
+    after_population = land.herbivores
 
     assert len(before_population) != len(after_population)
 
@@ -241,11 +245,11 @@ def test_prey2():
     land = Landscape()
     land.population_update(carni)
 
-    population_list_before = land.carni
+    population_list_before = land.carnivores
 
     land.prey()
 
-    population_list_after = land.carni
+    population_list_after = land.carnivores
 
     assert population_list_before != population_list_after
 
@@ -261,7 +265,7 @@ def test_newborn_herb_false(mocker):
 
     land.population_update(pop)
 
-    land.newborn_herb()
+    land.newborn_herbivore()
 
     assert len(pop) + 1 != len(pop)
 
@@ -278,10 +282,10 @@ def test_newborn_herb(mocker):
     land = Landscape()
 
     land.population_update(population)
-    population_before_herb = len(land.herb)
-    land.newborn_herb()
+    population_before_herb = len(land.herbivores)
+    land.newborn_herbivore()
 
-    assert len(land.herb) > population_before_herb
+    assert len(land.herbivores) > population_before_herb
 
 
 def test_newborn_carni_false(mocker):
@@ -295,7 +299,7 @@ def test_newborn_carni_false(mocker):
 
     land.population_update(pop)
 
-    land.newborn_carni()
+    land.newborn_carnivore()
 
     assert len(pop) + 1 != len(pop)
 
@@ -312,10 +316,10 @@ def test_newborn_carni(mocker):
     land = Landscape()
 
     land.population_update(population_carni)
-    population_before_carni = len(land.carni)
-    land.newborn_carni()
+    population_before_carni = len(land.carnivores)
+    land.newborn_carnivore()
 
-    assert len(land.carni) > population_before_carni
+    assert len(land.carnivores) > population_before_carni
 
 
 def test_parameters_lowland():
