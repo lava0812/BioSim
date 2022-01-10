@@ -194,19 +194,19 @@ def test_prey():
 
 
 
-def test_prey2():
-    l = Landscape()
-    l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-               {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-               {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
-
-    l.herb = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-              {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-              {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    shuffled_list = l.prey()
-    # We should have l.population_update here too.
-
-    assert l.carni != shuffled_list
+# def test_prey2():
+#     l = Landscape()
+#     l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+#                {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+#                {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+#
+#     l.herb = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+#               {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+#               {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+#     shuffled_list = l.prey()
+#     # We should have l.population_update here too.
+#
+#     assert l.carni != shuffled_list
 
 
 def test_prey2_alt():
