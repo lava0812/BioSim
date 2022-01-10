@@ -92,7 +92,7 @@ class Landscape:
         Remove the animals that have died from the population list
         """
         self.herb = [individuals for individuals in self.herb if not individuals.death_animal()]
-        self.carni = [individuals for individuals in self.herb if not individuals.death_animal()]
+        self.carni = [individuals for individuals in self.carni if not individuals.death_animal()]
 
     def newborn_herb(self):
         """
