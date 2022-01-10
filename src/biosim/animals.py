@@ -121,16 +121,24 @@ class Animal:
         -----------------------------------
         Returns
         """
-        q_positive = 1 / (1 + math.exp((self.param["phi_age"])
-                                       * (self.age - self.param["a_half"])
-                                       ))
-        q_negative = 1 / (1 + math.exp((-self.param["phi_weight"])
-                                       * (self.weight - self.param["w_half"])
-                                       ))
+
         if self.weight <= 0:
             self.fitness = 0
+            return False
         else:
+
+            tall = round((self.param["phi_age"]) * (self.age - self.param["a_half"]), 10)
+            tall2 = round((-self.param["phi_weight"]) * (self.weight - self.param["w_half"]), 10)
+
+            q_positive = 1 / (1 + math.exp(tall))
+            q_negative = 1 / (1 + math.exp(tall2))
+
             self.fitness = q_positive * q_negative
+
+        # if self.weight <= 0:
+        #     self.fitness = 0
+        # else:
+        #     self.fitness = q_positive * q_negative
 
     def death_animal(self):
         """
