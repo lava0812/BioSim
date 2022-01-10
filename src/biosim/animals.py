@@ -49,7 +49,7 @@ class Animal:
         if age is None:
             self.age = 0
         else:
-            self.age = 0
+            self.age = age
 
         if weight is None:
             self.weight = self.weight_baby()

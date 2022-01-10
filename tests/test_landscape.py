@@ -14,46 +14,50 @@ from src.biosim.landscape import Landscape, Lowland, Water
 
 def test_disp_population_herbivores():
     """
-    This test will check if the function append the right amount of herbivores from the given list
+    This test will check if the function append the right
+    amount of herbivores from the given list
     """
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+                  {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                  {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
 
     check = land.display_herbivores()
 
     assert check == 3
 
 
-def test_disp_population_carni():
+def test_disp_population_carnivores():
     """
-    This will test if the function append the right amount of carnivores from the given list
+    This will test if the function append the right
+    amount of carnivores from the given list
     """
-    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-           {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
+                  {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+                  {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
 
-    check = land.display_carni()
+    check = land.display_carnivores()
 
     assert check == 3
 
 
 def test_new_fodder():
     """
-    Checks if the fodder updates every year
+    Checks if the fodder grows/updates every new year
     """
     land = Landscape()
     land.fodder = 0
     land.new_fodder()
     assert land.fodder == 800
 
+
 def test_new_fodder_not_updated():
     """
-    Checks if the fodder updates every year, in this case it does not
+    Checks what happens if there is no growth/update
+    of the fodder in the new year
     """
     land = Landscape()
     land.fodder = 0
@@ -62,15 +66,15 @@ def test_new_fodder_not_updated():
     assert land.fodder != 0
 
 
-def test_aging_population_herbi():
+def test_aging_population_herbivore():
     """
-    Test if the aging goes 1 up every year for herbivores
+    Test if the aging goes +1 up every year for herbivores
     Does this by checking age before and after the function
     """
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
 
     old_age = land.herbivores[0].age
 
@@ -81,15 +85,16 @@ def test_aging_population_herbi():
     assert new_age == old_age + 1
 
 
-def test_aging_population_carni():
+def test_aging_population_carnivore():
     """
     Test if the aging goes 1 up every year for carnivores
-    Does this by checking age before and after the function
+    Does this by checking age before and after the function has executed
+
     """
-    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
+    population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
 
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
 
     old_age = land.carnivores[0].age
 
@@ -100,17 +105,15 @@ def test_aging_population_carni():
     assert new_age == old_age + 1
 
 
-def test_weight_loss_herbi():
+def test_weight_loss_herbivore():
     """
-    Test if the herbivores lose weight over the years
-
+    Test if the herbivores lose weight over the new year
+    Does this by calculating the weight by hand, then testing the answer
     """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 10}]
 
     land = Landscape()
     land.population_update(pop)
-
-    old_weight = land.herbivores[0].weight
 
     land.weight_loss()
 
@@ -122,7 +125,7 @@ def test_weight_loss_herbi():
 def test_weight_loss_carni():
     """
     Test if the carnivores lose weight over the year
-
+    Does this by
     """
     pop = [{'species': 'Carnivore', 'age': 10, 'weight': 10}]
 

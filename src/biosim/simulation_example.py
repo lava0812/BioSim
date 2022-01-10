@@ -17,7 +17,7 @@ def simulate():
 L = Lowland()
 L.herbivores = [Herbivore(age=5, weight=20) for i in range(50)]
 
-for i in range(50):
+for i in range(500):
     L.simulate()
     print(len(L.herbivores), L.fodder)
 

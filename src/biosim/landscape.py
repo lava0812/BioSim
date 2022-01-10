@@ -50,7 +50,7 @@ class Landscape:
         """
         return len(self.herbivores)
 
-    def display_carni(self):
+    def display_carnivores(self):
         """
         This function will display the number of carnivores in the self.carnivores list
         :return: the carnivore count
