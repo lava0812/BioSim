@@ -98,18 +98,18 @@ class Landscape:
         Adding the newborn babies to the population list
         Making a new list, then we can extend the population list
         """
-        individuals_count = len(self.herb)
+        herbivore_count = len(self.herb)
 
-        if individuals_count < 2:
+        if herbivore_count < 2:
             return False
 
-        newborn_individuals = []
-        if individuals_count >= 2:
+        newborn_herb = []
+        if herbivore_count >= 2:
             for individuals in self.herb:
-                newborn = individuals.birth(individuals_count)
+                newborn = individuals.birth(herbivore_count)
                 if newborn is not None:
-                    newborn_individuals.append(newborn)
-        self.herb.extend(newborn_individuals)
+                    newborn_herb.append(newborn)
+        self.herb.extend(newborn_herb)
 
     def newborn_carni(self):
         """

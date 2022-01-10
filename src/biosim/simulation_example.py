@@ -16,7 +16,7 @@ def simulate():
 L = Landscape()
 L.herb = [Herbivore(age=5, weight=20) for i in range(50)]
 
-for i in range(50):
+for i in range(500):
     print(len(L.herb), L.fodder)
     L.simulate()
 

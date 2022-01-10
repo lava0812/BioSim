@@ -8,11 +8,11 @@ import random
 import numpy as np
 from scipy import stats
 
-from src.biosim.animals import Animal, Herbivore, Carnivore
+from src.biosim.animals import Herbivore, Carnivore
 
 
 def test_aging():
-    herbivore = Animal()
+    herbivore = Herbivore()
     herbivore.aging()
 
     assert herbivore.age == 1
@@ -53,7 +53,7 @@ def test_weight_increase_herb():
     """
     Test on the weight increase once a herbivore eats fodder.
     """
-    herbivore = Herbivore(Animal)
+    herbivore = Herbivore()
 
     pre_weight = herbivore.weight
     herbivore.weight_increase_herb(5)
@@ -67,7 +67,7 @@ def test_weight_decrease():
     Test on the weight decrease every year.
     """
 
-    herbivore = Animal(5, 10)
+    herbivore = Herbivore(5, 10)
     herbivore.weight_baby()
 
     pre_weight = herbivore.weight
@@ -83,7 +83,7 @@ def test_fitness_herbivores():
     Test if fitness calculation is updated correct when age and weight is positive, and
     the fitness is set to 0.
     """
-    herbivore1 = Animal(40, 10)
+    herbivore1 = Herbivore(40, 10)
     herbivore1.fitness = 0
     herbivore1.fitness_animal()
     assert herbivore1.fitness > 0
@@ -93,7 +93,7 @@ def test_fitness_herbivores_zero_weight():
     """
     Test if fitness is equal to 0, when weight is zero.
     """
-    herbivore2 = Animal(30, 0)
+    herbivore2 = Herbivore(30, 0)
     herbivore2.fitness_animal()
 
     assert herbivore2.fitness == 0
@@ -103,7 +103,7 @@ def test_death_herbivores_certain():
     """
     Test death when herbivore weight is zero.
     """
-    herbivores = Animal(30, 0)
+    herbivores = Herbivore(30, 0)
 
     herbivores.death_animal()
     assert herbivores.death == True
@@ -115,7 +115,7 @@ def test_death_herbivores_bychance(mocker):
     Test the chance of death, using mocker.
     """
     mocker.patch("random.random", return_value=0)
-    herbivores = Animal(10, 20)
+    herbivores = Herbivore(10, 20)
     herbivores.death_animal()
 
     assert herbivores.death == True
@@ -126,13 +126,14 @@ def test_birth(mocker):
     Test the probability of birth.
     """
     mocker.patch("random.random", return_value=0)
-    herbivore = Animal(3, 14)
+    herbivore = Herbivore(3, 14)
     birth_herbivore = herbivore.birth(5)
 
     assert birth_herbivore is not None
     herbivore.weight = 1
     birth_herbivore = herbivore.birth(5)
     assert birth_herbivore is None
+
 
 def test_init():
     A = Carnivore()

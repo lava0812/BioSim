@@ -8,16 +8,6 @@ import random
 from src.biosim.landscape import Landscape, Lowland, Water
 
 
-# def test_population_update():
-#    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-#           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-#           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-#   land = Landscape()
-#   land.herb(pop)
-
-#  assert len(land.herb) == 3
-
-
 def test_disp_population_herbi():
     """
     This test will check if the function append the right amount of herbivores from the given list
@@ -70,7 +60,7 @@ def test_new_fodder_not_updated():
 
 def test_aging_population():
     """
-    Test if the aging goes 1 up every year
+    Test if the aging goes 1 up every year for herbivores
     Does this by checking age before and after the function
     """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
@@ -89,7 +79,7 @@ def test_aging_population():
 
 def test_aging_population_carni():
     """
-    Test if the aging goes 1 up every year
+    Test if the aging goes 1 up every year for carnivores
     Does this by checking age before and after the function
     """
     pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
@@ -106,9 +96,9 @@ def test_aging_population_carni():
     assert new_age > old_age
 
 
-def test_weight_loss():
+def test_weight_loss_herbi():
     """
-    Same system as aging test
+    Test if the herbivores lose weight over the years
 
     """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
@@ -127,7 +117,7 @@ def test_weight_loss():
 
 def test_weight_loss_carni():
     """
-    Same system as aging test
+    Test if the carnivores lose weight over the year
 
     """
     pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
