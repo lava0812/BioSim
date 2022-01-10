@@ -290,6 +290,7 @@ def test_parameters_lowland():
 
     assert f_max == 800
 
+
 def test_parameters_water():
     L = Water()
     f_max = L.parameters["f_max"]
