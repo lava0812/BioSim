@@ -5,7 +5,7 @@ from src.biosim.animals import Animal, Herbivore, Carnivore
 def simulate(self):
     self.new_fodder()
     self.eat_fodder()
-    #self.prey()
+    self.prey()
     self.death_population()
     self.newborn_herb()
     self.newborn_carni()
@@ -15,8 +15,10 @@ def simulate(self):
 
 L = Landscape()
 L.herb = [Herbivore(age=5, weight=20) for i in range(50)]
-L.carni = [Carnivore(age=5, weight=100) for i in range(100)]
+L.carni = [Carnivore(age=5, weight=100) for j in range(5)]
 for i in range(500):
+    print(i)
     #print(len(L.herb), len(L.carni), L.fodder)
     L.simulate()
     print(len(L.herb), len(L.carni), L.fodder)
+

@@ -148,7 +148,7 @@ class Landscape:
         """
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
         random.shuffle(self.carni)
-        carnivore = self.carni[0]
+        #carnivore = self.carni[0]
 
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
@@ -156,32 +156,36 @@ class Landscape:
         herbivores_lowest_fitness = self.herb[0]
         ate = 0
 
-        if ate >= self.param["F"]:
-            pass
-        elif carnivore.fitness <= herbivores_lowest_fitness.fitness:
-            self.kill_p = 0
-        elif 0 < carnivore.fitness - herbivores_lowest_fitness.fitness < self.param["DeltaPhiMax"]:
-            self.kill_p = (carnivore.fitness - herbivores_lowest_fitness.fitness) / self.param["DeltaPhiMax"]
-            if self.kill_p > random.random():
+        for carnivore in self.carni:
+            print(carnivore.fitness, carnivore.param["F"], carnivore.param["DeltaPhiMax"], herbivores_lowest_fitness.fitness)
+            if ate >= carnivore.param["F"]:
+                pass
+            elif carnivore.fitness <= herbivores_lowest_fitness.fitness:
+                self.kill_p = 0
+            elif 0 < carnivore.fitness - herbivores_lowest_fitness.fitness < carnivore.param["DeltaPhiMax"]:
+                self.kill_p = (carnivore.fitness - herbivores_lowest_fitness.fitness) / carnivore.param["DeltaPhiMax"]
+                if self.kill_p < random.random():
+                    ate += herbivores_lowest_fitness.weight
+                    herbivores_lowest_fitness.death_animal()
+                    carnivore.weight += carnivore.param["beta"] * herbivores_lowest_fitness.weight
+                    carnivore.fitness_animal()
+            else:
+                self.kill_p = 1
+
+                carnivore.weight += carnivore.param["beta"] * herbivores_lowest_fitness.weight
                 ate += herbivores_lowest_fitness.weight
                 herbivores_lowest_fitness.death_animal()
                 carnivore.fitness_animal()
-        else:
-            self.kill_p = 1
 
-            carnivore.weight += self.param["beta"] * herbivores_lowest_fitness.weight
-            ate += herbivores_lowest_fitness.weight
-            herbivores_lowest_fitness.death_animal()
-            carnivore.fitness_animal()
-def simulate(self):
-    self.new_fodder()
-    self.eat_fodder()
-    self.prey()
-    self.death_population()
-    self.newborn_herb()
-    self.newborn_carni()
-    self.weight_loss()
-    self.aging_population()
+    def simulate(self):
+        self.new_fodder()
+        self.eat_fodder()
+        self.prey()
+        self.death_population()
+        self.newborn_herb()
+        self.newborn_carni()
+        self.weight_loss()
+        self.aging_population()
 
 class Lowland(Landscape):
     """

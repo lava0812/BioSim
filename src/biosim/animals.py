@@ -14,23 +14,7 @@ import random
 
 
 class Animal:
-    param = {
-        "w_birth": 8.0,
-        "sigma_birth": 1.5,
-        "beta": 0.9,
-        "eta": 0.05,
-        "a_half": 40.0,
-        "phi_age": 0.6,
-        "w_half": 10.0,
-        "phi_weight": 0.1,
-        "mu": 0.25,
-        "gamma": 0.2,
-        "zeta": 3.5,
-        "xi": 1.2,
-        "omega": 0.4,
-        "F": 10.0,
-        "DeltaPhiMax": None
-    }
+
 
     def __init__(self, age=None, weight=None):
 
@@ -68,6 +52,7 @@ class Animal:
         # self.probability_birth = None
         # self.probability_die = None
         self.death = False
+        self.param = {}
 
     def set_params(self):
         """
@@ -157,7 +142,7 @@ class Animal:
         """
         Probability to give birth for an animal.
         """
-        probability = min(1, Animal.param["gamma"] * self.fitness * (n_herbivore - 1))
+        probability = min(1, self.param["gamma"] * self.fitness * (n_herbivore - 1))
         if random.random() < probability:
             weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
             born_baby = type(self)(0, int(weight))  # Herbivore()
@@ -176,6 +161,22 @@ class Animal:
 
 
 class Herbivore(Animal):
+    param = {
+        "w_birth": 8.0,
+        "sigma_birth": 1.5,
+        "beta": 0.9,
+        "eta": 0.05,
+        "a_half": 40.0,
+        "phi_age": 0.6,
+        "w_half": 10.0,
+        "phi_weight": 0.1,
+        "mu": 0.25,
+        "gamma": 0.2,
+        "zeta": 3.5,
+        "xi": 1.2,
+        "omega": 0.4,
+        "F": 10.0
+    }
 
     def __init__(self, age=None, weight=None):
         super().__init__(age, weight)

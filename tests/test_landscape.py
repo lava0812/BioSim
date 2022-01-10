@@ -117,6 +117,7 @@ def test_eat_fodder2():
     land.population_update(pop)
     land.new_fodder()
 
+
 # def test_eat_fodder3(mocker):
 #
 #     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
@@ -129,7 +130,6 @@ def test_eat_fodder2():
 
 
 def test_not_eat():
-
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
     land = Landscape()
@@ -193,25 +193,19 @@ def test_prey():
     assert before_population != after_population
 
 
-# Hvordan teste pray
-
 
 def test_prey2():
-
     l = Landscape()
     l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+               {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
+               {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
     l.herb = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+              {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+              {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
     shuffled_list = l.prey()
 
     assert l.carni != shuffled_list
-
-
-
 
 
 def test_newborn_herb_false(mocker):
