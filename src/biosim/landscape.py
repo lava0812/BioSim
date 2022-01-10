@@ -79,11 +79,11 @@ class Landscape:
                 break
 
             elif self.fodder >= individuals.param["F"]:
-                individuals.weight_increase_herb(individuals.param["F"])
+                individuals.weight_increase(individuals.param["F"])
                 self.fodder -= individuals.param["F"]
 
             elif self.fodder < individuals.param["F"]:
-                individuals.weight_increase_herb(self.fodder)
+                individuals.weight_increase(self.fodder)
                 self.fodder = 0
 
     def death_population(self):

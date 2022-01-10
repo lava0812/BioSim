@@ -1,4 +1,8 @@
 # -*- encoding: utf-8 -*-
+"""
+This is the test function for the Animals class, which contains the subclasses, herbivores and
+carnivores.
+"""
 
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
@@ -46,8 +50,6 @@ def test_gaussian_distribution():
 
     assert a < p_value
 
-    # Something wrong with this test.
-
 
 def test_weight_increase_herb():
     """
@@ -56,7 +58,7 @@ def test_weight_increase_herb():
     herbivore = Herbivore()
 
     pre_weight = herbivore.weight
-    herbivore.weight_increase_herb(5)
+    herbivore.weight_increase(5)
     after_weight = herbivore.weight
 
     assert pre_weight < after_weight
@@ -132,6 +134,7 @@ def test_birth_herb(mocker):
 
     assert birth_herb is None
 
+
 def test_birth_carni(mocker):
     """
     Test the probability of birth.
@@ -145,6 +148,9 @@ def test_birth_carni(mocker):
 
 
 def test_birth_one_herb():
+    """
+    Test the birth function when there is only one herbivore in the cell.
+    """
     herbivore = Herbivore(5, 23)
     n_animals_in_same_species = 1
     birth_herb = herbivore.birth(n_animals_in_same_species)
@@ -153,14 +159,14 @@ def test_birth_one_herb():
 
 
 def test_birth_one_carni():
+    """
+    Test the birth function when there is only one carnivore in the cell.
+    """
     carnivore = Carnivore(5, 23)
     n_animals_in_same_species = 1
     birth_carni = carnivore.birth(n_animals_in_same_species)
 
     assert birth_carni is None
-
-
-
 
 
 def test_init():

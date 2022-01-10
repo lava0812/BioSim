@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 """
-This file will contain a main class Animals(Superclass). This Animals class will contains methods for characteristics
-that are common for both herbivores and carnivores. The Animals class will have to subclasses,
+This file will contain a main class Animals(Superclass). Th
+is Animals class will contains methods for characteristics
+that are common for both herbivores and carnivores. The Animals class will have two subclasses,
 Herbivores and Carnivores.
 These to subclasses will contain methods specifically for herbivores and carnivores.
 """
@@ -17,7 +18,7 @@ class Animal:
     param = {}
 
     @classmethod
-    def set_params(cls, added_parameters):
+    def set_param(cls, added_parameters):
         """
         This will be a method for adding new parameters to the function.
         This will be a classmethod because it involves changing the class variables.
@@ -45,12 +46,6 @@ class Animal:
         Weight of an animal, and the default value is set to be None.
 
         """
-
-        # if self.param["DeltaPhiMax"] <= 0:
-        #    ValueError("You need a positive integer higher than 0")
-        # elif self.param["eta"] < 0:
-        #    ValueError("You need a positive integer higher or equal to 1")
-
         if age is None:
             self.age = 0
         else:
@@ -63,8 +58,6 @@ class Animal:
 
         self.fitness = None
         self.fitness_animal()
-        # self.probability_birth = None
-        # self.probability_die = None
         self.death = False
 
     def aging(self):
@@ -85,26 +78,17 @@ class Animal:
         weight: int
         Generate a weight, using random.gauss.
         """
-        # The random.gauss function will go as a return statement.
         weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
         return weight
 
-    # def weight_increase(self, fodder):
-    #     """
-    #     This method will increase the weight of the herbivores once it eats some fodder F. It will increase with
-    #     beta times the amount of fodder it eats.
-    #     """
-    #     self.weight += self.param["beta"] * fodder
-    #     self.fitness_animal()
-    #
-
-    def weight_increase_herb(self, fodder):
+    def weight_increase(self, fodder):
         """
         Increasing the weight of a herbivore and carnivore once it eats some fodder F.
         """
         self.weight += self.param["beta"] * fodder
         self.fitness_animal()
-        # The function over should be in the herbivores subclass, but it is here, just so that the tests
+        # The function over should be in the herbivores subclass,
+        # but it is here, just so that the tests
         # can work.
 
     def weight_decrease(self):
@@ -145,7 +129,8 @@ class Animal:
         Death of an animal, using probability.
         """
         probability_die = self.param["omega"] * (
-                1 - self.fitness)  # Herbivore, carnivore will die with a probability of w(1-fitness)
+                1 - self.fitness)
+        # Herbivore, carnivore will die with a probability of w(1-fitness)
 
         if self.weight == 0:  # Retta på fra =< til ==
             self.death = True  # Herbivore, carnivore dies with certainty
@@ -159,7 +144,6 @@ class Animal:
         """
 
         probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))
-
 
         if self.weight < self.param["zeta"] * (self.param["w_birth"] + self.param["sigma_birth"]):
             return None
@@ -196,7 +180,7 @@ class Herbivore(Animal):
     def __init__(self, age=None, weight=None):
         super().__init__(age, weight)
 
-    def weight_increase_herb(self, fodder):
+    def weight_increase(self, fodder):
         """
         Increasing the weight of a herbivore once it eats some fodder F.
         """
@@ -222,8 +206,6 @@ class Carnivore(Animal):
         "F": 50.0,
         "DeltaPhiMax": 10
     }
-
-    # Have to change the parameters here.
 
     def __init__(self, age=None, weight=None):
         super().__init__(age=age, weight=weight)
