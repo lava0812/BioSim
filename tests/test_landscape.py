@@ -300,7 +300,7 @@ def test_newborn_carni_false(mocker):
 
     land.population_update(pop)
 
-    land.newborn_herb()
+    land.newborn_carni()
 
     assert len(pop) + 1 != len(pop)
 
