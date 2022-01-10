@@ -81,16 +81,6 @@ class Animal:
         weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
         return weight
 
-    def weight_increase(self, fodder):
-        """
-        Increasing the weight of a herbivore and carnivore once it eats some fodder F.
-        """
-        self.weight += self.param["beta"] * fodder
-        self.fitness_animal()
-        # The function over should be in the herbivores subclass,
-        # but it is here, just so that the tests
-        # can work.
-
     def weight_decrease(self):
         """
         Decrease the weight of an animal, which will happen every year.
