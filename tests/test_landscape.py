@@ -3,6 +3,8 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+import random
+
 from src.biosim.landscape import Landscape, Lowland, Water
 
 
@@ -57,8 +59,7 @@ def test_aging_population():
     Test if the aging goes 1 up every year
     Does this by checking age before and after the function
     """
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'C'}]
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
     land = Landscape()
     land.population_update(pop)
@@ -193,7 +194,6 @@ def test_prey():
     assert len(before_population) != len(after_population)
 
 
-
 # def test_prey2():
 #     l = Landscape()
 #     l.carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
@@ -210,6 +210,7 @@ def test_prey():
 
 
 def test_prey2_alt():
+    random.seed(123456)
     carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
              {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
              {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
@@ -223,8 +224,6 @@ def test_prey2_alt():
     population_list_after = land.carni
 
     assert population_list_before != population_list_after
-
-
 
 
 def test_newborn_herb_false(mocker):

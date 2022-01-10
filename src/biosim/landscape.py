@@ -177,15 +177,12 @@ class Landscape:
                     carnivore.weight += carnivore.param["beta"] * w
                     carnivore.fitness_animal()
 
-
-
                 carnivore.weight += carnivore.param["beta"] * herbivores.weight
                 ate += herbivores.weight
                 herbivores.death = True
                 carnivore.fitness_animal()
 
             self.death_population()
-
 
     def simulate(self):
         self.new_fodder()
