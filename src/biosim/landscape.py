@@ -173,7 +173,15 @@ class Landscape:
             ate += herbivores_lowest_fitness.weight
             herbivores_lowest_fitness.death_animal()
             carnivore.fitness_animal()
-
+def simulate(self):
+    self.new_fodder()
+    self.eat_fodder()
+    self.prey()
+    self.death_population()
+    self.newborn_herb()
+    self.newborn_carni()
+    self.weight_loss()
+    self.aging_population()
 
 class Lowland(Landscape):
     """

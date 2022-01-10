@@ -57,7 +57,8 @@ def test_aging_population():
     Test if the aging goes 1 up every year
     Does this by checking age before and after the function
     """
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+           {'species': 'C'}]
 
     land = Landscape()
     land.population_update(pop)
@@ -127,9 +128,6 @@ def test_eat_fodder2():
 #     land.eat_fodder()
 
 
-
-
-
 def test_not_eat():
 
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
@@ -186,7 +184,7 @@ def test_prey():
     land = Landscape()
     land.population_update(pop)
 
-    before_population = len(land.total_pop())
+    before_population = len(l)
 
     land.prey(herbivores_list, carnivores_list)
 
