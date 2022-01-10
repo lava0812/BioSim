@@ -160,15 +160,18 @@ class Animal:
 
         probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))
 
-        if random.random() < probability:
-            weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
-            born_baby = type(self)(0, int(weight))  # Herbivore()/Carnivore()
 
-            if self.weight < born_baby.weight * self.param["xi"]:
-                return None
+        if self.weight < self.param["zeta"] * (self.param["w_birth"] + self.param["sigma_birth"]):
+            return None
+        elif random.random() < probability:
+            new_baby = type(self)()
+            if new_baby.weight * self.param["xi"] < self.weight:
+                self.weight -= self.param["xi"] * new_baby.weight
+                return new_baby
             else:
-                self.weight -= born_baby.weight * self.param["xi"]
-                return born_baby
+                return None
+        else:
+            return None
 
 
 class Herbivore(Animal):
