@@ -121,18 +121,27 @@ def test_death_herbivores_bychance(mocker):
     assert herbivores.death == True
 
 
-def test_birth_(mocker):
+def test_birth_herb(mocker):
     """
     Test the probability of birth.
     """
     mocker.patch("random.random", return_value=2)
     herbivore = Herbivore(3, 14)
-    birth_herbivore = herbivore.birth(5)
+    n_animals_in_same_species = 5
+    birth_herb = herbivore.birth(n_animals_in_same_species)
 
-    assert birth_herbivore is not None
-    herbivore.weight = 1
-    birth_herbivore = herbivore.birth(5)
-    assert birth_herbivore is None
+    assert birth_herb is None
+
+def test_birth_carni(mocker):
+    """
+    Test the probability of birth.
+    """
+    mocker.patch("random.random", return_value=2)
+    carnivore = Carnivore(3, 14)
+    n_animals_in_same_species = 5
+    birth_carni = carnivore.birth(n_animals_in_same_species)
+
+    assert birth_carni is None
 
 
 def test_birth_one_herb():
@@ -141,6 +150,7 @@ def test_birth_one_herb():
     birth_herb = herbivore.birth(n_animals_in_same_species)
 
     assert birth_herb is None
+
 
 def test_birth_one_carni():
     carnivore = Carnivore(5, 23)
