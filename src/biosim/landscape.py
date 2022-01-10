@@ -13,7 +13,7 @@ from src.biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
-    parameters = {"f_max": 800}
+    parameters = {"f_max": 0}
 
     def __init__(self):
         """
