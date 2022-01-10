@@ -182,7 +182,7 @@ def test_eat_fodder2():
 #     land.eat_fodder()
 
 
-def test_not_eat():
+def test_eat_fodder_not_eat():
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
     land = Landscape()
