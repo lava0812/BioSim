@@ -205,7 +205,7 @@ class Landscape:
     def annual_cycle(self):
         self.new_fodder()
         self.eat_fodder()
-        # self.prey()
+        self.prey()
         self.newborn_herbivore()
         self.newborn_carnivore()
 
@@ -229,12 +229,11 @@ class Water(Landscape):
     This class is a subclass of the Landscape class to portray the water
     """
     parameters = {"f_max": 0}
-#    rc = len(self.map) #rows
-#    len(self.map[0]) #columns
+
+    #    rc = len(self.map) #rows
+    #    len(self.map[0]) #columns
     def __init__(self):
         super().__init__()
 
     def annual_cycle(self):
         pass
-
-
