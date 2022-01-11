@@ -5,6 +5,7 @@ import textwrap
 
 from src.biosim.landscape import Landscape, Lowland, Water
 from src.biosim.animals import Animal, Herbivore, Carnivore
+import textwrap
 
 
 class Island:
@@ -15,7 +16,6 @@ class Island:
         self.ini_herbs = []
         self.ini_carns = []
         self.initial_population = initial_population
-
 
         if self.initial_population is None:
             self.initial_population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
@@ -59,15 +59,37 @@ class Island:
         """
 
     def create_map(self):
+        """
+        Here we create the actual map of the island.
+        It can be useful to use two for loops here.
+        """
 
         pass
 
     def map_boundaries(self):
+        """
+        Here we define the boundaries of the map.
+        """
         pass
 
     def set_new_parameters(self):
+        """
+        Give user the option to set parameters themselves.
+        """
         pass
 
     def map_lines(self):
+        """
+        Check if the map lines are the equal length
+        """
+        """
+        Pseudokode: 
+        if self.lines[0] != self.lines[1]:
+            raise valueerror("All the lines on the map does not have equal lengths.")
+            
+        for lines in self.lines: 
+            if len(self.lines[0]) != len(lines)
+                raise valueerror("All the lines on the map should have equal lengths!")
+        
+        """
         pass
-
