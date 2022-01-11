@@ -205,11 +205,13 @@ class Landscape:
         self.new_fodder()
         self.eat_fodder()
         self.prey()
-        self.death_population()
         self.newborn_herbivore()
         self.newborn_carnivore()
-        self.weight_loss()
+
         self.aging_population()
+        self.weight_loss()
+        self.death_population()
+
 
 
 class Lowland(Landscape):

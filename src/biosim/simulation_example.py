@@ -2,16 +2,16 @@ from src.biosim.landscape import Landscape, Lowland, Water
 from src.biosim.animals import Animal, Herbivore, Carnivore
 
 
-def simulate():
-    Lowland().new_fodder()
-    Lowland().eat_fodder()
-    Lowland().prey()
-    Lowland().newborn_herbivore()
-    Lowland().newborn_carnivore()
-
-    Lowland().aging_population()
-    Lowland().weight_loss()
-    Lowland().death_population()
+# def simulate():
+#     Lowland().new_fodder()
+#     Lowland().eat_fodder()
+#     Lowland().prey()
+#     Lowland().newborn_herbivore()
+#     Lowland().newborn_carnivore()
+#
+#     Lowland().aging_population()
+#     Lowland().weight_loss()
+#     Lowland().death_population()
 
 
 L = Lowland()
