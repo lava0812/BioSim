@@ -110,10 +110,10 @@ def test_weight_loss_herbivore():
     Test if the herbivores lose weight over the new year
     Does this by calculating the weight by hand, then testing the answer
     """
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 10}]
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 10}]
 
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
 
     land.weight_loss()
 
@@ -122,15 +122,16 @@ def test_weight_loss_herbivore():
     assert new_weight == 9.5
 
 
-def test_weight_loss_carni():
+def test_weight_loss_carnivore():
     """
     Test if the carnivores lose weight over the year
-    Does this by
+    Does this by indexing the weight before and after the
+    weight_loss function runs
     """
-    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 10}]
+    population = [{'species': 'Carnivore', 'age': 10, 'weight': 10}]
 
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
 
     old_weight = land.carnivores[0].weight
 
@@ -142,11 +143,16 @@ def test_weight_loss_carni():
 
 
 def test_eat_fodder():
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    """
+    Here I test if the Herbivores can eat the available fodder by
+    checking the weight before and after eating to see if they have
+    increased in weight.
+    """
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+                  {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                  {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
     land.new_fodder()
 
     before_weight = land.herbivores[0].weight
@@ -159,12 +165,17 @@ def test_eat_fodder():
 
 
 def test_eat_fodder2():
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-           {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-           {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    """
+    Here I test if the Herbivores can eat the available fodder by
+    checking the weight before and after eating to see if they have
+    increased in weight.
+    """
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
+                  {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                  {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
 
     land = Landscape()
-    land.population_update(pop)
+    land.population_update(population)
     land.new_fodder()
 
 
@@ -180,6 +191,10 @@ def test_eat_fodder2():
 
 
 def test_eat_fodder_not_eat():
+    """
+    Here I test if the Herbivores do not eat by placing 0 fodder on the landscape,
+    then  check the weight before and after eating to see if they have increased in weight.
+    """
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
     land = Landscape()
@@ -194,6 +209,11 @@ def test_eat_fodder_not_eat():
 
 
 def test_death_population():
+    """
+    Here we test if the animals' dies they get removed from the
+    population list. We knew the answer will be 2, so we
+    tested by that fact
+    """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
@@ -202,21 +222,17 @@ def test_death_population():
     land.population_update(pop)
     land.herbivores[1].weight = 0
 
-    before_population = land.herbivores
-
     land.death_population()
 
     after_population = land.herbivores
 
     assert len(after_population) == 2
 
-  #  assert len(before_population) != len(after_population)
-
 
 def test_prey():
     """
     We should test if the list gets shuffled or not here too.
-    We should also test if the method sorts the herbivore after the lowest to highest fitness.
+    We should also test if the method sorts the herbivore after the lowest to the highest fitness.
     """
     pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
@@ -237,10 +253,8 @@ def test_prey():
     assert len(before_population) != len(after_population)
 
 
-def test_prey2():
-    """
-    Test randomize list
-    """
+def test_prey_randomized():
+    """Test to see if the list gets randomized"""
     random.seed(123456)
     carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
              {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
@@ -257,26 +271,25 @@ def test_prey2():
     assert population_list_before != population_list_after
 
 
-def test_newborn_herb_false(mocker):
+def test_newborn_herbivore_false(mocker):
     """
-    Newborn test
+    This test is to see if there will be a newborn if there is only one
+    herbivore on the island, which should be false
     """
     mocker.patch("random.random", return_value=0)
 
-    pop = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
     land = Landscape()
 
-    land.population_update(pop)
+    land.population_update(population)
 
     land.newborn_herbivore()
 
-    assert len(pop) + 1 != len(pop)
+    assert len(population) + 1 != len(population)
 
 
-def test_newborn_herb(mocker):
-    """
-    Newborn test
-    """
+def test_newborn_herbivore(mocker):
+    """Newborn test to see if the herbivore gives birth with three animals placed"""
     mocker.patch("random.random", return_value=0)
 
     population = [{'species': 'Herbivore', 'age': 18, 'weight': 12.5},
@@ -291,49 +304,52 @@ def test_newborn_herb(mocker):
     assert len(land.herbivores) > population_before_herb
 
 
-def test_newborn_carni_false(mocker):
+def test_newborn_carnivore_false(mocker):
     """
-    Newborn test
-    """
-    mocker.patch("random.random", return_value=0)
-
-    pop = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
-    land = Landscape()
-
-    land.population_update(pop)
-
-    land.newborn_carnivore()
-
-    assert len(pop) + 1 != len(pop)
-
-
-def test_newborn_carni(mocker):
-    """
-    Newborn test
+    This test is to see if there will be a newborn if there is only one
+    carnivore on the island, which should be false
     """
     mocker.patch("random.random", return_value=0)
 
-    population_carni = [{'species': 'Carnivore', 'age': 18, 'weight': 12.5},
-                        {'species': 'Carnivore', 'age': 9, 'weight': 10.3},
-                        {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
     land = Landscape()
 
-    land.population_update(population_carni)
-    population_before_carni = len(land.carnivores)
+    land.population_update(population)
+
     land.newborn_carnivore()
 
-    assert len(land.carnivores) > population_before_carni
+    assert len(population) + 1 != len(population)
+
+
+def test_newborn_carnivore(mocker):
+    """Newborn test to see if the carnivore gives birth with three animals placed"""
+    mocker.patch("random.random", return_value=0)
+
+    population_carnivore = [{'species': 'Carnivore', 'age': 18, 'weight': 12.5},
+                            {'species': 'Carnivore', 'age': 9, 'weight': 10.3},
+                            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+    land = Landscape()
+
+    land.population_update(population_carnivore)
+    population_before_carnivore = len(land.carnivores)
+    land.newborn_carnivore()
+
+    assert len(land.carnivores) > population_before_carnivore
 
 
 def test_parameters_lowland():
-    L = Lowland()
-    f_max = L.parameters["f_max"]
+    """Test to see if the subclass Lowland gives the right amount of fodder,
+    which should be "f_max" = 800"""
+    lowland = Lowland()
+    f_max = lowland.parameters["f_max"]
 
     assert f_max == 800
 
 
 def test_parameters_water():
-    L = Water()
-    f_max = L.parameters["f_max"]
+    """Test to see if the subclass water gives the right amount of fodder,
+    which should be "f_max" = 0"""
+    lowland = Water()
+    f_max = lowland.parameters["f_max"]
 
     assert f_max == 0

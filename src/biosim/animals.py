@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 """
-This file will contain a main class Animals(Superclass). Th
-is Animals class will contains methods for characteristics
+This file will contain a main class Animals(Superclass).
+These Animals class will contain methods for characteristics
 that are common for both herbivores and carnivores. The Animals class will have two subclasses,
 Herbivores and Carnivores.
 These to subclasses will contain methods specifically for herbivores and carnivores.
