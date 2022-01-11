@@ -3,6 +3,7 @@
 This is the test function for the Animals class, which contains the subclasses, herbivores and
 carnivores.
 """
+#We should use pytest.fixtures here.
 
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
@@ -55,6 +56,8 @@ def test_weight_increase_herb():
     """
     Test on the weight increase once a herbivore eats fodder.
     """
+    #kan teste om hvor mye den øker
+    # kan gjøre den litt mer tydeligere
     herbivore = Herbivore()
 
     pre_weight = herbivore.weight
@@ -68,6 +71,7 @@ def test_weight_decrease():
     """
     Test on the weight decrease every year.
     """
+    #kan gjøre den litt mer tydeligere
 
     herbivore = Herbivore(5, 10)
     herbivore.weight_baby()

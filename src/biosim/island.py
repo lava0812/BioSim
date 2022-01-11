@@ -1,6 +1,8 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+import textwrap
+
 from src.biosim.landscape import Landscape, Lowland, Water
 from src.biosim.animals import Animal, Herbivore, Carnivore
 
@@ -8,11 +10,12 @@ from src.biosim.animals import Animal, Herbivore, Carnivore
 class Island:
     landscape_types = {"L": Lowland, "W": Water}
 
-    def __init__(self, map=None, initial_population=None):
+    def __init__(self, map, initial_population=None):
 
         self.ini_herbs = []
         self.ini_carns = []
         self.initial_population = initial_population
+
 
         if self.initial_population is None:
             self.initial_population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
@@ -24,13 +27,16 @@ class Island:
         else:
             self.initial_population = initial_population
 
+        self.geogr = textwrap.dedent(map)
+        self.lines = self.geogr.splitlines()
+
         if self.map is None:
             self.map = """\
                WWW
                WLW
                WWW"""
         else:
-            self.map = map
+            self.map = {}
 
     def annual_cycle(self):
         """
@@ -52,13 +58,6 @@ class Island:
         something is wrong with the input the user have put in.
         """
 
-
-
-
-
-
-
-
     def create_map(self):
 
         pass
@@ -68,3 +67,7 @@ class Island:
 
     def set_new_parameters(self):
         pass
+
+    def map_lines(self):
+        pass
+

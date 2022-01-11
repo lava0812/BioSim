@@ -3,6 +3,7 @@
 """
 This script purpose is to test the functions from landscape.py file.
 """
+#We should use pytest.fixtures here.
 
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"

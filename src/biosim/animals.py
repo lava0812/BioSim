@@ -78,8 +78,9 @@ class Animal:
         weight: int
         Generate a weight, using random.gauss.
         """
-        weight = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
-        return weight
+        weight_baby = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
+        return weight_baby
+        #Bruker ikke denne funksjonen noen steder.
 
     def weight_decrease(self):
         """
@@ -152,6 +153,7 @@ class Animal:
             new_baby = type(self)()
             if new_baby.weight * self.param["xi"] < self.weight:
                 self.weight -= self.param["xi"] * new_baby.weight
+                self.fitness_animal()
                 return new_baby
             else:
                 return None

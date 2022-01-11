@@ -25,7 +25,8 @@ class Landscape:
         self.param = None
         self.herbivores = []
         self.carnivores = []
-        self.fodder = self.parameters["f_max"]
+        self.fodder = self.parameters["f_max"] # Kanskje ha en test her, om denne verdien er
+                                                # mindre enn null.
         self.kill_probability = None
 
     def population_update(self, population_list):
