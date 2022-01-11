@@ -43,7 +43,7 @@ class Island:
         """
         self.map_boundaries()
         for rows in self.lines:
-            row = []
+            row = []  # Add the map to this list.
             for column in rows:
                 if column == "W":
                     row.append(Water())
@@ -61,11 +61,11 @@ class Island:
         """
         Here we define the boundaries of the map.
         """
-        for loc in self.map:
+        for elements in self.map:
             if self.map[0] != "W" and self.map[-1] != ["W"]:
                 raise ValueError("The inputted map is not surrounded by water. Try again!")
 
-            elif self.map[loc][0] != "W" and self.map[loc][-1] != ["W"]:
+            elif self.map[elements][0] != "W" and self.map[elements][-1] != ["W"]:
                 raise ValueError("The inputted map is not surrounded by water. Try again!")
 
     def set_new_parameters(self):
