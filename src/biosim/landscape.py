@@ -202,7 +202,7 @@ class Landscape:
 
             self.death_population()  # finne en ny måte å fjerne herb på
 
-    def simulate(self):
+    def annual_cycle(self):
         self.new_fodder()
         self.eat_fodder()
         # self.prey()
@@ -234,7 +234,7 @@ class Water(Landscape):
     def __init__(self):
         super().__init__()
 
-    def simulate(self):
+    def annual_cycle(self):
         pass
 
 

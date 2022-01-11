@@ -101,7 +101,7 @@ class Animal:
 
         if self.weight <= 0:
             self.fitness = 0
-            return False
+            return False    # Kan vurdere å returnere false.
         else:
 
             tall = round((self.param["phi_age"]) * (self.age - self.param["a_half"]), 10)

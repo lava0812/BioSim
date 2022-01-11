@@ -63,9 +63,10 @@ class Island:
         """
         for loc in self.map:
             if self.map[0] != "W" and self.map[-1] != ["W"]:
-                raise ValueError("The inputted map is not surrounded by water.")
+                raise ValueError("The inputted map is not surrounded by water. Try again!")
+
             elif self.map[loc][0] != "W" and self.map[loc][-1] != ["W"]:
-                raise ValueError("")
+                raise ValueError("The inputted map is not surrounded by water. Try again!")
 
     def set_new_parameters(self):
         """
@@ -110,5 +111,5 @@ class Island:
 
         for row in self.map:
             for col in row:
-                col.simulate()
+                col.annual_cycle()
         pass
