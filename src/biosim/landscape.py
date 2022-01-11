@@ -208,7 +208,7 @@ class Landscape:
         self.prey()
         self.newborn_herbivore()
         self.newborn_carnivore()
-
+        #We can add the method for migration here.
         self.aging_population()
         self.weight_loss()
         self.death_population()

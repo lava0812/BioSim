@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
@@ -70,17 +72,11 @@ class Island:
             if row[0] != "W" and row[-1] != "W":
                 raise ValueError("The inputted map is not surrounded by water. Try again!")
 
-    #        for elements in self.map:
-    #            if self.map[0] != "W" and self.map[-1] != ["W"]:
-    #                raise ValueError("The inputted map is not surrounded by water. Try again!")
-    #
-    #            elif self.map[elements][0] != "W" and self.map[elements][-1] != ["W"]:
-    #                raise ValueError("The inputted map is not surrounded by water. Try again!")
-
     def set_new_parameters(self):
         """
         Give user the option to set parameters themselves.
         """
+        #I dont know if we need to do this.
         pass
 
     def map_lines(self):
@@ -101,7 +97,13 @@ class Island:
 
     def migrate(self):
         """
-        This function gives the animals the ability to move from one cell to another
+        This function gives the animals the ability to move from one cell to another.
+        We have to add the animal to the cell that it migrates to, meaning that we have to add
+        animal to the list for the cell it migrates to.
+        """
+        """
+        Cell level asks each animal if it wants to move, and cell level also wants to know which 
+        of the cells are actually habitable. matplotlib, gridspec. 
         """
         pass
 
@@ -116,6 +118,7 @@ class Island:
         6. Animals becomes one year older
         7 Animals lose weight
         8. Determining whether animals die or not.
+        We use the annual_cycle() method from
         """
 
         for row in self.map:
