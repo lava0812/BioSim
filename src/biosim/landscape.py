@@ -15,7 +15,7 @@ from src.biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
-    parameters = {"f_max": 800}
+    parameters = {}
 
     def __init__(self):
         """
@@ -70,7 +70,7 @@ class Landscape:
         every year since it common for both carnivores and herbivores
         """
 
-        for individuals in self.herbivores:
+        for individuals in self.herbivores: #egentlig bare individual!
             individuals.aging()
 
         for individuals in self.carnivores:
@@ -205,9 +205,9 @@ class Landscape:
     def simulate(self):
         self.new_fodder()
         self.eat_fodder()
-        self.prey()
+        #self.prey()
         self.newborn_herbivore()
-        self.newborn_carnivore()
+        #self.newborn_carnivore()
 
         self.aging_population()
         self.weight_loss()

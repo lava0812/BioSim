@@ -1,5 +1,5 @@
-from src.biosim.landscape import Landscape, Lowland, Water
-from src.biosim.animals import Animal, Herbivore, Carnivore
+from biosim.landscape import Landscape, Lowland, Water
+from biosim.animals import Animal, Herbivore, Carnivore
 
 
 # def simulate():
@@ -15,13 +15,15 @@ from src.biosim.animals import Animal, Herbivore, Carnivore
 
 
 L = Lowland()
-L.herbivores = [Herbivore(age=5, weight=20) for i in range(50)]
+L.herbivores = [Herbivore(age=39, weight=2000) for i in range(1000)]
 
-for i in range(500):
+Herbivore.param["omega"] = 0
+print(len(L.herbivores), L.fodder)
+for i in range(5):
     L.simulate()
     print(len(L.herbivores), L.fodder)
 
-#
+
 # L.carni = [Carnivore(age=5, weight=50) for i in range(50)]
 # for i in range(50):
 #     print(len(L.carni), L.fodder)

@@ -293,9 +293,9 @@ def test_newborn_herbivore(mocker):
     """Newborn test to see if the herbivore gives birth with three animals placed"""
     mocker.patch("random.random", return_value=0)
 
-    population = [{'species': 'Herbivore', 'age': 18, 'weight': 12.5},
-                  {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-                  {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
+    population = [{'species': 'Herbivore', 'age': 18, 'weight': 40},
+                  {'species': 'Herbivore', 'age': 9, 'weight': 40},
+                  {'species': 'Herbivore', 'age': 5, 'weight': 40}]
     land = Landscape()
 
     land.population_update(population)
