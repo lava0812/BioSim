@@ -1,3 +1,8 @@
+# -*- encoding: utf-8 -*-
+
+__author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
+__email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
+
 from biosim.landscape import Landscape, Lowland, Water
 from biosim.animals import Animal, Herbivore, Carnivore
 
