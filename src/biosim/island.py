@@ -16,12 +16,7 @@ class Island:
         self.initial_population = initial_population
 
         if self.initial_population is None:
-            self.initial_population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-                                       {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-                                       {'species': 'Herbivore', 'age': 5, 'weight': 8.1},
-                                       {'species': 'Carnivore', 'age': 10, 'weight': 12.5},
-                                       {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-                                       {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+            raise KeyError("No initial population has been inputted!")
         else:
             self.initial_population = initial_population
 
@@ -85,7 +80,6 @@ class Island:
                 pass
 
     def population_cell(self, population):
-
         """
         Check how many animals there are on a cell, this is for both herbivores and carnivores
         """
