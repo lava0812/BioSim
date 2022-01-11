@@ -17,7 +17,7 @@ from biosim.animals import Animal, Herbivore, Carnivore
 L = Lowland()
 L.herbivores = [Herbivore(age=39, weight=2000) for i in range(1000)]
 
-Herbivore.param["omega"] = 0
+#Herbivore.param["omega"] = 0
 print(len(L.herbivores), L.fodder)
 for i in range(5):
     L.simulate()

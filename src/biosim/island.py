@@ -41,6 +41,7 @@ class Island:
         Here we create the actual map of the island.
         It can be useful to use two for loops here.
         """
+        self.map_boundaries()
         for rows in self.lines:
             row = []
             for column in rows:
@@ -60,7 +61,11 @@ class Island:
         """
         Here we define the boundaries of the map.
         """
-        pass
+        for loc in self.map:
+            if self.map[0] != "W" and self.map[-1] != ["W"]:
+                raise ValueError("The inputted map is not surrounded by water.")
+            elif self.map[loc][0] != "W" and self.map[loc][-1] != ["W"]:
+                raise ValueError("")
 
     def set_new_parameters(self):
         """
@@ -102,4 +107,8 @@ class Island:
         7 Animals lose weight
         8. Determining whether animals die or not.
         """
+
+        for row in self.map:
+            for col in row:
+                col.simulate()
         pass

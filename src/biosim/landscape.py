@@ -15,7 +15,7 @@ from src.biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
-    parameters = {}
+    parameters = {"f_max": 800}
 
     def __init__(self):
         """
@@ -34,15 +34,15 @@ class Landscape:
         This function updates the population for a given list with animals.
         It will also separately put the species in their respective list.
         """
-        for individuals in population_list:
-            if individuals["species"] == "Herbivore":
-                self.herbivores.append(Herbivore(age=individuals["age"],
-                                                 weight=individuals["weight"]))
+        for individual in population_list:
+            if individual["species"] == "Herbivore":
+                self.herbivores.append(Herbivore(age=individual["age"],
+                                                 weight=individual["weight"]))
 
-        for individuals in population_list:
-            if individuals["species"] == "Carnivore":
-                self.carnivores.append(Carnivore(age=individuals["age"],
-                                                 weight=individuals["weight"]))
+        for individual in population_list:
+            if individual["species"] == "Carnivore":
+                self.carnivores.append(Carnivore(age=individual["age"],
+                                                 weight=individual["weight"]))
 
     def display_herbivores(self):
         """
@@ -70,11 +70,11 @@ class Landscape:
         every year since it common for both carnivores and herbivores
         """
 
-        for individuals in self.herbivores:  # egentlig bare individual!
-            individuals.aging()
+        for individual in self.herbivores:  # egentlig bare individual!
+            individual.aging()
 
-        for individuals in self.carnivores:
-            individuals.aging()
+        for individual in self.carnivores:
+            individual.aging()
 
     def eat_fodder(self):
         """
@@ -84,27 +84,27 @@ class Landscape:
         if the fodder amount is on 0
         """
         random.shuffle(self.herbivores)
-        for individuals in self.herbivores:
+        for individual in self.herbivores:
 
             if self.fodder == 0:
                 break
 
-            elif self.fodder >= individuals.param["F"]:
-                individuals.weight_increase(individuals.param["F"])
-                self.fodder -= individuals.param["F"]
+            elif self.fodder >= individual.param["F"]:
+                individual.weight_increase(individual.param["F"])
+                self.fodder -= individual.param["F"]
 
-            elif self.fodder < individuals.param["F"]:
-                individuals.weight_increase(self.fodder)
+            elif self.fodder < individual.param["F"]:
+                individual.weight_increase(self.fodder)
                 self.fodder = 0
 
     def death_population(self):
         """
         Remove the animals that have died from the population list
         """
-        self.herbivores = [individuals for individuals in self.herbivores
-                           if not individuals.death_animal()]
-        self.carnivores = [individuals for individuals in self.carnivores
-                           if not individuals.death_animal()]
+        self.herbivores = [individual for individual in self.herbivores
+                           if not individual.death_animal()]
+        self.carnivores = [individual for individual in self.carnivores
+                           if not individual.death_animal()]
 
     def newborn_herbivore(self):
         """
@@ -119,8 +119,8 @@ class Landscape:
 
         newborn_herbivore = []
         if herbivore_count >= 2:
-            for individuals in self.herbivores:
-                newborn = individuals.birth(herbivore_count)
+            for individual in self.herbivores:
+                newborn = individual.birth(herbivore_count)
                 if newborn is not None:
                     newborn_herbivore.append(newborn)
         self.herbivores.extend(newborn_herbivore)
@@ -131,15 +131,15 @@ class Landscape:
         Making a new list, then we can extend the population list
         If the amount of one species is lower than 2 the functions won't execute
         """
-        individuals_count = len(self.carnivores)
+        individual_count = len(self.carnivores)
 
-        if individuals_count < 2:
+        if individual_count < 2:
             return False
 
         newborn_carnivore = []
-        if individuals_count >= 2:
+        if individual_count >= 2:
             for individuals in self.carnivores:
-                newborn = individuals.birth(individuals_count)
+                newborn = individuals.birth(individual_count)
                 if newborn is not None:
                     newborn_carnivore.append(newborn)
         self.carnivores.extend(newborn_carnivore)
@@ -150,11 +150,11 @@ class Landscape:
         and this will happen on this function
         """
 
-        for individuals in self.herbivores:
-            return individuals.weight_decrease()
+        for individual in self.herbivores:
+            return individual.weight_decrease()
 
-        for individuals in self.carnivores:
-            return individuals.weight_decrease()
+        for individual in self.carnivores:
+            return individual.weight_decrease()
 
     def prey(self):
         """
@@ -207,7 +207,7 @@ class Landscape:
         self.eat_fodder()
         # self.prey()
         self.newborn_herbivore()
-        # self.newborn_carnivore()
+        self.newborn_carnivore()
 
         self.aging_population()
         self.weight_loss()
@@ -229,8 +229,12 @@ class Water(Landscape):
     This class is a subclass of the Landscape class to portray the water
     """
     parameters = {"f_max": 0}
-
+#    rc = len(self.map) #rows
+#    len(self.map[0]) #columns
     def __init__(self):
         super().__init__()
+
+    def simulate(self):
+        pass
 
 
