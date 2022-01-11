@@ -327,15 +327,14 @@ def test_newborn_carnivore(mocker):
     mocker.patch("random.random", return_value=0)
 
     population_carnivore = [{'species': 'Carnivore', 'age': 18, 'weight': 12.5},
-                            {'species': 'Carnivore', 'age': 9, 'weight': 10.3},
-                            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+                            {'species': 'Carnivore', 'age': 9, 'weight': 10.3}]
     land = Landscape()
 
     land.population_update(population_carnivore)
     population_before_carnivore = len(land.carnivores)
     land.newborn_carnivore()
 
-    assert len(land.carnivores) > population_before_carnivore
+    assert population_before_carnivore + 1 == len(land.carnivores)
 
 
 def test_parameters_lowland():

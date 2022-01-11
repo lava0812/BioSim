@@ -106,6 +106,8 @@ class Landscape:
         self.carnivores = [individuals for individuals in self.carnivores
                            if not individuals.death_animal()]
 
+
+
     def newborn_herbivore(self):
         """
         Adding the newborn herbivore to the population list
@@ -200,8 +202,7 @@ class Landscape:
                 herbivores.death = True
                 carnivore.fitness_animal()
 
-            self.death_population()
-
+            self.death_population() # finne en ny måte å fjerne herb på
     def simulate(self):
         self.new_fodder()
         self.eat_fodder()

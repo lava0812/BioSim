@@ -93,3 +93,15 @@ class Island:
         
         """
         pass
+
+    def population_cell(self):
+        """
+        Check how many animals there are on a cell, this is for both herbivores and carnivores
+        """
+        pass
+
+    def migrate(self):
+        """
+        This function gives the animals the ability to move from one cell to another
+        """
+        pass
