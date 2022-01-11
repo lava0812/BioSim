@@ -16,7 +16,7 @@ import random
 
 class Animal:
     param = {}
-
+    # Set param metoden vår er litt feil.
     @classmethod
     def set_param(cls, added_parameters):
         """

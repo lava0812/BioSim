@@ -25,8 +25,8 @@ class Landscape:
         self.param = None
         self.herbivores = []
         self.carnivores = []
-        self.fodder = self.parameters["f_max"] # Kanskje ha en test her, om denne verdien er
-                                                # mindre enn null.
+        self.fodder = self.parameters["f_max"]  # Kanskje ha en test her, om denne verdien er
+        # mindre enn null.
         self.kill_probability = None
 
     def population_update(self, population_list):
@@ -70,7 +70,7 @@ class Landscape:
         every year since it common for both carnivores and herbivores
         """
 
-        for individuals in self.herbivores: #egentlig bare individual!
+        for individuals in self.herbivores:  # egentlig bare individual!
             individuals.aging()
 
         for individuals in self.carnivores:
@@ -105,8 +105,6 @@ class Landscape:
                            if not individuals.death_animal()]
         self.carnivores = [individuals for individuals in self.carnivores
                            if not individuals.death_animal()]
-
-
 
     def newborn_herbivore(self):
         """
@@ -180,8 +178,8 @@ class Landscape:
                 if ate >= carnivore.param["F"] and carnivore.fitness <= herbivores.fitness:
                     pass
                 elif 0 < carnivore.fitness - herbivores.fitness < carnivore.param["DeltaPhiMax"]:
-                    kill_probability = (carnivore.fitness - herbivores.fitness) /\
-                             carnivore.param["DeltaPhiMax"]
+                    kill_probability = (carnivore.fitness - herbivores.fitness) / \
+                                       carnivore.param["DeltaPhiMax"]
 
                 else:
 
@@ -202,18 +200,18 @@ class Landscape:
                 herbivores.death = True
                 carnivore.fitness_animal()
 
-            self.death_population() # finne en ny måte å fjerne herb på
+            self.death_population()  # finne en ny måte å fjerne herb på
+
     def simulate(self):
         self.new_fodder()
         self.eat_fodder()
-        #self.prey()
+        # self.prey()
         self.newborn_herbivore()
-        #self.newborn_carnivore()
+        # self.newborn_carnivore()
 
         self.aging_population()
         self.weight_loss()
         self.death_population()
-
 
 
 class Lowland(Landscape):
@@ -227,6 +225,26 @@ class Lowland(Landscape):
 
 
 class Water(Landscape):
+    """
+    This class is a subclass of the Landscape class to portray the water
+    """
+    parameters = {"f_max": 0}
+
+    def __init__(self):
+        super().__init__()
+
+
+class Highland(Landscape):
+    """
+    This class is a subclass of the Landscape class to portray the water
+    """
+    parameters = {"f_max": 0}
+
+    def __init__(self):
+        super().__init__()
+
+
+class Desert(Landscape):
     """
     This class is a subclass of the Landscape class to portray the water
     """

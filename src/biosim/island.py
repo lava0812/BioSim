@@ -3,15 +3,14 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import textwrap
 
-from src.biosim.landscape import Landscape, Lowland, Water
-from src.biosim.animals import Animal, Herbivore, Carnivore
+from src.biosim.landscape import Lowland, Water, Highland, Desert
 import textwrap
 
 
 class Island:
     landscape_types = {"L": Lowland, "W": Water}
 
-    def __init__(self, map, initial_population=None):
+    def __init__(self, map=None, initial_population=None):
 
         self.ini_herbs = []
         self.ini_carns = []
@@ -27,16 +26,15 @@ class Island:
         else:
             self.initial_population = initial_population
 
-        self.geogr = textwrap.dedent(map)
-        self.lines = self.geogr.splitlines()
-
-        if self.map is None:
-            self.map = """\
+        if map is None:
+            map = """\
                WWW
                WLW
                WWW"""
-        else:
-            self.map = {}
+
+        self.geogr = textwrap.dedent(map)
+        self.lines = self.geogr.splitlines()
+        self.map = []
 
     def annual_cycle(self):
         """
@@ -63,8 +61,24 @@ class Island:
         Here we create the actual map of the island.
         It can be useful to use two for loops here.
         """
+        for rows in self.lines:
+            row = []
+            for column in rows:
+                if column == "W":
+                    row.append(Water())
+                elif column == "L":
+                    row.append(Lowland())
+                elif column == "H":
+                    row.append(Desert())
+                elif column == "D":
+                    row.append(Highland())
+                else:
+                    raise ValueError("This is not a valid landscape type!")
+            self.map.append(row)
 
-        pass
+        #loc = (2, 2)
+        #self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)  # This is how the function should be used
+        # to access the coordinates(2,2)
 
     def map_boundaries(self):
         """
