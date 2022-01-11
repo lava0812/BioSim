@@ -70,12 +70,12 @@ class Island:
             if row[0] != "W" and row[-1] != "W":
                 raise ValueError("The inputted map is not surrounded by water. Try again!")
 
-#        for elements in self.map:
-#            if self.map[0] != "W" and self.map[-1] != ["W"]:
-#                raise ValueError("The inputted map is not surrounded by water. Try again!")
-#
-#            elif self.map[elements][0] != "W" and self.map[elements][-1] != ["W"]:
-#                raise ValueError("The inputted map is not surrounded by water. Try again!")
+    #        for elements in self.map:
+    #            if self.map[0] != "W" and self.map[-1] != ["W"]:
+    #                raise ValueError("The inputted map is not surrounded by water. Try again!")
+    #
+    #            elif self.map[elements][0] != "W" and self.map[elements][-1] != ["W"]:
+    #                raise ValueError("The inputted map is not surrounded by water. Try again!")
 
     def set_new_parameters(self):
         """
@@ -98,7 +98,6 @@ class Island:
         """
         Check how many animals there are on a cell, this is for both herbivores and carnivores
         """
-
 
     def migrate(self):
         """
