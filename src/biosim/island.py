@@ -3,8 +3,7 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import textwrap
 
-from src.biosim.landscape import Lowland, Water, Highland, Desert
-import textwrap
+from src.biosim.landscape import Lowland, Water
 
 
 class Island:
@@ -68,16 +67,12 @@ class Island:
                     row.append(Water())
                 elif column == "L":
                     row.append(Lowland())
-                elif column == "H":
-                    row.append(Desert())
-                elif column == "D":
-                    row.append(Highland())
                 else:
-                    raise ValueError("This is not a valid landscape type!")
+                    raise ValueError("This is not a valid landscape type. Try again!")
             self.map.append(row)
 
-        #loc = (2, 2)
-        #self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)  # This is how the function should be used
+        # loc = (2, 2)
+        # self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)  # This is how the function should be used
         # to access the coordinates(2,2)
 
     def map_boundaries(self):
@@ -108,11 +103,12 @@ class Island:
         """
         pass
 
-    def population_cell(self):
+    def population_cell(self, population):
+
         """
         Check how many animals there are on a cell, this is for both herbivores and carnivores
         """
-        pass
+
 
     def migrate(self):
         """

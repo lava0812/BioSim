@@ -234,21 +234,3 @@ class Water(Landscape):
         super().__init__()
 
 
-class Highland(Landscape):
-    """
-    This class is a subclass of the Landscape class to portray the water
-    """
-    parameters = {"f_max": 0}
-
-    def __init__(self):
-        super().__init__()
-
-
-class Desert(Landscape):
-    """
-    This class is a subclass of the Landscape class to portray the water
-    """
-    parameters = {"f_max": 0}
-
-    def __init__(self):
-        super().__init__()
