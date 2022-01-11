@@ -35,20 +35,6 @@ class Island:
         self.lines = self.geogr.splitlines()
         self.map = []
 
-    def annual_cycle(self):
-        """
-        Content of function:
-        1. Growth of food
-        2. Herbivores eat
-        3. Carnivores eat
-        4. Herbivores and carnivores give birth
-        5. Animals migrate(not relevant atm)
-        6. Animals becomes one year older
-        7 Animals lose weight
-        8. Determining whether animals die or not.
-        """
-        pass
-
     def map_input(self):
         """
         Started on the map_input method here. This will take care of the error messages if
@@ -89,19 +75,14 @@ class Island:
 
     def map_lines(self):
         """
-        Check if the map lines are the equal length
+        Check if the map lines are the equal length.
         """
-        """
-        Pseudokode: 
-        if self.lines[0] != self.lines[1]:
-            raise valueerror("All the lines on the map does not have equal lengths.")
-            
-        for lines in self.lines: 
-            if len(self.lines[0]) != len(lines)
-                raise valueerror("All the lines on the map should have equal lengths!")
-        
-        """
-        pass
+
+        for line in self.lines:
+            if len(self.lines[0]) != len(line):  # len(self.lines[0]) != len(self.lines[1])
+                raise ValueError("All the lines on the map should have equal lengths!")
+            else:
+                pass
 
     def population_cell(self, population):
 
@@ -109,9 +90,22 @@ class Island:
         Check how many animals there are on a cell, this is for both herbivores and carnivores
         """
 
-
     def migrate(self):
         """
         This function gives the animals the ability to move from one cell to another
+        """
+        pass
+
+    def annual_cycle(self):
+        """
+        Content of function:
+        1. Growth of food
+        2. Herbivores eat
+        3. Carnivores eat
+        4. Herbivores and carnivores give birth
+        5. Animals migrate(not relevant atm)
+        6. Animals becomes one year older
+        7 Animals lose weight
+        8. Determining whether animals die or not.
         """
         pass
