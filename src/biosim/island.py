@@ -64,18 +64,6 @@ class Island:
                 if neighbor_cell is not None:
                     cell.neighbors.append(neighbor_cell)
 
-
-
-  #          row = []  # Add the map to this list.
-#            for column in rows:
-              #  if column == "W":
-                   # row.append(Water())
-                #elif column == "L":
-                 #   row.append(Lowland())
-               # else:
-                 #   raise ValueError("This is not a valid landscape type. Try again!")
-           # self.map.append(row)
-
         # loc = (2, 2)
         # self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)  # This is how the function should be used
         # to access the coordinates(2,2)
@@ -121,26 +109,6 @@ class Island:
             loc = item["loc"]
 
             self.map[loc].population_update(population)
-
-    def migrate(self):
-        """
-        This function gives the animals the ability to move from one cell to another.
-        We have to add the animal to the cell that it migrates to, meaning that we have to add
-        animal to the list for the cell it migrates to.
-        """
-        """
-        Cell level asks each animal if it wants to move, and cell level also wants to know which 
-        of the cells are actually habitable. matplotlib, gridspec. 
-        """
-        pass
-
-    def move_to_another_cell(self):
-        """
-        This method will move the animal from one cell, to another cell, meaning that it will add
-        the animals that wants to move, to the list of the cell they want to move to.
-        """
-        # can use the extend method here, for adding the migrated animals list to the
-        # particular list of each animal.
 
     def annual_cycle(self):
         """
