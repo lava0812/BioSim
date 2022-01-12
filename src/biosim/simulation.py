@@ -61,6 +61,7 @@ class BioSim:
             pass
 
         if cmax_animals is None:
+            self.cmax_animals = {'Herbivore': 0, 'Carnivore': 0}
             # Sensible fixed default values should be used.
             pass
 

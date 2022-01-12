@@ -245,10 +245,10 @@ class Landscape:
     def annual_cycle(self):
         self.new_fodder()
         self.eat_fodder()
-        self.prey()
+        #self.prey()
         self.newborn_herbivore()
-        self.newborn_carnivore()
-        self.migrated_animals()
+        #self.newborn_carnivore()
+        #self.migrated_animals()
 
         self.aging_population()
         self.weight_loss()

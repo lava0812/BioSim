@@ -20,11 +20,11 @@ from biosim.animals import Animal, Herbivore, Carnivore
 
 
 L = Lowland()
-L.herbivores = [Herbivore(age=39, weight=2000) for i in range(1000)]
+L.herbivores = [Herbivore(age=5, weight=20) for i in range(50)]
 
 #Herbivore.param["omega"] = 0
 print(len(L.herbivores), L.fodder)
-for i in range(5):
+for i in range(300):
     L.annual_cycle()
     print(len(L.herbivores), L.fodder)
 

@@ -172,7 +172,7 @@ class Animal:
         """
 
         migrate_probability = self.fitness * self.param["mu"]
-        return random.random < migrate_probability
+        return random.random() < migrate_probability
 
 
 class Herbivore(Animal):
