@@ -3,8 +3,8 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from biosim.landscape import Landscape, Lowland, Water
-from biosim.animals import Animal, Herbivore, Carnivore
+from src.biosim.landscape import Landscape, Lowland, Water
+from src.biosim.animals import Animal, Herbivore, Carnivore
 
 
 # def simulate():

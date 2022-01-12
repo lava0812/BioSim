@@ -112,10 +112,14 @@ class BioSim:
     @property
     def num_animals(self):
         """Total number of animals on island."""
+        return self.ini_pop
 
     @property
     def num_animals_per_species(self):
         """Number of animals per species in island, as dictionary."""
+        number_of_animals = {}
+        for cell in self.island_map:
+
 
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""

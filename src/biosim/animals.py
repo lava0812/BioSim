@@ -67,7 +67,7 @@ class Animal:
         """
         Aging the animals.
         """
-        self.age += 1
+        self.age += 1.0
         self.fitness_animal()
 
     # @classmethod
@@ -110,8 +110,8 @@ class Animal:
             return False  # Kan vurdere å returnere false.
         else:
 
-            tall = round((self.param["phi_age"]) * (self.age - self.param["a_half"]), 10)
-            tall2 = round((-self.param["phi_weight"]) * (self.weight - self.param["w_half"]), 10)
+            tall = (self.param["phi_age"]) * (self.age - self.param["a_half"])
+            tall2 = (-self.param["phi_weight"]) * (self.weight - self.param["w_half"])
 
             q_positive = 1 / (1 + math.exp(tall))
             q_negative = 1 / (1 + math.exp(tall2))
