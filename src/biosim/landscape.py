@@ -16,6 +16,7 @@ from src.biosim.animals import Herbivore, Carnivore
 
 class Landscape:
     parameters = {"f_max": 800}
+    migration_possible = True
 
     def __init__(self):
         """
@@ -28,6 +29,7 @@ class Landscape:
         self.fodder = self.parameters["f_max"]  # Kanskje ha en test her, om denne verdien er
         # mindre enn null.
         self.kill_probability = None
+        self.migrate_probability = 0
 
     def population_update(self, population_list):
         """
@@ -202,13 +204,18 @@ class Landscape:
 
             self.death_population()  # finne en ny måte å fjerne herb på
 
+    def migrated_animals(self):
+
+        migrated_herbivores = []
+        migrated_carnivores = []
+
     def annual_cycle(self):
         self.new_fodder()
         self.eat_fodder()
         self.prey()
         self.newborn_herbivore()
         self.newborn_carnivore()
-        #We can add the method for migration here.
+        # We can add the method for migration here.
         self.aging_population()
         self.weight_loss()
         self.death_population()
@@ -229,6 +236,7 @@ class Water(Landscape):
     This class is a subclass of the Landscape class to portray the water
     """
     parameters = {"f_max": 0}
+    migration_possible = False
 
     #    rc = len(self.map) #rows
     #    len(self.map[0]) #columns
