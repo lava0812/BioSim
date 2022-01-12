@@ -227,3 +227,29 @@ class Carnivore(Animal):
     def __init__(self, age=None, weight=None):
         super().__init__(age=age, weight=weight)
         self.kill_p = None
+
+
+"""
+        self.map_boundaries()
+        for i, rows in enumerate(self.lines):
+            for j, column in enumerate(rows):
+                if column == "W":
+                    self.map[(i + 1, j + 1)] = Water()
+                elif column == "L":
+                    self.map[(i + 1, j + 1)] = Lowland()
+                else:
+                    raise ValueError("This is not a valid landscape type. Try again!")
+
+        # set the neighbors here
+        for loc, cell in self.map.items():
+            neighbor_loc = (loc[0], loc[1] - 1), \
+                           (loc[0], loc[1] + 1), \
+                           (loc[0] - 1, loc[1]), \
+                           (loc[0] + 1, loc[1])
+
+            for n_loc in neighbor_loc:
+                neighbor_cell = self.map.get(n_loc)
+                # if that cell exists
+                if neighbor_cell is not None:
+                    cell.neighbors.append(neighbor_cell)
+"""
