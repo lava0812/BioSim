@@ -17,9 +17,9 @@ def test_map_input():
 
 def test_map_boundaries():
     geogr = """\
-            EEW
-            WRW
-            WWW"""
+            WWW
+            WLW
+            MWW"""
 
     with pytest.raises(ValueError):
         Island(map=geogr, initial_population=[])
@@ -29,12 +29,36 @@ def test_set_new_parameters():
     pass
 
 
+
 def test_map_lines():
-    pass
+    geogr = """\
+            WWWW
+            WLW
+            WWW"""
+
+    with pytest.raises(ValueError):
+        Island(map=geogr, initial_population=[])
 
 
 def test_population_cell():
-    pass
+  geogr = """\
+            WWW
+            WLW
+            WWW"""
+
+  population =  [{'loc': (3, 4),
+      'pop': [{'species': 'Herbivore',
+               'age': 10, 'weight': 12.5},
+              {'species': 'Herbivore',
+               'age': 9, 'weight': 10.3},
+              {'species': 'Carnivore',
+               'age': 5, 'weight': 8.1}]}]
+
+  island = Island(map=geogr,initial_population=population)
+  island.population_cell(population)
+
+  assert len(island.map[])
+
 
 
 def test_migrate():
