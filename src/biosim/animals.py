@@ -16,6 +16,7 @@ import random
 
 class Animal:
     param = {}
+
     # Set param metoden vår er litt feil.
     @classmethod
     def set_param(cls, added_parameters):
@@ -59,6 +60,8 @@ class Animal:
         self.fitness = None
         self.fitness_animal()
         self.death = False
+        self.migrate = False
+        # self.migrate should be false after aging.in the same year.
 
     def aging(self):
         """
@@ -80,7 +83,7 @@ class Animal:
         """
         weight_baby = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
         return weight_baby
-        #Bruker ikke denne funksjonen noen steder.
+        # Bruker ikke denne funksjonen noen steder.
 
     def weight_decrease(self):
         """
@@ -101,7 +104,7 @@ class Animal:
 
         if self.weight <= 0:
             self.fitness = 0
-            return False    # Kan vurdere å returnere false.
+            return False  # Kan vurdere å returnere false.
         else:
 
             tall = round((self.param["phi_age"]) * (self.age - self.param["a_half"]), 10)
@@ -159,6 +162,11 @@ class Animal:
                 return None
         else:
             return None
+
+    def migration_probability(self):
+
+        migrate_probability = self.fitness * self.param["mu"]
+        return random.random < migrate_probability
 
 
 class Herbivore(Animal):

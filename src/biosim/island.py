@@ -107,6 +107,12 @@ class Island:
         """
         pass
 
+    def move_to_another_cell(self):
+        """
+        This method will move the animal from one cell, to another cell, meaning that it will add
+        the animals that wants to move, to the list of the cell they want to move to.
+        """
+
     def annual_cycle(self):
         """
         Content of function:
@@ -118,10 +124,13 @@ class Island:
         6. Animals becomes one year older
         7 Animals lose weight
         8. Determining whether animals die or not.
-        We use the annual_cycle() method from
+        We use the annual_cycle() method from landscape class.
         """
 
         for row in self.map:
             for col in row:
                 col.annual_cycle()
         pass
+#in island, we move the animals from one cell to another cell. move only if the cell is not water.
+# after we move, we change self.migrate to true, this is for checking if it has migrated.
+
