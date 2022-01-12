@@ -7,7 +7,7 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 from src.biosim.island import Island
-
+from src.biosim.
 
 # The material in this file is licensed under the BSD 3-clause license
 # https://opensource.org/licenses/BSD-3-Clause
@@ -67,6 +67,7 @@ class BioSim:
         self.ini_pop = ini_pop
         self.ini_pop = Island().ini_carns + Island().ini_carns
         self.island_map = island_map
+        self.current_year = 0
 
     def set_animal_parameters(self, species, params):
         """
@@ -101,15 +102,21 @@ class BioSim:
     @property
     def year(self):
         """Last year simulated."""
+        return self.current_year
 
 
     @property
     def num_animals(self):
         """Total number of animals on island."""
+        return self.ini_pop
 
     @property
     def num_animals_per_species(self):
         """Number of animals per species in island, as dictionary."""
+        number_of_animals = {}
+        for cell in self.island_map:
+
+
 
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""

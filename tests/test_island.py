@@ -22,7 +22,7 @@ def test_map_boundaries():
             MWW"""
 
     with pytest.raises(ValueError):
-        Island(map_of_island=geogr, initial_population=[])
+        Island(map_of_island=geogr, initial_population=None)
 
 
 def test_set_new_parameters():
