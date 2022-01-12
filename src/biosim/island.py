@@ -37,6 +37,7 @@ class Island:
         Started on the map_input method here. This will take care of the error messages if
         something is wrong with the input the user have put in.
         """
+        # Dont know if we need this.
 
     def create_map(self):
         """
@@ -69,14 +70,15 @@ class Island:
         Here we define the boundaries of the map.
         """
         # fix this function, check on geogr instead
-        for row in self.geogr[0] + self.geogr[-1]:
+        for row in self.lines[0] + self.lines[-1]:
             for elements in row:
                 if elements != "W":
                     raise ValueError("The inputted map is not surrounded by water. Try again!")
 
-        for row in self.geogr:
-            if row[0] != "W" and row[-1] != "W":
-                raise ValueError("The inputted map is not surrounded by water. Try again!")
+        for row in self.lines:
+            for i in range(len(row[0])):
+                if row[0][i] != "W" and row[-1][i] != "W":
+                    raise ValueError("The inputted map is not surrounded by water. Try again!")
 
     def set_new_parameters(self):
         """
