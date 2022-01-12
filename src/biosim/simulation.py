@@ -6,6 +6,9 @@ Template for BioSim class.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+from src.biosim.island import Island
+
+
 # The material in this file is licensed under the BSD 3-clause license
 # https://opensource.org/licenses/BSD-3-Clause
 # (C) Copyright 2021 Hans Ekkehard Plesser / NMBU
@@ -49,6 +52,21 @@ class BioSim:
 
         img_dir and img_base must either be both None or both strings.
         """
+        if ymax_animals is None:
+            # y axis limit should be adjusted automatically
+            pass
+
+        if cmax_animals is None:
+            # Sensible fixed default values should be used.
+            pass
+
+        if img_dir is None:
+            # No figures are written to file.
+            pass
+
+        self.ini_pop = ini_pop
+        self.ini_pop = Island().ini_carns + Island().ini_carns
+        self.island_map = island_map
 
     def set_animal_parameters(self, species, params):
         """
@@ -83,6 +101,7 @@ class BioSim:
     @property
     def year(self):
         """Last year simulated."""
+
 
     @property
     def num_animals(self):

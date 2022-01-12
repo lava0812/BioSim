@@ -230,7 +230,7 @@ class Landscape:
                     arrival_cell.herbivores.append(herbivore)
                     self.herbivores.remove(herbivore)
                 else:
-                    break  # Her må vi skrive at den skal være der den er.
+                    break
 
         for carnivore in self.carnivores:
             if not carnivore.migrate and carnivore.migration_probability():
@@ -242,15 +242,14 @@ class Landscape:
                 else:
                     break
 
-                    # Den skal være der den er
-
     def annual_cycle(self):
         self.new_fodder()
         self.eat_fodder()
         self.prey()
         self.newborn_herbivore()
         self.newborn_carnivore()
-        # We can add the method for migration here.
+        self.migrated_animals()
+
         self.aging_population()
         self.weight_loss()
         self.death_population()
