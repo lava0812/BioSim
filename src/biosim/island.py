@@ -57,11 +57,11 @@ class Island:
             neighbor_loc = (loc[0], loc[1] - 1), \
                            (loc[0], loc[1] + 1), \
                            (loc[0] - 1, loc[1]), \
-                           (loc[0] + 1), loc[1])
+                            (loc[0] + 1, loc[1])
 
             for n_loc in neighbor_loc:
                 neighbor_cell = self.map.get(n_loc)
-                if neighbor_cell is not None
+                if neighbor_cell is not None:
                     cell.neighbors.append(neighbor_cell)
 
 
