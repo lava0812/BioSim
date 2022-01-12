@@ -18,6 +18,13 @@ class Landscape:
     parameters = {"f_max": 800}
     migration_possible = True
 
+    @classmethod
+    def set_parameters(cls, added_parameters):
+        """
+        Classmethod for setting the parameter for fodder.
+        """
+        pass
+
     def __init__(self):
         """
         Empty list to count the population, and here will we append the new values every year.
@@ -30,6 +37,7 @@ class Landscape:
         # mindre enn null.
         self.kill_probability = None
         self.migrate_probability = 0
+        self.neighbors = []
 
     def population_update(self, population_list):
         """
@@ -206,8 +214,35 @@ class Landscape:
 
     def migrated_animals(self):
 
-        migrated_herbivores = []
-        migrated_carnivores = []
+        """
+        This is not how it should be done, but I have done it for now. Ask TA about a better way
+        of doing this.
+        """
+
+        # migrated_herbivores = []
+        # migrated_carnivores = []
+
+        for herbivore in self.herbivores:
+            if not herbivore.migrate and herbivore.migration_probability():
+                arrival_cell = random.choice(self.neighbors)
+                if arrival_cell.migration_possible:
+                    herbivore.migrate = True
+                    arrival_cell.herbivores.append(herbivore)
+                    self.herbivores.remove(herbivore)
+                else:
+                    break  # Her må vi skrive at den skal være der den er.
+
+        for carnivore in self.carnivores:
+            if not carnivore.migrate and carnivore.migration_probability():
+                arrival_cell = random.choice(self.neighbors)
+                if arrival_cell.migration_possible:
+                    carnivore.migrate = True
+                    arrival_cell.carnivores.append(carnivore)
+                    self.carnivores.remove(carnivore)
+                else:
+                    break
+
+                    # Den skal være der den er
 
     def annual_cycle(self):
         self.new_fodder()
@@ -227,9 +262,6 @@ class Lowland(Landscape):
     """
     parameters = {"f_max": 800}
 
-    def __init__(self):
-        super().__init__()
-
 
 class Water(Landscape):
     """
@@ -240,8 +272,6 @@ class Water(Landscape):
 
     #    rc = len(self.map) #rows
     #    len(self.map[0]) #columns
-    def __init__(self):
-        super().__init__()
 
     def annual_cycle(self):
         pass

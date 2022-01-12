@@ -90,6 +90,9 @@ class Animal:
         Decrease the weight of an animal, which will happen every year.
         Updates the fitness right after.
         """
+        # reset the migrate state
+        self.migrate = False
+
         self.weight -= self.weight * self.param["eta"]  # Can put this in aging
         self.fitness_animal()
 
@@ -164,6 +167,9 @@ class Animal:
             return None
 
     def migration_probability(self):
+        """
+        This calculates the probability of an animal moving.
+        """
 
         migrate_probability = self.fitness * self.param["mu"]
         return random.random < migrate_probability
