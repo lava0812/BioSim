@@ -8,7 +8,8 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
 
-from src.biosim.island import Island
+from biosim.animals import Carnivore, Herbivore
+from biosim.island import Island, Water, Lowland
 
 
 # The material in this file is licensed under the BSD 3-clause license
@@ -61,8 +62,9 @@ class BioSim:
             pass
 
         if cmax_animals is None:
-            self.cmax_animals = {'Herbivore': 0, 'Carnivore': 0}
-            # Sensible fixed default values should be used.
+            self.cmax_animals = {'Herbivore': 230, 'Carnivore': 30}
+            # Sensible fixed default values should be used. Should check over plesser´s notebook
+            # for exact answers
             pass
 
         if img_dir is None:
@@ -73,22 +75,38 @@ class BioSim:
         self.island_map = island_map
         self.island = Island(island_map, ini_pop)
         self._current_year = 0
+        self.vis_years = vis_years
 
-    def set_animal_parameters(self, species, params):
+    @staticmethod
+    def set_animal_parameters(species, params):
         """
         Set parameters for animal species.
 
         :param species: String, name of animal species
         :param params: Dict with valid parameter specification for species
         """
+        if species == "Herbivore" or species == "herbivore":
+            Herbivore.set_param(params)
+        elif species == "Carnivore" or species == "carnivore":
+            Carnivore.set_param(params)
+        else:
+            raise ValueError("Choose a valid species! Choose between herbivore and carnivore.")
 
-    def set_landscape_parameters(self, landscape, params):
+    @staticmethod
+    def set_landscape_parameters(landscape, params):
         """
         Set parameters for landscape type.
 
         :param landscape: String, code letter for landscape
         :param params: Dict with valid parameter specification for landscape
         """
+        if landscape == "Water" or landscape == "water":
+            Water.set_parameters(params)
+        elif landscape == "Lowland" or landscape == "lowland":
+            Lowland.set_parameters(params)
+        else:
+            raise ValueError("Choose a valid landscape type!")
+        # I should add highland and desert here eventually.
 
     def simulate(self, num_years):
         """
@@ -103,6 +121,7 @@ class BioSim:
 
         :param population: List of dictionaries specifying population
         """
+        self.island.population_cell(population)
 
     @property
     def year(self):
@@ -118,8 +137,7 @@ class BioSim:
     def num_animals_per_species(self):
         """Number of animals per species in island, as dictionary."""
         number_of_animals = {}
-        for cell in self.island_map:
-
+        # for cell in self.island_map:
 
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""

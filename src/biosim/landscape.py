@@ -93,7 +93,7 @@ class Landscape:
         Using random shuffle to let the herbivores eat in a random order, and break the loop
         if the fodder amount is on 0
         """
-        #random.shuffle(self.herbivores)
+        # random.shuffle(self.herbivores)
         for individual in self.herbivores:
 
             if self.fodder == 0:
@@ -245,10 +245,10 @@ class Landscape:
     def annual_cycle(self):
         self.new_fodder()
         self.eat_fodder()
-        #self.prey()
+        # self.prey()
         self.newborn_herbivore()
-        #self.newborn_carnivore()
-        #self.migrated_animals()
+        # self.newborn_carnivore()
+        # self.migrated_animals()
 
         self.aging_population()
         self.weight_loss()
