@@ -11,7 +11,7 @@ from src.biosim.landscape import Lowland, Water
 class Island:
     landscape_types = {"L": Lowland, "W": Water}
 
-    def __init__(self, map=None, initial_population=None):
+    def __init__(self, map_of_island=None, initial_population=None):
 
         self.ini_herbs = []
         self.ini_carns = []
@@ -22,13 +22,13 @@ class Island:
         else:
             self.initial_population = initial_population
 
-        if map is None:
-            map = """\
+        if map_of_island is None:
+            map_of_island = """\
                WWW
                WLW
                WWW"""
 
-        self.geogr = textwrap.dedent(map)
+        self.geogr = textwrap.dedent(map_of_island)
         self.lines = self.geogr.splitlines()
         self.map = {}
 
@@ -57,16 +57,12 @@ class Island:
             neighbor_loc = (loc[0], loc[1] - 1), \
                            (loc[0], loc[1] + 1), \
                            (loc[0] - 1, loc[1]), \
-                            (loc[0] + 1, loc[1])
+                           (loc[0] + 1, loc[1])
 
             for n_loc in neighbor_loc:
                 neighbor_cell = self.map.get(n_loc)
                 if neighbor_cell is not None:
                     cell.neighbors.append(neighbor_cell)
-
-        # loc = (2, 2)
-        # self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)  # This is how the function should be used
-        # to access the coordinates(2,2)
 
     def map_boundaries(self):
         """

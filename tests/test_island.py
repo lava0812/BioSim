@@ -22,7 +22,7 @@ def test_map_boundaries():
             MWW"""
 
     with pytest.raises(ValueError):
-        Island(map=geogr, initial_population=[])
+        Island(map_of_island=geogr, initial_population=[])
 
 
 def test_set_new_parameters():
@@ -37,7 +37,7 @@ def test_map_lines():
             WWW"""
 
     with pytest.raises(ValueError):
-        Island(map=geogr, initial_population=[])
+        Island(map_of_island=geogr, initial_population=[])
 
 
 def test_population_cell():
@@ -54,7 +54,7 @@ def test_population_cell():
               {'species': 'Carnivore',
                'age': 5, 'weight': 8.1}]}]
 
-  island = Island(map=geogr,initial_population=population)
+  island = Island(map_of_island=geogr, initial_population=population)
   island.population_cell(population)
 
   assert len(island.map[])
