@@ -30,7 +30,7 @@ class Island:
 
         self.geogr = textwrap.dedent(map)
         self.lines = self.geogr.splitlines()
-        self.map = []
+        self.map = {}
 
     def map_input(self):
         """
@@ -43,17 +43,7 @@ class Island:
         Here we create the actual map of the island.
         It can be useful to use two for loops here.
         """
-        self.map_boundaries()
-        for rows in self.lines:
-            row = []  # Add the map to this list.
-            for column in rows:
-                if column == "W":
-                    row.append(Water())
-                elif column == "L":
-                    row.append(Lowland())
-                else:
-                    raise ValueError("This is not a valid landscape type. Try again!")
-            self.map.append(row)
+
 
         # loc = (2, 2)
         # self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)  # This is how the function should be used
@@ -63,12 +53,13 @@ class Island:
         """
         Here we define the boundaries of the map.
         """
-        for row in self.map[0] + self.map[-1]:
+        # fix this function, check on geogr instead
+        for row in self.geogr[0] + self.geogr[-1]:
             for elements in row:
                 if elements != "W":
                     raise ValueError("The inputted map is not surrounded by water. Try again!")
 
-        for row in self.map:
+        for row in self.geogr:
             if row[0] != "W" and row[-1] != "W":
                 raise ValueError("The inputted map is not surrounded by water. Try again!")
 
@@ -76,7 +67,7 @@ class Island:
         """
         Give user the option to set parameters themselves.
         """
-        #I dont know if we need to do this.
+        # I dont know if we need to do this.
         pass
 
     def map_lines(self):
@@ -94,12 +85,11 @@ class Island:
         """
         Check how many animals there are on a cell, this is for both herbivores and carnivores
         """
-        for individual in population:
+        for item in population:
+            population = item["pop"]
+            loc = item["loc"]
 
-            population = individual["population"]
-            loc = individual.self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)
-
-        self.map[loc].population_update(population)
+            self.map[loc].population_update(population)
 
     def migrate(self):
         """
@@ -118,6 +108,8 @@ class Island:
         This method will move the animal from one cell, to another cell, meaning that it will add
         the animals that wants to move, to the list of the cell they want to move to.
         """
+        # can use the extend method here, for adding the migrated animals list to the
+        # particular list of each animal.
 
     def annual_cycle(self):
         """
@@ -133,10 +125,8 @@ class Island:
         We use the annual_cycle() method from landscape class.
         """
 
-        for row in self.map:
-            for col in row:
-                col.annual_cycle()
+        for cell in self.map.values():
+            cell.annual_cycle()
         pass
-#in island, we move the animals from one cell to another cell. move only if the cell is not water.
+# in island, we move the animals from one cell to another cell. move only if the cell is not water.
 # after we move, we change self.migrate to true, this is for checking if it has migrated.
-
