@@ -6,6 +6,8 @@ Template for BioSim class.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
+import random
+
 from src.biosim.island import Island
 
 
@@ -52,7 +54,9 @@ class BioSim:
 
         img_dir and img_base must either be both None or both strings.
         """
+        random.seed(seed)
         if ymax_animals is None:
+            self.ymax_animals = 100
             # y axis limit should be adjusted automatically
             pass
 
@@ -65,8 +69,8 @@ class BioSim:
             pass
 
         self.ini_pop = ini_pop
-        self.ini_pop = Island().ini_carns + Island().ini_carns
         self.island_map = island_map
+        self.island = Island(island_map, ini_pop)
 
     def set_animal_parameters(self, species, params):
         """
@@ -101,7 +105,6 @@ class BioSim:
     @property
     def year(self):
         """Last year simulated."""
-
 
     @property
     def num_animals(self):
