@@ -97,7 +97,7 @@ class Island:
         for individual in population:
 
             population = individual["population"]
-            loc = individual["loc"]
+            loc = individual.self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)
 
         self.map[loc].population_update(population)
 
