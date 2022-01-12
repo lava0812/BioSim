@@ -41,12 +41,12 @@ def test_map_lines():
 
 
 def test_population_cell():
-  geogr = """\
+    geogr = """\
             WWW
             WLW
             WWW"""
 
-  population =  [{'loc': (3, 4),
+    population =  [{'loc': (3, 4),
       'pop': [{'species': 'Herbivore',
                'age': 10, 'weight': 12.5},
               {'species': 'Herbivore',
@@ -54,10 +54,10 @@ def test_population_cell():
               {'species': 'Carnivore',
                'age': 5, 'weight': 8.1}]}]
 
-  island = Island(map_of_island=geogr, initial_population=population)
-  island.population_cell(population)
+    island = Island(map_of_island=geogr, initial_population=population)
+    island.population_cell(population)
 
-  assert len(island.map[])
+    assert len(island.map[])
 
 
 

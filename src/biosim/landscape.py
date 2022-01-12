@@ -93,7 +93,7 @@ class Landscape:
         Using random shuffle to let the herbivores eat in a random order, and break the loop
         if the fodder amount is on 0
         """
-        random.shuffle(self.herbivores)
+        #random.shuffle(self.herbivores)
         for individual in self.herbivores:
 
             if self.fodder == 0:
