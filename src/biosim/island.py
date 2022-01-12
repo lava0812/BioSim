@@ -94,12 +94,12 @@ class Island:
         """
         Check how many animals there are on a cell, this is for both herbivores and carnivores
         """
-        # for individual in population:
-        #
-        #     population = individual["population"]
-        #     loc = individual["loc"]
-        #
-        #     self.map[loc].population_update(population)
+        for individual in population:
+
+            population = individual["population"]
+            loc = individual["loc"]
+
+        self.map[loc].population_update(population)
 
     def migrate(self):
         """

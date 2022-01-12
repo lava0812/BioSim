@@ -5,25 +5,6 @@ from src.biosim.island import Island
 import pytest
 
 
-def test_init_wrong():
-    geogr = """\
-               WWW
-               WLW
-               WWW"""
-    geogr = textwrap.dedent(geogr)
-
-    ini_herbs = [{'loc': (2, 2),
-                  'pop': [{'species': 'Herbivore',
-                           'age': 5,
-                           'weight': 20}
-                          for _ in range(50)]}]
-    ini_carns = [{'loc': (2, 2),
-                  'pop': [{'species': 'Carnivore',
-                           'age': 5,
-                           'weight': 20}
-                          for _ in range(20)]}]
-    with pytest.raises(ValueError):
-        Island(map=geogr, initial_population=None)
 
 
 def test_create_map():
@@ -35,7 +16,13 @@ def test_map_input():
 
 
 def test_map_boundaries():
-    pass
+    geogr = """\
+            EEW
+            WRW
+            WWW"""
+
+    with pytest.raises(ValueError):
+        Island(map=geogr, initial_population=[])
 
 
 def test_set_new_parameters():
