@@ -30,7 +30,7 @@ class Island:
 
         self.geogr = textwrap.dedent(map)
         self.lines = self.geogr.splitlines()
-        self.map = []
+        self.map = {}
 
     def map_input(self):
         """
@@ -44,16 +44,37 @@ class Island:
         It can be useful to use two for loops here.
         """
         self.map_boundaries()
-        for rows in self.lines:
-            row = []  # Add the map to this list.
-            for column in rows:
+        for i, rows in enumerate(self.lines):
+            for j, column in enumerate(rows):
                 if column == "W":
-                    row.append(Water())
+                    self.map[(i + 1, j + 1)] = Water()
                 elif column == "L":
-                    row.append(Lowland())
+                    self.map[(i + 1, j + 1)] = Lowland()
                 else:
                     raise ValueError("This is not a valid landscape type. Try again!")
-            self.map.append(row)
+
+        for loc, cell in self.map.items():
+            neighbor_loc = (loc[0], loc[1] - 1), \
+                           (loc[0], loc[1] + 1), \
+                           (loc[0] - 1, loc[1]), \
+                           (loc[0] + 1), loc[1])
+
+            for n_loc in neighbor_loc:
+                neighbor_cell = self.map.get(n_loc)
+                if neighbor_cell is not None:
+                    cell.neighbors.append(neighbor_cell)
+
+
+
+  #          row = []  # Add the map to this list.
+#            for column in rows:
+              #  if column == "W":
+                   # row.append(Water())
+                #elif column == "L":
+                 #   row.append(Lowland())
+               # else:
+                 #   raise ValueError("This is not a valid landscape type. Try again!")
+           # self.map.append(row)
 
         # loc = (2, 2)
         # self.map[loc(0) - 1][loc(1) - 1].add_pop(pop)  # This is how the function should be used
