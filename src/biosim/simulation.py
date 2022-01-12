@@ -71,6 +71,7 @@ class BioSim:
         self.ini_pop = ini_pop
         self.island_map = island_map
         self.island = Island(island_map, ini_pop)
+        self._current_year = 0
 
     def set_animal_parameters(self, species, params):
         """
@@ -105,6 +106,7 @@ class BioSim:
     @property
     def year(self):
         """Last year simulated."""
+        return self._current_year
 
     @property
     def num_animals(self):
