@@ -15,7 +15,7 @@ https://gitlab.com/nmbu.no/emner/inf200/h2021
 import random
 
 from biosim.animals import Carnivore, Herbivore
-from biosim.island import Island, Water, Lowland
+from biosim.island import Island, Water, Lowland, Highland, Desert
 from biosim.visualization import _FFMPEG_BINARY
 
 
@@ -122,6 +122,10 @@ class BioSim:
             Water.set_parameters(params)
         elif landscape == "Lowland" or landscape == "lowland":
             Lowland.set_parameters(params)
+        elif landscape == "Highland" or landscape == "highland":
+            Highland.set_parameters(params)
+        elif landscape == "Desert" or landscape == "desert":
+            Desert.set_parameters(params)
         else:
             raise ValueError("Choose a valid landscape type!")
         # I should add highland and desert here eventually.
