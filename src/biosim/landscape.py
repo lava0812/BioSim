@@ -15,7 +15,7 @@ from src.biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
-    parameters = {"f_max": 800}
+    parameters = {}
     migration_possible = True
 
     @classmethod
@@ -23,7 +23,11 @@ class Landscape:
         """
         Classmethod for setting the parameter for fodder.
         """
-        pass
+        for parameter, value in added_parameters.items():
+            if value < 0:
+                raise ValueError("Inputted parameters for fodder can not be negative!")
+            cls.parameters[parameter] = value
+        cls.parameters.update(added_parameters)
 
     def __init__(self):
         """

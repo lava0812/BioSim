@@ -105,7 +105,7 @@ class Island:
 
     def population_cell(self, population):
         """
-        Check how many animals there are on a cell, this is for both herbivores and carnivores
+        Check how many animals there are in a cell, for both herbivores and carnivores
         """
         for item in population:
             population = item["pop"]
@@ -115,16 +115,7 @@ class Island:
 
     def annual_cycle(self):
         """
-        Content of function:
-        1. Growth of food
-        2. Herbivores eat
-        3. Carnivores eat
-        4. Herbivores and carnivores give birth
-        5. Animals migrate(not relevant atm)
-        6. Animals becomes one year older
-        7 Animals lose weight
-        8. Determining whether animals die or not.
-        We use the annual_cycle() method from landscape class.
+        This method will run the annual cycle method, which is used in landscape.
         """
 
         for cell in self.map.values():

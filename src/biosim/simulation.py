@@ -85,7 +85,7 @@ class BioSim:
         else:
             self.img_base = img_base
 
-        self.ini_pop = ini_pop
+        self.ini_pop = 0
         self.island_map = island_map
 
         self.island = Island(island_map, ini_pop)

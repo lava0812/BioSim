@@ -56,6 +56,7 @@ class Visualization:
         :type img_fmt: str
         """
 
+        self._mean_ax_herbi = None
         if img_name is None:
             img_name = _DEFAULT_GRAPHICS_NAME
 
@@ -170,10 +171,18 @@ class Visualization:
 
         if self._mean_line is None:
             # plot one line (herb_line)
+            mean_plot_herbi = self._mean_ax_herbi.plot(np.arange(0, final_step + 1).
+                                                       np.full(final_step + 1, np.nan))
 
-            mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
-                                           np.full(final_step + 1, np.nan))
-            self._mean_line = mean_plot[0]
+            mean_plot_carni = self._mean_ax_herbi.plot(np.arange(0, final_step + 1).
+                                                       np.full(final_step + 1, np.nan))
+            # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
+            #                                np.full(final_step + 1, np.nan))
+
+            self._mean_line = mean_plot_herbi[0]
+
+            self._mean_line = mean_plot_carni[0]
+
             # plot another line (carn_line)
             # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
             #                                np.full(final_step + 1, np.nan))
@@ -203,6 +212,7 @@ class Visualization:
         # [nan, nan, nan, nan]
         y_data = self._mean_line.get_ydata()
         # if step = 0, the list becomes [1, nan, nan, nan]
+
         y_data[step] = mean
         self._mean_line.set_ydata(y_data)
 
