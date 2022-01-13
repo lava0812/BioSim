@@ -31,6 +31,7 @@ class Island:
         self.geogr = textwrap.dedent(map_of_island)
         self.lines = self.geogr.splitlines()
         self.map = {}
+        self.create_map()
 
     def map_input(self):
         """
