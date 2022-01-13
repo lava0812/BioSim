@@ -5,8 +5,6 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import subprocess
 
-from biosim.landscape import Landscape
-
 """
 simulation.py is highly inspired by Hans Ekkehard Plesser´s
 randvis project. This is the link for the gitlab project: 
@@ -18,7 +16,7 @@ import random
 
 from biosim.animals import Carnivore, Herbivore
 from biosim.island import Island, Water, Lowland
-from biosim.visualization import Visualization, _FFMPEG_BINARY
+from biosim.visualization import _FFMPEG_BINARY
 
 
 # The material in this file is licensed under the BSD 3-clause license
@@ -95,7 +93,7 @@ class BioSim:
         self.vis_years = vis_years
         self.img_fmt = img_fmt
 
-        self.visualization = Visualization(self.img_dir, self.img_name, self.img_fmt)
+        # self.visualization = Visualization(img_dir, img_name, img_fmt)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -135,12 +133,12 @@ class BioSim:
 
         :param num_years: number of years to simulate
         """
-        self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
+        # self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
         for num_year in range(self._current_year, self._current_year + num_years):
             self.island.annual_cycle()
 
-            self.visualization.update(num_year, self.island.animal_distribution,
-                                      self.island.num_herbs, self.island.num_carni)
+            # self.visualization.update(num_year, self.island.animal_distribution,
+            #                         self.island.num_herbs, self.island.num_carni)
         self._current_year += num_year
 
     def add_population(self, population):
@@ -166,10 +164,10 @@ class BioSim:
         """Number of animals per species in island, as dictionary."""
         animal_count_per_species = {"Herbivore": 0, "Carnivore": 0}
 
-        animal_count_per_species["Herbivore"] += len(Landscape().herbivores)
-        animal_count_per_species["Carnivore"] += len(Landscape().carnivores)
-
-        # for cell in self.island_map:
+        for loc, landscape in self.island.map.items():
+            animal_count_per_species["Herbivore"] += len(landscape.herbivores)
+            animal_count_per_species["Carnivore"] += len(landscape.carnivores)
+        return animal_count_per_species
 
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""

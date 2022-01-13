@@ -170,6 +170,7 @@ class Visualization:
 
         if self._mean_line is None:
             # plot one line (herb_line)
+
             mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
                                            np.full(final_step + 1, np.nan))
             self._mean_line = mean_plot[0]
