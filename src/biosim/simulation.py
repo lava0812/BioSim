@@ -118,7 +118,7 @@ class BioSim:
         :param num_years: number of years to simulate
         """
         for _ in range(num_years):
-            Island().annual_cycle()
+            self.island.annual_cycle()
 
     def add_population(self, population):
         """
@@ -141,8 +141,7 @@ class BioSim:
     @property
     def num_animals_per_species(self):
         """Number of animals per species in island, as dictionary."""
-        animal_count_per_species = {"Herbivore": 0, "Carnivore": 00}
-        
+        animal_count_per_species = {"Herbivore": 0, "Carnivore": 0}
 
         number_of_animals = {}
         # for cell in self.island_map:
