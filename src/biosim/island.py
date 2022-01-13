@@ -5,11 +5,11 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import textwrap
 
-from src.biosim.landscape import Lowland, Water
+from src.biosim.landscape import Lowland, Water, Highland, Desert
 
 
 class Island:
-    landscape_types = {"L": Lowland, "W": Water}
+    landscape_types = {"L": Lowland, "W": Water, "H": Highland, "D": Desert}
 
     def __init__(self, map_of_island=None, initial_population=None):
 
@@ -51,6 +51,10 @@ class Island:
                     self.map[(i + 1, j + 1)] = Water()
                 elif column == "L":
                     self.map[(i + 1, j + 1)] = Lowland()
+                elif column == "H":
+                    self.map[(i + 1, j + 1)] = Highland()
+                elif column == "D":
+                    self.map[(i + 1, j + 1)] = Desert()
                 else:
                     raise ValueError("This is not a valid landscape type. Try again!")
 

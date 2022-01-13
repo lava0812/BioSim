@@ -274,3 +274,17 @@ class Water(Landscape):
 
     def annual_cycle(self):
         pass
+
+
+class Highland(Landscape):
+    """
+    This class is a subclass of the Landscape class to portray the highland
+    """
+    parameters = {"f_max": 300}
+
+
+class Desert(Landscape):
+    """
+    This class is a subclass of the Landscape class to portray the desert
+    """
+    parameters = {"f_max": 0}
