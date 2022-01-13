@@ -1,15 +1,23 @@
 # -*- encoding: utf-8 -*-
 
-"""
-Template for BioSim class.
-"""
+
+
+
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
+
+"""
+simulation.py is highly inspired by Hans Ekkehard Plesser´s
+randvis project. This is the link for the gitlab project: 
+https://gitlab.com/nmbu.no/emner/inf200/h2021
+/inf200-course-materials/-/tree/main/january_block/examples/randvis_project
+"""
 
 import random
 
 from biosim.animals import Carnivore, Herbivore
 from biosim.island import Island, Water, Lowland
+from biosim.visualization import Visualization
 
 
 # The material in this file is licensed under the BSD 3-clause license
@@ -63,7 +71,7 @@ class BioSim:
             self.ymax_animals = ymax_animals
 
         if cmax_animals is None:
-            self.cmax_animals = {'Herbivore': 230, 'Carnivore': 30}
+            self.cmax_animals = {'Herbivore': 90, 'Carnivore': 30}
             # Sensible fixed default values should be used. Should check over plesser´s notebook
             # for exact answers
         else:
@@ -73,11 +81,20 @@ class BioSim:
             # No figures are written to file.
             pass
 
+        if img_base is not None:
+            self.img_base = img_base
+        else:
+            self.img_base = img_base
+
         self.ini_pop = ini_pop
         self.island_map = island_map
+
         self.island = Island(island_map, ini_pop)
         self._current_year = 0
         self.vis_years = vis_years
+        self.img_fmt = img_fmt
+
+        self.visualization = Visualization(self.img_dir, self.img_name, self.img_fmt)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -148,3 +165,5 @@ class BioSim:
 
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""
+
+        self._graphics.make_movie()
