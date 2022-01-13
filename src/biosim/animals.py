@@ -24,14 +24,16 @@ class Animal:
         This will be a method for adding new parameters to the function.
         This will be a classmethod because it involves changing the class variables.
         """
-        for parameters in added_parameters:
-            if parameters not in cls.param:
+        for parameter in added_parameters.keys():
+            if parameter not in cls.param.keys():
                 raise KeyError("Invalid parameter name")
 
-        for parameters in cls.param:
-            if parameters in cls.param:
-                if added_parameters[parameters] < 0:
-                    raise ValueError("Inputted parameters can not be negative!")
+        for parameter,value in added_parameters.items():
+            if value < 0:
+                raise ValueError("Inputted parameters can not be negative!")
+            if parameter == "eta" and value > 1:
+                raise ValueError
+            cls.param[parameter] = value
         cls.param.update(added_parameters)
 
     def __init__(self, age=None, weight=None):
