@@ -1,15 +1,24 @@
 # -*- encoding: utf-8 -*-
 
-"""
-Template for BioSim class.
-"""
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
+
+import subprocess
+
+from biosim.landscape import Landscape
+
+"""
+simulation.py is highly inspired by Hans Ekkehard Plesser´s
+randvis project. This is the link for the gitlab project: 
+https://gitlab.com/nmbu.no/emner/inf200/h2021
+/inf200-course-materials/-/tree/main/january_block/examples/randvis_project
+"""
 
 import random
 
 from biosim.animals import Carnivore, Herbivore
-from biosim.island import Island, Water, Lowland, Highland, Desert
+from biosim.island import Island, Water, Lowland
+from biosim.visualization import Visualization, _FFMPEG_BINARY
 
 
 # The material in this file is licensed under the BSD 3-clause license
@@ -59,23 +68,34 @@ class BioSim:
         if ymax_animals is None:
             self.ymax_animals = 100
             # y axis limit should be adjusted automatically
-            pass
+        else:
+            self.ymax_animals = ymax_animals
 
         if cmax_animals is None:
-            self.cmax_animals = {'Herbivore': 230, 'Carnivore': 30}
+            self.cmax_animals = {'Herbivore': 90, 'Carnivore': 30}
             # Sensible fixed default values should be used. Should check over plesser´s notebook
             # for exact answers
-            pass
+        else:
+            self.cmax_animals = cmax_animals
 
         if img_dir is None:
             # No figures are written to file.
             pass
 
+        if img_base is not None:
+            self.img_base = img_base
+        else:
+            self.img_base = img_base
+
         self.ini_pop = ini_pop
         self.island_map = island_map
+
         self.island = Island(island_map, ini_pop)
         self._current_year = 0
         self.vis_years = vis_years
+        self.img_fmt = img_fmt
+
+        self.visualization = Visualization(self.img_dir, self.img_name, self.img_fmt)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -104,13 +124,10 @@ class BioSim:
             Water.set_parameters(params)
         elif landscape == "Lowland" or landscape == "lowland":
             Lowland.set_parameters(params)
-        elif landscape == "Highland" or landscape == "highland":
-            Highland.set_parameters(params)
-        elif landscape == "Desert" or landscape == "desert":
-            Desert.set_parameters(params)
         else:
             raise ValueError("Choose a valid landscape type!")
         # I should add highland and desert here eventually.
+        # But this looks okay for now
 
     def simulate(self, num_years):
         """
@@ -118,6 +135,13 @@ class BioSim:
 
         :param num_years: number of years to simulate
         """
+        self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
+        for num_year in range(self._current_year, self._current_year + num_years):
+            self.island.annual_cycle()
+
+            self.visualization.update(num_year, self.island.animal_distribution,
+                                      self.island.num_herbs, self.island.num_carni)
+        self._current_year += num_year
 
     def add_population(self, population):
         """
@@ -140,8 +164,29 @@ class BioSim:
     @property
     def num_animals_per_species(self):
         """Number of animals per species in island, as dictionary."""
-        number_of_animals = {}
+        animal_count_per_species = {"Herbivore": 0, "Carnivore": 0}
+
+        animal_count_per_species["Herbivore"] += len(Landscape().herbivores)
+        animal_count_per_species["Carnivore"] += len(Landscape().carnivores)
+
         # for cell in self.island_map:
 
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""
+
+        if self.img_base is None:
+            raise RuntimeError("A filename is not defined!")
+
+        try:
+            subprocess.check_call([_FFMPEG_BINARY,
+                                   '-i', '{}_%05d.png'.format(self.img_base),
+                                   '-y',
+                                   '-profile:v', 'baseline',
+                                   '-level', '3.0',
+                                   '-pix_fmt', 'yuv420p',
+                                   '{}.{}'.format(self.img_base, "mp4")])
+        except subprocess.CalledProcessError as err:
+            raise RuntimeError("ERROR: convert failed with: {}".format(err))
+
+        else:
+            raise ValueError("Unknown movie format:" + "mp4")
