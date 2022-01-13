@@ -59,13 +59,15 @@ class BioSim:
         if ymax_animals is None:
             self.ymax_animals = 100
             # y axis limit should be adjusted automatically
-            pass
+        else:
+            self.ymax_animals = ymax_animals
 
         if cmax_animals is None:
             self.cmax_animals = {'Herbivore': 230, 'Carnivore': 30}
             # Sensible fixed default values should be used. Should check over plesser´s notebook
             # for exact answers
-            pass
+        else:
+            self.cmax_animals = cmax_animals
 
         if img_dir is None:
             # No figures are written to file.
@@ -107,6 +109,7 @@ class BioSim:
         else:
             raise ValueError("Choose a valid landscape type!")
         # I should add highland and desert here eventually.
+        # But this looks okay for now
 
     def simulate(self, num_years):
         """
@@ -114,6 +117,8 @@ class BioSim:
 
         :param num_years: number of years to simulate
         """
+        for _ in range(num_years):
+            Island().annual_cycle()
 
     def add_population(self, population):
         """
@@ -136,6 +141,9 @@ class BioSim:
     @property
     def num_animals_per_species(self):
         """Number of animals per species in island, as dictionary."""
+        animal_count_per_species = {"Herbivore": 0, "Carnivore": 00}
+        
+
         number_of_animals = {}
         # for cell in self.island_map:
 

@@ -94,6 +94,8 @@ class Landscape:
         if the fodder amount is on 0
         """
         # random.shuffle(self.herbivores)
+        self.herbivores.sort(key=lambda x: "fitness") # Because herbivores eat from highest fitness
+                                                    #to lowest fitness.
         for individual in self.herbivores:
 
             if self.fodder == 0:
