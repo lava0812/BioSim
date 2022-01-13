@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-
-
-
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
+
+import subprocess
+
+from biosim.landscape import Landscape
 
 """
 simulation.py is highly inspired by Hans Ekkehard Plesser´s
@@ -17,7 +18,7 @@ import random
 
 from biosim.animals import Carnivore, Herbivore
 from biosim.island import Island, Water, Lowland
-from biosim.visualization import Visualization
+from biosim.visualization import Visualization, _FFMPEG_BINARY
 
 
 # The material in this file is licensed under the BSD 3-clause license
@@ -134,8 +135,13 @@ class BioSim:
 
         :param num_years: number of years to simulate
         """
-        for _ in range(num_years):
+        self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
+        for num_year in range(self._current_year, self._current_year + num_years):
             self.island.annual_cycle()
+
+            self.visualization.update(num_year, self.island.animal_distribution,
+                                      self.island.num_herbs, self.island.num_carni)
+        self._current_year += num_year
 
     def add_population(self, population):
         """
@@ -160,10 +166,27 @@ class BioSim:
         """Number of animals per species in island, as dictionary."""
         animal_count_per_species = {"Herbivore": 0, "Carnivore": 0}
 
-        number_of_animals = {}
+        animal_count_per_species["Herbivore"] += len(Landscape().herbivores)
+        animal_count_per_species["Carnivore"] += len(Landscape().carnivores)
+
         # for cell in self.island_map:
 
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""
 
-        self._graphics.make_movie()
+        if self.img_base is None:
+            raise RuntimeError("A filename is not defined!")
+
+        try:
+            subprocess.check_call([_FFMPEG_BINARY,
+                                   '-i', '{}_%05d.png'.format(self.img_base),
+                                   '-y',
+                                   '-profile:v', 'baseline',
+                                   '-level', '3.0',
+                                   '-pix_fmt', 'yuv420p',
+                                   '{}.{}'.format(self.img_base, "mp4")])
+        except subprocess.CalledProcessError as err:
+            raise RuntimeError("ERROR: convert failed with: {}".format(err))
+
+        else:
+            raise ValueError("Unknown movie format:" + "mp4")

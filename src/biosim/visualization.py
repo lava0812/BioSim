@@ -80,7 +80,7 @@ class Visualization:
         """
         Updates graphics with current data and save to file if necessary.
 
-        :param step: current time step
+        :param step: current time step (current year)
         :param sys_map: current system status (2d array)
         :param sys_mean: current mean value of system
         """
@@ -153,11 +153,13 @@ class Visualization:
         # Add left subplot for images created with imshow().
         # We cannot create the actual ImageAxis object before we know
         # the size of the image, so we delay its creation.
+        # this is for the heat map of animal distribution
         if self._map_ax is None:
             self._map_ax = self._fig.add_subplot(1, 2, 1)
             self._img_axis = None
 
         # Add right subplot for line graph of mean.
+        # this is for the line plot for both herbs and carns
         if self._mean_ax is None:
             self._mean_ax = self._fig.add_subplot(1, 2, 2)
             self._mean_ax.set_ylim(-0.05, 0.05)
@@ -167,9 +169,15 @@ class Visualization:
         self._mean_ax.set_xlim(0, final_step + 1)
 
         if self._mean_line is None:
+            # plot one line (herb_line)
             mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
                                            np.full(final_step + 1, np.nan))
             self._mean_line = mean_plot[0]
+            # plot another line (carn_line)
+            # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
+            #                                np.full(final_step + 1, np.nan))
+            # self._mean_line = mean_plot[0]
+
         else:
             x_data, y_data = self._mean_line.get_data()
             x_new = np.arange(x_data[-1] + 1, final_step + 1)
@@ -191,7 +199,9 @@ class Visualization:
                          orientation='horizontal')
 
     def _update_mean_graph(self, step, mean):
+        # [nan, nan, nan, nan]
         y_data = self._mean_line.get_ydata()
+        # if step = 0, the list becomes [1, nan, nan, nan]
         y_data[step] = mean
         self._mean_line.set_ydata(y_data)
 
