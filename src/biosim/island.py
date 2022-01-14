@@ -5,6 +5,8 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import textwrap
 
+import numpy as np
+
 from src.biosim.landscape import Lowland, Water, Highland, Desert
 
 
@@ -116,20 +118,50 @@ class Island:
         for cell in self.map.values():
             cell.annual_cycle()
         pass
-# in island, we move the animals from one cell to another cell. move only if the cell is not water.
-# after we move, we change self.migrate to true, this is for checking if it has migrated.
+
+    # in island, we move the animals from one cell to another cell. move only if the cell is not water.
+    # after we move, we change self.migrate to true, this is for checking if it has migrated.
+
+    def get_all_herbivores(self):
+        all_herbivore_list = []
+
+        for loc, cell in self.map.items():
+            all_herbivore_list.append(cell.herbivores)
+        return all_herbivore_list
+
+    def get_all_carnivores(self):
+        all_carnivore_list = []
+
+        for loc, cell in self.map.items():
+            all_carnivore_list.append(cell.carnivore)
+        return all_carnivore_list
+
+    def matrix_herbivores(self):
+
+        dim = self.map.items()[-1][0]
+        b = np.zeros(dim)
+
+        for loc, cell in b.items():
+            b[loc[0] - 1][loc[1] - 1] = len(cell.herbivore)
+
+    def matrix_carnivores(self):
+
+        dim = self.map.items()[-1][0]
+        b = np.zeros(dim)
+
+        for loc, cell in b.items():
+            b[loc[0] - 1][loc[1] - 1] = len(cell.herbivore)
 
 
-    def get_fitness(self):
-        pass
+#dim = self.map.items()[-1][0] == > (21, 21)
+#b = np.zeros(dim)
+#for loc, cell in items():
+#    b[loc[0] - 1][loc[1] - 1] = len(cell.herbivore)
+#[[0, 0, 0],
+# [0, 22, 0],
+# [0, 0, 0]]
 
-    def get_age(self):
-        pass
-
-    def get_weight(self):
-        pass
-
-    def get_herbivore_population(self):
-        pass
-# get fitness, age and weight of all animals in the map.
-# get herbivore population in each location.
+#for carnivore in all_carnivore_list:
+#    carnivore.fitness
+#    carnivore.age
+#    carnivore.weight

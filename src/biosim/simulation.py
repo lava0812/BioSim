@@ -5,8 +5,6 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import subprocess
 
-from biosim.landscape import Landscape
-
 """
 simulation.py is highly inspired by Hans Ekkehard Plesser´s
 randvis project. This is the link for the gitlab project: 
@@ -93,7 +91,6 @@ class BioSim:
         self._current_year = 0
         self.vis_years = vis_years
         self.img_fmt = img_fmt
-
 
         # self.visualization = Visualization(img_dir, img_name, img_fmt)
 
