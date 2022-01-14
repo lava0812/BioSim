@@ -254,7 +254,7 @@ class Landscape:
         # self.prey()
         self.newborn_herbivore()
         # self.newborn_carnivore()
-        # self.migrated_animals()
+        self.migrated_animals()
 
         self.aging_population()
         self.weight_loss()

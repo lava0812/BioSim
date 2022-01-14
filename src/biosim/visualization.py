@@ -77,6 +77,7 @@ class Visualization:
         self._mean_ax = None
         self._mean_line = None
 
+
     def update(self, step, sys_map, sys_mean):  # Very important method.
         """
         Updates graphics with current data and save to file if necessary.
@@ -216,6 +217,12 @@ class Visualization:
         y_data[step] = mean
         self._mean_line.set_ydata(y_data)
 
+
+    def histo_herbi(self):
+        pass
+
+    def histo_carni(self):
+        pass
     def _save_graphics(self, step):
         """Saves graphics to file if file name given."""
 

@@ -138,19 +138,25 @@ class Island:
 
     def matrix_herbivores(self):
 
-        dim = self.map.items()[-1][0]
+        dim = list(self.map.items())[-1][0]
         b = np.zeros(dim)
 
-        for loc, cell in b.items():
-            b[loc[0] - 1][loc[1] - 1] = len(cell.herbivore)
+        for loc, cell in self.map.items():
+            if not cell.migration_possible:
+                continue
+            b[loc[0] - 1][loc[1] - 1] = len(cell.herbivores)
+        return b
 
     def matrix_carnivores(self):
 
-        dim = self.map.items()[-1][0]
+        dim = list(self.map.items())[-1][0]
         b = np.zeros(dim)
 
-        for loc, cell in b.items():
-            b[loc[0] - 1][loc[1] - 1] = len(cell.herbivore)
+        for loc, cell in self.map.items():
+            if not cell.migration_possible:
+                continue
+            b[loc[0] - 1][loc[1] - 1] = len(cell.carnivores)
+        return b
 
 
 #dim = self.map.items()[-1][0] == > (21, 21)

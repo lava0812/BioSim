@@ -71,7 +71,7 @@ def test_migrate():
 
 
     island = Island(map_of_island=geogr)
-    island.
+    #island.
 
 
 #def test_annual_cycle():

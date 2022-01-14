@@ -77,6 +77,7 @@ class BioSim:
             self.cmax_animals = cmax_animals
 
         if img_dir is None:
+            #f'{os.path.join(img_dir, img_base}_{img_number:05d}.{img_fmt}'
             # No figures are written to file.
             pass
 
@@ -85,9 +86,11 @@ class BioSim:
         else:
             self.img_base = img_base
 
-        self.ini_pop = 0
         self.island_map = island_map
         self.island = Island(island_map)
+
+        if ini_pop is not None:
+            self.island.population_cell(ini_pop)
         self._current_year = 0
         self.vis_years = vis_years
         self.img_fmt = img_fmt
@@ -137,6 +140,7 @@ class BioSim:
         # self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
         for num_year in range(self._current_year, self._current_year + num_years):
             self.island.annual_cycle()
+            #print(self.island.matrix_herbivores(),"Year")
 
             # self.visualization.update(num_year, self.island.animal_distribution,
             #                         self.island.num_herbs, self.island.num_carni)
