@@ -91,11 +91,13 @@ class BioSim:
 
         if ini_pop is not None:
             self.island.population_cell(ini_pop)
+        #else:
+        #    self.ini_pop = ini_pop
         self._current_year = 0
         self.vis_years = vis_years
         self.img_fmt = img_fmt
 
-        self.visualization = Visualization(img_dir, img_name, img_fmt)
+        #self.visualization = Visualization(img_dir, img_name, img_fmt)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -142,7 +144,7 @@ class BioSim:
             self.island.annual_cycle()
             #print(self.island.matrix_herbivores(),"Year")
 
-            # self.visualization.update(num_year, self.island.animal_distribution,
+            #self.visualization.update(num_year, self.island.animal_distribution,
             #                         self.island.num_herbs, self.island.num_carni)
         self._current_year += num_years
 
