@@ -57,7 +57,8 @@ class Visualization:
         :type img_fmt: str
         """
 
-        self._mean_ax_herbi = None
+        self.cmax = None
+        self._count_ax_herbi = None
         if img_name is None:
             img_name = _DEFAULT_GRAPHICS_NAME
 
@@ -202,29 +203,29 @@ class Visualization:
                 self._count_line.set_data(np.hstack((x_data, x_new)),
                                           np.hstack((y_data, y_new)))
 
-    def heat_map_herbivores(self, sys_map):
+    def heat_map_herbivores(self, amt_herbivores):
         """Update the 2D-view of the system."""
 
         if self._img_axis is not None:
-            self._img_axis.set_data(sys_map)
+            self._img_axis.set_data(amt_herbivores)#will be the matrix
         else:
-            self._img_axis = self._map_ax.imshow(sys_map,
+            self._img_axis = self._map_ax.imshow(amt_herbivores,
                                                  interpolation='nearest',
-                                                 vmin=-0.25, vmax=0.25)
+                                                 vmin=0, vmax=self.cmax["Herbivores"])
             plt.colorbar(self._img_axis, ax=self._map_ax,
-                         orientation='horizontal')
+                         orientation='vertical')
 
-    def heat_map_carnivores(self, sys_map):
+    def heat_map_carnivores(self, amt_carnivores):
         """Update the 2D-view of the system."""
 
         if self._img_axis is not None:
-            self._img_axis.set_data(sys_map)
+            self._img_axis.set_data(amt_carnivores)
         else:
-            self._img_axis = self._map_ax.imshow(sys_map,
+            self._img_axis = self._map_ax.imshow(amt_carnivores,
                                                  interpolation='nearest',
-                                                 vmin=-0.25, vmax=0.25)
+                                                 vmin=0, vmax=self.cmax["Carnivores"])
             plt.colorbar(self._img_axis, ax=self._map_ax,
-                         orientation='horizontal')
+                         orientation='vertical')
 
     def _update_mean_graph(self, step, mean):
         # [nan, nan, nan, nan]
