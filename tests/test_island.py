@@ -14,6 +14,9 @@ def test_create_map():
 
 
 def test_map_boundaries():
+    """
+    This test will check if the map boundaries are water(W)
+    """
     geogr = """\
             WWW
             WLW
@@ -28,6 +31,9 @@ def test_map_boundaries():
 
 
 def test_map_lines():
+    """
+    This test will check if the map lines are equal length
+    """
     geogr = """\
             WWWW
             WLW
@@ -38,6 +44,9 @@ def test_map_lines():
 
 
 def test_population_cell():
+    """
+    Test
+    """
     geogr = """\
             WWW
             WLW
