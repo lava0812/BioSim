@@ -137,7 +137,9 @@ class Island:
         return all_carnivore_list
 
     def matrix_herbivores(self):
-
+        """
+        Matrix for herbivores.
+        """
         dim = list(self.map.items())[-1][0]
         b = np.zeros(dim)
 
@@ -148,7 +150,9 @@ class Island:
         return b
 
     def matrix_carnivores(self):
-
+        """
+        Matrix for carnivores.
+        """
         dim = list(self.map.items())[-1][0]
         b = np.zeros(dim)
 
@@ -158,16 +162,15 @@ class Island:
             b[loc[0] - 1][loc[1] - 1] = len(cell.carnivores)
         return b
 
-
-#dim = self.map.items()[-1][0] == > (21, 21)
-#b = np.zeros(dim)
-#for loc, cell in items():
+# dim = self.map.items()[-1][0] == > (21, 21)
+# b = np.zeros(dim)
+# for loc, cell in items():
 #    b[loc[0] - 1][loc[1] - 1] = len(cell.herbivore)
-#[[0, 0, 0],
+# [[0, 0, 0],
 # [0, 22, 0],
 # [0, 0, 0]]
 
-#for carnivore in all_carnivore_list:
+# for carnivore in all_carnivore_list:
 #    carnivore.fitness
 #    carnivore.age
 #    carnivore.weight

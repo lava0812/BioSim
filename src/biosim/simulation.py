@@ -16,7 +16,7 @@ import random
 
 from biosim.animals import Carnivore, Herbivore
 from biosim.island import Island, Water, Lowland, Highland, Desert
-from biosim.visualization import _FFMPEG_BINARY
+from biosim.visualization import _FFMPEG_BINARY, Visualization
 
 
 # The material in this file is licensed under the BSD 3-clause license
@@ -95,7 +95,7 @@ class BioSim:
         self.vis_years = vis_years
         self.img_fmt = img_fmt
 
-        # self.visualization = Visualization(img_dir, img_name, img_fmt)
+        self.visualization = Visualization(img_dir, img_name, img_fmt)
 
     @staticmethod
     def set_animal_parameters(species, params):
