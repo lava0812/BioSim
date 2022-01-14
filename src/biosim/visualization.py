@@ -57,7 +57,8 @@ class Visualization:
         :type img_fmt: str
         """
 
-        self._mean_ax_herbi = None
+        self.cmax = None
+        self._count_ax_herbi = None
         if img_name is None:
             img_name = _DEFAULT_GRAPHICS_NAME
 
@@ -75,8 +76,11 @@ class Visualization:
         self._fig = None
         self._map_ax = None
         self._img_axis = None
-        self._mean_ax = None
-        self._mean_line = None
+        self._count_ax = None
+        self._count_line = None
+
+        #We have added these
+        self._yearly_count_disp = None
 
     def update(self, step, sys_map, sys_mean):  # Very important method, sys_map will be matrix
         """
@@ -87,7 +91,9 @@ class Visualization:
         :param sys_mean: current mean value of system
         """
 
-        self._update_system_map(sys_map)
+        self.heat_map_carnivores(sys_map)
+        self.heat_map_herbivores(sys_map)
+
         self._update_mean_graph(step, sys_mean)
         self._fig.canvas.flush_events()  # ensure every thing is drawn
         plt.pause(1e-6)  # pause required to pass control to GUI
@@ -162,27 +168,27 @@ class Visualization:
 
         # Add right subplot for line graph of mean.
         # this is for the line plot for both herbs and carns
-        if self._mean_ax is None:
-            self._mean_ax = self._fig.add_subplot(1, 2, 2)
-            self._mean_ax.set_ylim(-0.05, 0.05)
+        if self._count_ax is None:
+            self._count_ax = self._fig.add_subplot(1, 2, 2)
+            self._count_ax.set_ylim(-0.05, 0.05)
 
         # needs updating on subsequent calls to simulate()
         # add 1 so we can show values for time zero and time final_step
-        self._mean_ax.set_xlim(0, final_step + 1)
+        self._count_ax.set_xlim(0, final_step + 1)
 
-        if self._mean_line is None:
+        if self._count_line is None:
             # plot one line (herb_line)
-            mean_plot_herbi = self._mean_ax_herbi.plot(np.arange(0, final_step + 1).
-                                                       np.full(final_step + 1, np.nan))
+            count_plot_herbi = self._count_ax.plot(np.arange(0, final_step + 1).
+                                                  np.full(final_step + 1, np.nan))
 
-            mean_plot_carni = self._mean_ax_herbi.plot(np.arange(0, final_step + 1).
-                                                       np.full(final_step + 1, np.nan))
+            count_plot_carni = self._count_ax.plot(np.arange(0, final_step + 1).
+                                                  np.full(final_step + 1, np.nan))
             # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
             #                                np.full(final_step + 1, np.nan))
 
-            self._mean_line = mean_plot_herbi[0]
+            self._herb_line = count_plot_herbi[0]
 
-            self._mean_line = mean_plot_carni[0]
+            self._carn_line = count_plot_carni[0]
 
             # plot another line (carn_line)
             # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
@@ -190,32 +196,44 @@ class Visualization:
             # self._mean_line = mean_plot[0]
 
         else:
-            x_data, y_data = self._mean_line.get_data()
+            x_data, y_data = self._count_line.get_data()
             x_new = np.arange(x_data[-1] + 1, final_step + 1)
             if len(x_new) > 0:
                 y_new = np.full(x_new.shape, np.nan)
-                self._mean_line.set_data(np.hstack((x_data, x_new)),
-                                         np.hstack((y_data, y_new)))
+                self._count_line.set_data(np.hstack((x_data, x_new)),
+                                          np.hstack((y_data, y_new)))
 
-    def _update_system_map(self, sys_map):
+    def heat_map_herbivores(self, amt_herbivores):
         """Update the 2D-view of the system."""
 
         if self._img_axis is not None:
-            self._img_axis.set_data(sys_map)
+            self._img_axis.set_data(amt_herbivores)#will be the matrix
         else:
-            self._img_axis = self._map_ax.imshow(sys_map,
+            self._img_axis = self._map_ax.imshow(amt_herbivores,
                                                  interpolation='nearest',
-                                                 vmin=-0.25, vmax=0.25)
+                                                 vmin=0, vmax=self.cmax["Herbivores"])
             plt.colorbar(self._img_axis, ax=self._map_ax,
-                         orientation='horizontal')
+                         orientation='vertical')
+
+    def heat_map_carnivores(self, amt_carnivores):
+        """Update the 2D-view of the system."""
+
+        if self._img_axis is not None:
+            self._img_axis.set_data(amt_carnivores)
+        else:
+            self._img_axis = self._map_ax.imshow(amt_carnivores,
+                                                 interpolation='nearest',
+                                                 vmin=0, vmax=self.cmax["Carnivores"])
+            plt.colorbar(self._img_axis, ax=self._map_ax,
+                         orientation='vertical')
 
     def _update_mean_graph(self, step, mean):
         # [nan, nan, nan, nan]
-        y_data = self._mean_line.get_ydata()
+        y_data = self._count_line.get_ydata()
         # if step = 0, the list becomes [1, nan, nan, nan]
 
         y_data[step] = mean
-        self._mean_line.set_ydata(y_data)
+        self._count_line.set_ydata(y_data)
 
     def histo_herbi(self):
         # fitness, age og weight
@@ -256,19 +274,43 @@ class Visualization:
     def distribution_subplot(self):
         pass
 
-    def map_graphics(self):
-        pass
+    def map_graphics(self, island_map):
+        #                   R    G    B
+        rgb_value = {'W': (0.0, 0.0, 1.0),  # blue
+                     'L': (0.0, 0.6, 0.0),  # dark green
+                     'H': (0.5, 1.0, 0.5),  # light green
+                     'D': (1.0, 1.0, 0.5)}  # light yellow
 
-    def year_update(self):
-        pass
+        map_rgb = [[rgb_value[column] for column in row]
+                   for row in island_map.splitlines()]
+
+        fig = plt.figure()
+
+        ax_im = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
+
+        ax_im.imshow(map_rgb)
+
+        ax_im.set_xticks(range(len(map_rgb[0])))
+        ax_im.set_xticklabels(range(1, 1 + len(map_rgb[0])))
+        ax_im.set_yticks(range(len(map_rgb)))
+        ax_im.set_yticklabels(range(1, 1 + len(map_rgb)))
+
+        ax_lg = fig.add_axes([0.85, 0.1, 0.1, 0.8])  # llx, lly, w, h
+        ax_lg.axis('off')
+        for ix, name in enumerate(('Water', 'Lowland',
+                                   'Highland', 'Desert')):
+            ax_lg.add_patch(plt.Rectangle((0., ix * 0.2), 0.3, 0.1,
+                                          edgecolor='none',
+                                          facecolor=rgb_value[name[0]]))
+            ax_lg.text(0.35, ix * 0.2, name, transform=ax_lg.transAxes)
+
+    def year_update(self, year_on_island):
+        """
+        This is a counter lapsed years on the island.
+        """
+        self._yearly_count_disp.set_text(f"Year: {year_on_island}")
 
     def curves_update(self):
-        pass
-
-    def heat_map_herbivores(self):
-        pass
-
-    def heat_map_carnivores(self):
         pass
 
     def histo_age_update(self):
@@ -277,7 +319,7 @@ class Visualization:
     def histo_weight_update(self):
         pass
 
-    def histo_fitness_update(self)
+    def histo_fitness_update(self):
         pass
 
     def graphics_update(self):
