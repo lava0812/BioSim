@@ -39,6 +39,7 @@ class Island:
         Here we create the actual map of the island.
         It can be useful to use two for loops here.
         """
+        self.map_lines()
         self.map_boundaries()
         for i, rows in enumerate(self.lines):
             for j, column in enumerate(rows):
@@ -114,6 +115,8 @@ class Island:
 
         for cell in self.map.values():
             cell.annual_cycle()
-        #pass
+        pass
 # in island, we move the animals from one cell to another cell. move only if the cell is not water.
 # after we move, we change self.migrate to true, this is for checking if it has migrated.
+# get fitness, age and weight of all animals in the map.
+# get herbivore population in each location.

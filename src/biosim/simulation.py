@@ -5,6 +5,8 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import subprocess
 
+from biosim.landscape import Landscape
+
 """
 simulation.py is highly inspired by Hans Ekkehard Plesser´s
 randvis project. This is the link for the gitlab project: 
@@ -87,7 +89,7 @@ class BioSim:
 
         self.ini_pop = 0
         self.island_map = island_map
-        self.island = Island(island_map, ini_pop)
+        self.island = Island(island_map)
         self._current_year = 0
         self.vis_years = vis_years
         self.img_fmt = img_fmt
@@ -128,8 +130,6 @@ class BioSim:
             Desert.set_parameters(params)
         else:
             raise ValueError("Choose a valid landscape type!")
-        # I should add highland and desert here eventually.
-        # But this looks okay for now
 
     def simulate(self, num_years):
         """
