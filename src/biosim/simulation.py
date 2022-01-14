@@ -87,11 +87,11 @@ class BioSim:
 
         self.ini_pop = 0
         self.island_map = island_map
-
         self.island = Island(island_map, ini_pop)
         self._current_year = 0
         self.vis_years = vis_years
         self.img_fmt = img_fmt
+
 
         # self.visualization = Visualization(img_dir, img_name, img_fmt)
 
@@ -143,7 +143,7 @@ class BioSim:
 
             # self.visualization.update(num_year, self.island.animal_distribution,
             #                         self.island.num_herbs, self.island.num_carni)
-        self._current_year += num_year
+        self._current_year += num_years
 
     def add_population(self, population):
         """
