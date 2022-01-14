@@ -5,14 +5,12 @@ from src.biosim.island import Island
 import pytest
 
 
-
-
 def test_create_map():
     pass
 
 
-def test_map_input():
-    pass
+#def test_map_input():
+ #   pass
 
 
 def test_map_boundaries():
@@ -22,12 +20,11 @@ def test_map_boundaries():
             MWW"""
 
     with pytest.raises(ValueError):
-        Island(map_of_island=geogr, initial_population=None)
+        Island(map_of_island=geogr)
 
 
-def test_set_new_parameters():
-
-    pass
+#def test_set_new_parameters():
+  #  pass
 
 
 def test_map_lines():
@@ -46,24 +43,36 @@ def test_population_cell():
             WLW
             WWW"""
 
-    population =  [{'loc': (3, 4),
-      'pop': [{'species': 'Herbivore',
-               'age': 10, 'weight': 12.5},
-              {'species': 'Herbivore',
-               'age': 9, 'weight': 10.3},
-              {'species': 'Carnivore',
-               'age': 5, 'weight': 8.1}]}]
+    population = [{'loc': (2, 2),
+                 'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
+                  {'loc': (2, 2),
+                   'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
+                  {'loc': (2, 2),
+                   'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]}]
 
-    island = Island(map_of_island=geogr, initial_population=population)
+    island = Island(map_of_island=geogr)
     island.population_cell(population)
 
-  #  assert len(island.map[])
-
+    assert len(island.map[(2, 2)].herbivores) == 3
 
 
 def test_migrate():
-    pass
+    geogr = """\
+                 WWW
+                 WLW
+                 WWW"""
+
+    population = [{'loc': (2, 2),
+                       'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
+                      {'loc': (2, 2),
+                       'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
+                      {'loc': (2, 2),
+                       'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]}]
 
 
-def test_annual_cycle():
-    pass
+    island = Island(map_of_island=geogr)
+    island.
+
+
+#def test_annual_cycle():
+   # pass
