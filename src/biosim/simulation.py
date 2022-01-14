@@ -142,10 +142,10 @@ class BioSim:
         # self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
         for num_year in range(self._current_year, self._current_year + num_years):
             self.island.annual_cycle()
-            #print(self.island.matrix_herbivores(),"Year")
+            print(self.island.matrix_herbivores(),"Year")
 
-            self.Visualization.update(num_year, self.island.animal_distribution,
-                                     self.island.num_herbs, self.island.num_carni)
+            #self.Visualization.update(num_year, self.island.animal_distribution,
+            #                         self.island.num_herbs, self.island.num_carni)
         self._current_year += num_years
 
     def add_population(self, population):
