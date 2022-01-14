@@ -118,13 +118,13 @@ class BioSim:
         :param landscape: String, code letter for landscape
         :param params: Dict with valid parameter specification for landscape
         """
-        if landscape == "Water" or landscape == "water":
+        if landscape == "W":
             Water.set_parameters(params)
-        elif landscape == "Lowland" or landscape == "lowland":
+        elif landscape == "L":
             Lowland.set_parameters(params)
-        elif landscape == "Highland" or landscape == "highland":
+        elif landscape == "H":
             Highland.set_parameters(params)
-        elif landscape == "Desert" or landscape == "desert":
+        elif landscape == "D":
             Desert.set_parameters(params)
         else:
             raise ValueError("Choose a valid landscape type!")

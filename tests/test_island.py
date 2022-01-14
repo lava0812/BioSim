@@ -26,8 +26,8 @@ def test_map_boundaries():
 
 
 def test_set_new_parameters():
-    pass
 
+    pass
 
 
 def test_map_lines():
@@ -37,7 +37,7 @@ def test_map_lines():
             WWW"""
 
     with pytest.raises(ValueError):
-        Island(map_of_island=geogr, initial_population=[])
+        Island(map_of_island=geogr)
 
 
 def test_population_cell():
@@ -57,7 +57,7 @@ def test_population_cell():
     island = Island(map_of_island=geogr, initial_population=population)
     island.population_cell(population)
 
-    assert len(island.map[])
+  #  assert len(island.map[])
 
 
 

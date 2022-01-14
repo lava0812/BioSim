@@ -11,16 +11,10 @@ from src.biosim.landscape import Lowland, Water, Highland, Desert
 class Island:
     landscape_types = {"L": Lowland, "W": Water, "H": Highland, "D": Desert}
 
-    def __init__(self, map_of_island=None, initial_population=None):
+    def __init__(self, map_of_island=None):
 
         self.ini_herbs = []
         self.ini_carns = []
-        self.initial_population = initial_population
-
-        if self.initial_population is None:
-            raise KeyError("No initial population has been inputted!")
-        else:
-            self.initial_population = initial_population
 
         if map_of_island is None:
             map_of_island = """\
@@ -120,6 +114,6 @@ class Island:
 
         for cell in self.map.values():
             cell.annual_cycle()
-        pass
+        #pass
 # in island, we move the animals from one cell to another cell. move only if the cell is not water.
 # after we move, we change self.migrate to true, this is for checking if it has migrated.
