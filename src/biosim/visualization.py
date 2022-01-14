@@ -240,3 +240,45 @@ class Visualization:
                                                      num=self._img_ctr,
                                                      type=self._img_fmt))
         self._img_ctr += 1
+
+    def map_subplot(self):
+        pass
+
+    def year_subplot(self):
+        pass
+
+    def histogram_subplot(self):
+        pass
+
+    def curves_animal_count_subplot(self):
+        pass
+
+    def distribution_subplot(self):
+        pass
+
+    def map_graphics(self):
+        pass
+
+    def year_update(self):
+        pass
+
+    def curves_update(self):
+        pass
+
+    def heat_map_herbivores(self):
+        pass
+
+    def heat_map_carnivores(self):
+        pass
+
+    def histo_age_update(self):
+        pass
+
+    def histo_weight_update(self):
+        pass
+
+    def histo_fitness_update(self)
+        pass
+
+    def graphics_update(self):
+        pass
