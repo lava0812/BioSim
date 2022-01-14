@@ -98,6 +98,8 @@ def test_get_all_herbivores():
     assert check == 3
 
     pass
+
+
 def test_get_all_herbivores():
     geogr = """\
                WWW
@@ -116,7 +118,7 @@ def test_get_all_herbivores():
 
     check = island.get_all_herbivores()
 
-    assert len(check) == 9
+    assert len(check) == 3
 
 
 def test_get_all_carnivores():
@@ -137,4 +139,4 @@ def test_get_all_carnivores():
 
     check = island.get_all_carnivores()
 
-    assert len(check) == 9
+    assert len(check) == 3
