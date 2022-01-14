@@ -126,14 +126,18 @@ class Island:
         all_herbivore_list = []
 
         for loc, cell in self.map.items():
-            all_herbivore_list.append(cell.herbivores)
+            if not cell.migration_possible:
+                continue
+            all_herbivore_list.extend(cell.herbivores)
         return all_herbivore_list
 
     def get_all_carnivores(self):
         all_carnivore_list = []
 
         for loc, cell in self.map.items():
-            all_carnivore_list.append(cell.carnivore)
+            if not cell.migration_possible:
+                continue
+            all_carnivore_list.extend(cell.carnivores)
         return all_carnivore_list
 
     def matrix_herbivores(self):
