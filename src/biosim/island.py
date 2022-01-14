@@ -118,5 +118,18 @@ class Island:
         pass
 # in island, we move the animals from one cell to another cell. move only if the cell is not water.
 # after we move, we change self.migrate to true, this is for checking if it has migrated.
+
+
+    def get_fitness(self):
+        pass
+
+    def get_age(self):
+        pass
+
+    def get_weight(self):
+        pass
+
+    def get_herbivore_population(self):
+        pass
 # get fitness, age and weight of all animals in the map.
 # get herbivore population in each location.
