@@ -23,12 +23,17 @@ class Animal:
         """
         This will be a method for adding new parameters to the function.
         This will be a classmethod because it involves changing the class variables.
+
+        Parameters
+        ----------
+        added_parameters : dict
+            The new parameter is a dictionary
         """
         for parameter in added_parameters.keys():
             if parameter not in cls.param.keys():
                 raise KeyError("Invalid parameter name")
 
-        for parameter,value in added_parameters.items():
+        for parameter, value in added_parameters.items():
             if value < 0:
                 raise ValueError("Inputted parameters can not be negative!")
             if parameter == "eta" and value > 1:
@@ -104,7 +109,8 @@ class Animal:
 
         Returns
         -------
-
+        float
+            The generated fitness of the animal
         """
 
         if self.weight <= 0:
@@ -126,8 +132,16 @@ class Animal:
         #     self.fitness = q_positive * q_negative
 
     def death_animal(self):
-        """
-        Death of an animal, using probability.
+        r"""
+        Death of an animal, using probability. If the animal is fitter then the other,
+        the chance of survival increase a lot.
+
+        If an animal has a weight higher than zero, the probability to die is given by the formula:
+
+        .. math::
+            \begin{equation}
+            \omega(1 - \Phi)
+            \end{equation}
 
         Returns
         -------
@@ -145,12 +159,34 @@ class Animal:
         return self.death
 
     def birth(self, n_animals_in_same_species):
-        """
+        r"""
         Probability to give birth for an animal.
 
+        The probability to give birth is given by the formula:
+        .. math::
+            \begin{equation}
+            min(1,\gamma \times \Phi \times (N-1))
+            \end{equation}
+
+        N = The number of same type of animals.
+
+        If the weight is zero, the probability of birth is given by this formula:
+
+        .. math::
+            \begin{equation}
+            w < \zeta(w_{birth} + \sigma_{birth})
+            \end{equation}
+
+        Parameters
+        ----------
+        n_animals_in_same_species : int
+            The number of same species in one cell.
         Returns
         -------
-        new_baby: Generating a new baby
+        new_baby
+            Generating a new baby
+        bool
+            If the requirements for birth is not filled
         """
 
         probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))
