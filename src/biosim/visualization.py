@@ -297,6 +297,8 @@ class Visualization:
         if self._count_age_ax is None:
             self._img_herb_figure.hist(herbivores["age"], color="blue", histtype="step")
             self._img_carni_figure.hist(carnivores["age"], color="red", histtype="step")
+        else:
+            self._count_age_ax.clear()
 
     def histo_weight_update(self, herbivores, carnivores):
         # Here we create the histogram for the weight update.

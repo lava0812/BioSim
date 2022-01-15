@@ -97,7 +97,7 @@ class BioSim:
         self.vis_years = vis_years
         self.img_fmt = img_fmt
 
-        self.visualization = Visualization(self.island)
+        #self.visualization = Visualization(self.island)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -146,9 +146,9 @@ class BioSim:
             self.island.annual_cycle()
             print(self.island.matrix_herbivores(),"Year")
 
-            self.Visualization.update(num_year, self.island.animal_distribution,
-                                     self.island.num_herbs, self.island.num_carni)
-        self._current_year += num_years
+            #self.Visualization.update(num_year, self.island.animal_distribution,
+            #                         self.island.num_herbs, self.island.num_carni)
+            self._current_year += 1
 
     def add_population(self, population):
         """
@@ -166,7 +166,7 @@ class BioSim:
     @property
     def num_animals(self):
         """Total number of animals on island."""
-        return self.ini_pop
+        return sum(self.num_animals_per_species.values())
 
     @property
     def num_animals_per_species(self):
