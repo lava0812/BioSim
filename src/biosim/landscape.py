@@ -39,6 +39,7 @@ class Landscape:
 
     def __init__(self):
         """Constructor for the Landscape class
+
         Empty list to count the population, and here will we append the new values every year.
         Food count starts at f_max which will be updated every year.
         """
@@ -54,12 +55,11 @@ class Landscape:
     def population_update(self, population_list):
         """
         This function updates the population for a given list with animals.
-        It will also separately put the species in their respective list.
 
         Parameters
         ----------
         population_list : list
-                    This will put separately put the species in their respective list.
+                    This will put separately put the species in their respective lists.
         """
         for individual in population_list:
             if individual["species"] == "Herbivore":
@@ -73,14 +73,14 @@ class Landscape:
 
     def display_herbivores(self):
         """
-        This function will display the number of herbivores in the self.herbivores list
+        This function will display the number of herbivores in the herbivores list
         :return: the herbivore count
         """
         return len(self.herbivores)
 
     def display_carnivores(self):
         """
-        This function will display the number of carnivores in the self.carnivores list
+        This function will display the number of carnivores in the carnivores list
         :return: the carnivore count
         """
         return len(self.carnivores)
@@ -177,6 +177,7 @@ class Landscape:
         """
         The animals on the island will lose a specific amount of weight,
         and this will happen on this function
+
         """
 
         for individual in self.herbivores:
@@ -229,13 +230,17 @@ class Landscape:
                 herbivores.death = True
                 carnivore.fitness_animal()
 
-            self.death_population()  # finne en ny måte å fjerne herb på
+        self.death_population()  # finne en ny måte å fjerne herb på
 
     def migrated_animals(self):
 
         """
         This is not how it should be done, but I have done it for now. Ask TA about a better way
         of doing this.
+
+        The animals will move from one cell to another, we use the migration_probability
+        to determine to see the animals' movement probability. Where the animal will move
+        is decided by a random choice method.
         """
 
         for herbivore in self.herbivores:

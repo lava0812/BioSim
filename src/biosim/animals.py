@@ -115,7 +115,7 @@ class Animal:
 
         if self.weight <= 0:
             self.fitness = 0
-            return False  # Kan vurdere å returnere false.
+         #   return False  # Kan vurdere å returnere false.
         else:
 
             tall = (self.param["phi_age"]) * (self.age - self.param["a_half"])

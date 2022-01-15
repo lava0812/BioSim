@@ -14,9 +14,9 @@ https://gitlab.com/nmbu.no/emner/inf200/h2021
 
 import random
 
-from biosim.animals import Carnivore, Herbivore
-from biosim.island import Island, Water, Lowland, Highland, Desert
-from biosim.visualization import _FFMPEG_BINARY, Visualization
+from src.biosim.animals import Carnivore, Herbivore
+from src.biosim.island import Island, Water, Lowland, Highland, Desert
+from src.biosim.visualization import _FFMPEG_BINARY, Visualization
 
 
 # The material in this file is licensed under the BSD 3-clause license

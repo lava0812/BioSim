@@ -3,7 +3,7 @@
 import textwrap
 import matplotlib.pyplot as plt
 
-from biosim.simulation import BioSim
+from src.biosim.simulation import BioSim
 
 """
 Compatibility check for BioSim simulations.
@@ -43,7 +43,7 @@ if __name__ == '__main__':
                   'pop': [{'species': 'Carnivore',
                            'age': 5,
                            'weight': 20}
-                          for _ in range(40)]}]
+                          for _ in range(1000)]}]
 
     sim = BioSim(island_map=geogr, ini_pop=ini_herbs,
                  seed=123456,
@@ -60,4 +60,4 @@ if __name__ == '__main__':
 
     sim.simulate(num_years=50)
     sim.add_population(population=ini_carns)
-    sim.simulate(num_years=100)
+    sim.simulate(num_years=200)

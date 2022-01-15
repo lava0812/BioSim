@@ -34,7 +34,7 @@ class Island:
         Started on the map_input method here. This will take care of the error messages if
         something is wrong with the input the user have put in.
         """
-        # Dont know if we need this.
+        # Don't know if we need this.
 
     def create_map(self):
         """
