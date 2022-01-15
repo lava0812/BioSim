@@ -63,18 +63,8 @@ class BioSim:
         img_dir and img_base must either be both None or both strings.
         """
         random.seed(seed)
-        if ymax_animals is None:
-            self.ymax_animals = 100
-            # y axis limit should be adjusted automatically
-        else:
-            self.ymax_animals = ymax_animals
 
-        if cmax_animals is None:
-            self.cmax_animals = {'Herbivore': 90, 'Carnivore': 30}
-            # Sensible fixed default values should be used. Should check over plesser´s notebook
-            # for exact answers
-        else:
-            self.cmax_animals = cmax_animals
+
 
         if img_dir is None:
             #f'{os.path.join(img_dir, img_base}_{img_number:05d}.{img_fmt}'
@@ -97,7 +87,7 @@ class BioSim:
         self.vis_years = vis_years
         self.img_fmt = img_fmt
 
-        #self.visualization = Visualization(self.island)
+        self.visualization = Visualization(ymax_animals,cmax_animals,hist_specs)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -139,15 +129,13 @@ class BioSim:
 
         :param num_years: number of years to simulate
         """
-        # self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
-        #self.visualization.setup(self._current_year + num_years, 1)
+        self.visualization.setup(self._current_year + num_years, 1, self.island_map)
         for num_year in range(self._current_year, self._current_year + num_years):
            # self.visualization.update()
             self.island.annual_cycle()
-            print(self.island.matrix_herbivores(),"Year")
+            #print(self.island.matrix_herbivores(),"Year")
 
-            #self.Visualization.update(num_year, self.island.animal_distribution,
-            #                         self.island.num_herbs, self.island.num_carni)
+            self.visualization.update(self._current_year,self.num_animals_per_species, self.island.matrix_herbivores(),self.island.matrix_carnivores())
             self._current_year += 1
 
     def add_population(self, population):

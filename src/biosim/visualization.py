@@ -45,8 +45,13 @@ _DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
 
 class Visualization:
     """Provides graphics support for RandVis."""
+    default_cmax = {"Herbivore": 200, "Carnivore": 5}
+    default_specs = {'fitness': {'max': 1.0, 'delta': 0.05},
+                     'age': {'max': 60.0, 'delta': 2},
+                     'weight': {'max': 60, 'delta': 2}}
 
-    def __init__(self, img_dir=None, img_name=None, img_fmt=None):
+    def __init__(self, ymax=None, cmax=None, hist_specs=None, img_dir=None, img_name=None,
+                 img_fmt=None):
         """
         :param img_dir: directory for image files; no images if None
         :type img_dir: str
@@ -72,29 +77,29 @@ class Visualization:
         self._img_step = 1
 
         # the following will be initialized by _setup_graphics
-        self._fig = None
-        self._map_ax = None
-        self._img_axis = None
-        self._count_ax = None
-        self._count_line = None
+
+        self.ymax = ymax if ymax is not None else 18000
+        self.cmax = cmax if cmax is not None else self.default_cmax
+        self.hist_specs = hist_specs if hist_specs is not None else self.default_specs
 
         # We have added these
+        self._fig = None
+        self._map_ax = None
+        self._count_ax = None
+        self._herb_line = None
+        self._carn_line = None
         self._yearly_count_disp = None
         self._heat_herbivore_ax = None
         self._heat_carnivore_ax = None
         self._count_fitness_ax = None
         self._count_age_ax = None
         self._count_weight_ax = None
-        self._img_herb_axis = None
-        self._img_count_axis = None
-        self._img_carni_axis = None
         self._img_count_fit_axis = None
         self._img_count_age_axis = None
         self._img_count_weight_axis = None
-        self._img_herb_figure = None
-        self._img_carni_figure = None
 
-    def update(self, step, sys_map, sys_mean):  # Very important method, sys_map will be matrix
+    def update(self, step, cnt_animals, herb_map,
+               carn_map):  # Very important method, sys_map will be matrix
         """
         Updates graphics with current data and save to file if necessary.
 
@@ -102,11 +107,12 @@ class Visualization:
         :param sys_map: current system status (2d array)
         :param sys_mean: current mean value of system
         """
+        self._update_count_graph(step, cnt_animals["Herbivore"], cnt_animals["Carnivore"])
 
-        self.heat_map_carnivores(sys_map)
-        self.heat_map_herbivores(sys_map)
+        self.heat_map_carnivores(carn_map)
+        self.heat_map_herbivores(herb_map)
 
-        self._update_mean_graph(step, sys_mean)
+        # self._update_mean_graph(step, sys_mean)
         self._fig.canvas.flush_events()  # ensure every thing is drawn
         plt.pause(1e-6)  # pause required to pass control to GUI
 
@@ -153,7 +159,8 @@ class Visualization:
         else:
             raise ValueError('Unknown movie format: ' + movie_fmt)
 
-    def setup(self, final_step, img_step):  # setup and update are the most important files.
+    def setup(self, final_step, img_step,
+              island_map):  # setup and update are the most important files.
         """
         Prepare graphics.
 
@@ -168,7 +175,7 @@ class Visualization:
 
         # create new figure window
         if self._fig is None:
-            self._fig = plt.figure()
+            self._fig = plt.figure(figsize=(12, 8))
 
         # Add left subplot for images created with imshow().
         # We cannot create the actual ImageAxis object before we know
@@ -179,7 +186,7 @@ class Visualization:
         # of the island.
         if self._map_ax is None:
             self._map_ax = self._fig.add_subplot(3, 3, 1)
-            self._img_axis = None
+            self.map_graphics_plot(island_map)
 
         # Add right subplot for line graph of mean.
         # this is for the line plot for both herbs and carns
@@ -187,102 +194,115 @@ class Visualization:
         # of the subplot.
         if self._count_ax is None:
             self._count_ax = self._fig.add_subplot(3, 3, 3)
-            self._count_ax.set_ylim(-0.05, 0.05)
+            self._count_ax.set_ylim(0, self.ymax + 1)
             self._img_count_axis = None
 
-        # This will be the subplot for the heatmap for herbivores.
-        if self._heat_herbivore_ax is None:
-            self._heat_herbivore_ax = self._fig.add_subplot(3, 3, 4)
-            self._heat_herbivore_ax.set_ylim(-0.05, 0.05)
-            self._img_herb_axis = None
-
-        # Heatmap for carnivores.
-        if self._heat_carnivore_ax is None:
-            self._heat_carnivore_ax = self._fig.add_subplot(3, 3, 6)
-            self._heat_carnivore_ax.set_ylim(-0.05, 0.05)
-            self._img_carni_axis = None
-
-        # Histogram for fitness(herbivores, carnivores).
-        if self._count_fitness_ax is None:
-            self._count_fitness_ax = self._fig.add_subplot(3, 3, 7)
-            self._count_fitness_ax.set_ylim(-0.05, 0.05)
-            self._img_count_fit_axis = None
-
-        # Histogram for age(herbivores, carnivores).
-        if self._count_age_ax is None:
-            self._count_age_ax = self._fig.add_subplot(3, 3, 8)
-            self._count_age_ax.set_ylim(-0.05, 0.05)
-            self._img_count_age_axis = None
-
-        # Histogram for weight(herbivores, carnivores).
-        if self._count_weight_ax is None:
-            self._count_weight_ax = self._fig.add_subplot(3, 3, 9)
-            self._count_weight_ax.set_ylim(-0.05, 0.05)
-            self._img_count_weight_axis = None
-
-        # needs updating on subsequent calls to simulate()
-        # add 1 so we can show values for time zero and time final_step
-        self._count_ax.set_xlim(0, final_step + 1)
-
-        if self._count_line is None:
+        if self._herb_line is None:
             # plot one line (herb_line)
-            count_plot_herbi = self._count_ax.plot(np.arange(0, final_step + 1).
+            count_plot_herbi = self._count_ax.plot(np.arange(0, final_step + 1),
                                                    np.full(final_step + 1, np.nan))
 
-            count_plot_carni = self._count_ax.plot(np.arange(0, final_step + 1).
-                                                   np.full(final_step + 1, np.nan))
             # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
             #                                np.full(final_step + 1, np.nan))
 
             self._herb_line = count_plot_herbi[0]
 
-            self._carn_line = count_plot_carni[0]
-
         else:
-            x_data, y_data = self._count_line.get_data()
+            x_data, y_data = self._herb_line.get_data()
             x_new = np.arange(x_data[-1] + 1, final_step + 1)
             if len(x_new) > 0:
                 y_new = np.full(x_new.shape, np.nan)
-                self._count_line.set_data(np.hstack((x_data, x_new)),
-                                          np.hstack((y_data, y_new)))
+                self._herb_line.set_data(np.hstack((x_data, x_new)),
+                                         np.hstack((y_data, y_new)))
 
-    def heat_map_herbivores(self, amt_herbivores):
+        if self._carn_line is None:
+            # plot one line (herb_line)
+            count_plot_carni = self._count_ax.plot(np.arange(0, final_step + 1),
+                                                   np.full(final_step + 1, np.nan))
+            # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
+            #                                np.full(final_step + 1, np.nan))
+
+            self._carn_line = count_plot_carni[0]
+
+        else:
+            x_data, y_data = self._carn_line.get_data()
+            x_new = np.arange(x_data[-1] + 1, final_step + 1)
+            if len(x_new) > 0:
+                y_new = np.full(x_new.shape, np.nan)
+                self._carn_line.set_data(np.hstack((x_data, x_new)),
+                                         np.hstack((y_data, y_new)))
+
+        self._count_ax.set_xlim(0, final_step + 1)
+
+        # This will be the subplot for the heatmap for herbivores.
+        if self._heat_herbivore_ax is None:
+            self._heat_herbivore_ax = self._fig.add_subplot(3, 3, 4)
+            self._img_herb_axis = None
+
+        # Heatmap for carnivores.
+        if self._heat_carnivore_ax is None:
+            self._heat_carnivore_ax = self._fig.add_subplot(3, 3, 6)
+            self._img_carni_axis = None
+
+        # Histogram for fitness(herbivores, carnivores).
+        if self._count_fitness_ax is None:
+            self._count_fitness_ax = self._fig.add_subplot(3, 3, 7)
+            self._img_count_fit_axis = None
+
+        # Histogram for age(herbivores, carnivores).
+        if self._count_age_ax is None:
+            self._count_age_ax = self._fig.add_subplot(3, 3, 8)
+            self._img_count_age_axis = None
+
+        # Histogram for weight(herbivores, carnivores).
+        if self._count_weight_ax is None:
+            self._count_weight_ax = self._fig.add_subplot(3, 3, 9)
+            self._img_count_weight_axis = None
+
+        # needs updating on subsequent calls to simulate()
+        # add 1 so we can show values for time zero and time final_step
+
+    def heat_map_herbivores(self, herb_matrix):
         """Update the 2D-view of the system.
         This is the heatmap for herbivores.
         """
 
         if self._img_herb_axis is not None:
-            self._img_herb_axis.set_data(amt_herbivores)  # will be the matrix
+            self._img_herb_axis.set_data(herb_matrix)  # will be the matrix
         else:
-            self._img_herb_axis = self._heat_herbivore_ax.imshow(amt_herbivores,
+            self._img_herb_axis = self._heat_herbivore_ax.imshow(herb_matrix,
                                                                  interpolation='nearest',
                                                                  vmin=0,
-                                                                 vmax=self.cmax["Herbivores"])
+                                                                 vmax=self.cmax["Herbivore"])
             plt.colorbar(self._img_herb_axis, ax=self._heat_herbivore_ax,
                          orientation='vertical')
 
-    def heat_map_carnivores(self, amt_carnivores):
+    def heat_map_carnivores(self, carn_matrix):
         """Update the 2D-view of the system.
         This is the heatmap for carnivores.
             """
 
         if self._img_carni_axis is not None:
-            self._img_carni_axis.set_data(amt_carnivores)
+            self._img_carni_axis.set_data(carn_matrix)
         else:
-            self._img_carni_axis = self._heat_carnivore_ax.imshow(amt_carnivores,
+            self._img_carni_axis = self._heat_carnivore_ax.imshow(carn_matrix,
                                                                   interpolation='nearest',
                                                                   vmin=0,
-                                                                  vmax=self.cmax["Carnivores"])
+                                                                  vmax=self.cmax["Carnivore"])
             plt.colorbar(self._img_carni_axis, ax=self._heat_carnivore_ax,
                          orientation='vertical')
 
-    def _update_mean_graph(self, step, mean):
+    def _update_count_graph(self, step, count_h, count_c):
         # [nan, nan, nan, nan]
-        y_data = self._count_line.get_ydata()
+        y_data = self._herb_line.get_ydata()
         # if step = 0, the list becomes [1, nan, nan, nan]
+        y_data[step] = count_h
+        self._herb_line.set_ydata(y_data)
 
-        y_data[step] = mean
-        self._count_line.set_ydata(y_data)
+        y_data = self._carn_line.get_ydata()
+        # if step = 0, the list becomes [1, nan, nan, nan]
+        y_data[step] = count_c
+        self._carn_line.set_ydata(y_data)
 
     def histo_fitness_update(self, herbivores, carnivores):
         # Here we create the histogram for the fitness update.
@@ -319,7 +339,7 @@ class Visualization:
                                                      type=self._img_fmt))
         self._img_ctr += 1
 
-    def map_graphics_update(self, island_map):
+    def map_graphics_plot(self, island_map):
         #                   R    G    B
         rgb_value = {'W': (0.0, 0.0, 1.0),  # blue
                      'L': (0.0, 0.6, 0.0),  # dark green
@@ -329,25 +349,23 @@ class Visualization:
         map_rgb = [[rgb_value[column] for column in row]
                    for row in island_map.splitlines()]
 
-        fig = plt.figure()
+        # self._map_ax = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
 
-        ax_im = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
+        self._map_ax.imshow(map_rgb)
 
-        ax_im.imshow(map_rgb)
+        self._map_ax.set_xticks(range(len(map_rgb[0])))
+        self._map_ax.set_xticklabels(range(1, 1 + len(map_rgb[0])))
+        self._map_ax.set_yticks(range(len(map_rgb)))
+        self._map_ax.set_yticklabels(range(1, 1 + len(map_rgb)))
 
-        ax_im.set_xticks(range(len(map_rgb[0])))
-        ax_im.set_xticklabels(range(1, 1 + len(map_rgb[0])))
-        ax_im.set_yticks(range(len(map_rgb)))
-        ax_im.set_yticklabels(range(1, 1 + len(map_rgb)))
-
-        ax_lg = fig.add_axes([0.85, 0.1, 0.1, 0.8])  # llx, lly, w, h
-        ax_lg.axis('off')
+        self._bar_ax = self._fig.add_axes([0.36, 0.7, 0.1, 0.4])  # llx, lly, w, h
+        self._bar_ax.axis('off')
         for ix, name in enumerate(('Water', 'Lowland',
                                    'Highland', 'Desert')):
-            ax_lg.add_patch(plt.Rectangle((0., ix * 0.2), 0.3, 0.1,
-                                          edgecolor='none',
-                                          facecolor=rgb_value[name[0]]))
-            ax_lg.text(0.35, ix * 0.2, name, transform=ax_lg.transAxes)
+            self._bar_ax.add_patch(plt.Rectangle((0., ix * 0.05), 0.15, 0.05,
+                                                 edgecolor='none',
+                                                 facecolor=rgb_value[name[0]]))
+            self._bar_ax.text(0.35, ix * 0.05, name, transform=self._bar_ax.transAxes)
 
     def year_update(self, year_on_island):
         """
