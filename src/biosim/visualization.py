@@ -186,6 +186,7 @@ class Visualization:
         # of the island.
         if self._map_ax is None:
             self._map_ax = self._fig.add_subplot(3, 3, 1)
+            plt.title("Island")
             self.map_graphics_plot(island_map)
 
         # Add right subplot for line graph of mean.
@@ -201,6 +202,7 @@ class Visualization:
             # plot one line (herb_line)
             count_plot_herbi = self._count_ax.plot(np.arange(0, final_step + 1),
                                                    np.full(final_step + 1, np.nan))
+
 
             # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
             #                                np.full(final_step + 1, np.nan))
@@ -233,30 +235,36 @@ class Visualization:
                                          np.hstack((y_data, y_new)))
 
         self._count_ax.set_xlim(0, final_step + 1)
+        plt.title("Animal count")
 
         # This will be the subplot for the heatmap for herbivores.
         if self._heat_herbivore_ax is None:
             self._heat_herbivore_ax = self._fig.add_subplot(3, 3, 4)
+            plt.title("Herbivore distribution")
             self._img_herb_axis = None
 
         # Heatmap for carnivores.
         if self._heat_carnivore_ax is None:
             self._heat_carnivore_ax = self._fig.add_subplot(3, 3, 6)
+            plt.title("Carnivore distribution")
             self._img_carni_axis = None
 
         # Histogram for fitness(herbivores, carnivores).
         if self._count_fitness_ax is None:
             self._count_fitness_ax = self._fig.add_subplot(3, 3, 7)
+            plt.title("Fitness")
             self._img_count_fit_axis = None
 
         # Histogram for age(herbivores, carnivores).
         if self._count_age_ax is None:
             self._count_age_ax = self._fig.add_subplot(3, 3, 8)
+            plt.title("Age")
             self._img_count_age_axis = None
 
         # Histogram for weight(herbivores, carnivores).
         if self._count_weight_ax is None:
             self._count_weight_ax = self._fig.add_subplot(3, 3, 9)
+            plt.title("Weight")
             self._img_count_weight_axis = None
 
         # needs updating on subsequent calls to simulate()

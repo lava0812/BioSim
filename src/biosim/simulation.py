@@ -64,10 +64,8 @@ class BioSim:
         """
         random.seed(seed)
 
-
-
         if img_dir is None:
-            #f'{os.path.join(img_dir, img_base}_{img_number:05d}.{img_fmt}'
+            # f'{os.path.join(img_dir, img_base}_{img_number:05d}.{img_fmt}'
             # No figures are written to file.
             pass
 
@@ -81,13 +79,13 @@ class BioSim:
 
         if ini_pop is not None:
             self.island.population_cell(ini_pop)
-        #else:
+        # else:
         #    self.ini_pop = ini_pop
         self._current_year = 0
         self.vis_years = vis_years
         self.img_fmt = img_fmt
 
-        self.visualization = Visualization(ymax_animals,cmax_animals,hist_specs)
+        self.visualization = Visualization(ymax_animals, cmax_animals, hist_specs)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -131,11 +129,13 @@ class BioSim:
         """
         self.visualization.setup(self._current_year + num_years, 1, self.island_map)
         for num_year in range(self._current_year, self._current_year + num_years):
-           # self.visualization.update()
+            # self.visualization.update()
             self.island.annual_cycle()
-            #print(self.island.matrix_herbivores(),"Year")
+            # print(self.island.matrix_herbivores(),"Year")
 
-            self.visualization.update(self._current_year,self.num_animals_per_species, self.island.matrix_herbivores(),self.island.matrix_carnivores())
+            self.visualization.update(self._current_year, self.num_animals_per_species,
+                                      self.island.matrix_herbivores(),
+                                      self.island.matrix_carnivores())
             self._current_year += 1
 
     def add_population(self, population):
