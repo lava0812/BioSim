@@ -94,10 +94,10 @@ class Landscape:
     def aging_population(self):
         """
         This function will age all the living population on Rossumøya
-        every year since it common for both carnivores and herbivores
+        every year since it common for both carnivores and herbivores.
         """
 
-        for individual in self.herbivores:  # egentlig bare individual!
+        for individual in self.herbivores:
             individual.aging()
 
         for individual in self.carnivores:
@@ -111,8 +111,8 @@ class Landscape:
         if the fodder amount is on 0
         """
         # random.shuffle(self.herbivores)
-        self.herbivores.sort(key=lambda x: "fitness") # Because herbivores eat from highest fitness
-                                                    #to lowest fitness.
+        self.herbivores.sort(key=lambda x: "fitness")  # Because herbivores eat from highest fitness
+        # to lowest fitness.
         for individual in self.herbivores:
 
             if self.fodder == 0:
@@ -238,9 +238,6 @@ class Landscape:
         of doing this.
         """
 
-        # migrated_herbivores = []
-        # migrated_carnivores = []
-
         for herbivore in self.herbivores:
             if not herbivore.migrate and herbivore.migration_probability():
                 arrival_cell = random.choice(self.neighbors)
@@ -264,9 +261,10 @@ class Landscape:
     def annual_cycle(self):
         self.new_fodder()
         self.eat_fodder()
-        # self.prey()
+
+        self.prey()
         self.newborn_herbivore()
-        # self.newborn_carnivore()
+        self.newborn_carnivore()
         self.migrated_animals()
 
         self.aging_population()
