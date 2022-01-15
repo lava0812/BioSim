@@ -12,7 +12,7 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
 
-from src.biosim.landscape import Landscape, Lowland, Water
+from src.biosim.landscape import Lowland, Water, Highland
 
 
 def test_disp_population_herbivores():
@@ -23,7 +23,7 @@ def test_disp_population_herbivores():
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
                   {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
                   {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
 
     check = land.display_herbivores()
@@ -39,7 +39,7 @@ def test_disp_population_carnivores():
     population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
                   {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
                   {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
 
     check = land.display_carnivores()
@@ -51,7 +51,7 @@ def test_new_fodder():
     """
     Checks if the fodder grows/updates every new year
     """
-    land = Landscape()
+    land = Lowland()
     land.fodder = 0
     land.new_fodder()
     assert land.fodder == 800
@@ -62,7 +62,7 @@ def test_new_fodder_not_updated():
     Checks what happens if there is no growth/update
     of the fodder in the new year
     """
-    land = Landscape()
+    land = Lowland()
     land.fodder = 0
     land.new_fodder()
 
@@ -76,7 +76,7 @@ def test_aging_population_herbivore():
     """
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
 
     old_age = land.herbivores[0].age
@@ -96,7 +96,7 @@ def test_aging_population_carnivore():
     """
     population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
 
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
 
     old_age = land.carnivores[0].age
@@ -115,7 +115,7 @@ def test_weight_loss_herbivore():
     """
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 10}]
 
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
 
     land.weight_loss()
@@ -133,7 +133,7 @@ def test_weight_loss_carnivore():
     """
     population = [{'species': 'Carnivore', 'age': 10, 'weight': 10}]
 
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
 
     old_weight = land.carnivores[0].weight
@@ -154,7 +154,7 @@ def test_eat_fodder():
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
                   {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
                   {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
     land.new_fodder()
 
@@ -177,7 +177,7 @@ def test_eat_fodder2():
                   {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
                   {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
 
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
     land.new_fodder()
 
@@ -200,7 +200,7 @@ def test_eat_fodder_not_eat():
     """
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
 
-    land = Landscape()
+    land = Lowland()
     land.population_update(population)
     land.fodder = 0
 
@@ -221,7 +221,7 @@ def test_death_population():
            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
 
-    land = Landscape()
+    land = Highland()
     land.population_update(pop)
     land.herbivores[1].weight = 0
 
@@ -244,7 +244,7 @@ def test_prey():
            {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
            {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
 
-    land = Landscape()
+    land = Lowland()
     land.population_update(pop)
 
     before_population = land.herbivores
@@ -262,7 +262,7 @@ def test_prey_randomized():
     carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
              {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
              {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
-    land = Landscape()
+    land = Lowland()
     land.population_update(carni)
 
     population_list_before = land.carnivores
@@ -282,7 +282,7 @@ def test_newborn_herbivore_false(mocker):
     mocker.patch("random.random", return_value=0)
 
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
-    land = Landscape()
+    land = Lowland()
 
     land.population_update(population)
 
@@ -298,7 +298,7 @@ def test_newborn_herbivore(mocker):
     population = [{'species': 'Herbivore', 'age': 18, 'weight': 40},
                   {'species': 'Herbivore', 'age': 9, 'weight': 40},
                   {'species': 'Herbivore', 'age': 5, 'weight': 40}]
-    land = Landscape()
+    land = Lowland()
 
     land.population_update(population)
     population_before_herb = len(land.herbivores)
@@ -315,7 +315,7 @@ def test_newborn_carnivore_false(mocker):
     mocker.patch("random.random", return_value=0)
 
     population = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]
-    land = Landscape()
+    land = Lowland()
 
     land.population_update(population)
 
@@ -330,7 +330,7 @@ def test_newborn_carnivore(mocker):
 
     population_carnivore = [{'species': 'Carnivore', 'age': 18, 'weight': 50},
                             {'species': 'Carnivore', 'age': 9, 'weight': 10.3}]
-    land = Landscape()
+    land = Lowland()
 
     land.population_update(population_carnivore)
     population_before_carnivore = len(land.carnivores)

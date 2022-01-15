@@ -4,7 +4,7 @@
 This file wll contain a main class Landscape(Superclass).
 The Landscape class will have four subclasses, Highland, Lowland, Desert and Water.
 
-We will use information from this file to build our map of Rossumøya
+We will use information from this file to build our map and island of Rossumøya
 """
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
@@ -15,6 +15,7 @@ from src.biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
+    """Superclass for the landscape in Biosim"""
     parameters = {}
     migration_possible = True
 
@@ -22,15 +23,22 @@ class Landscape:
     def set_parameters(cls, added_parameters):
         """
         Classmethod for setting the parameter for fodder.
+
+        Parameters
+        ----------
+        added_parameters : dict
+                        Dictionary that gives new parameters for the landscape
+
         """
         for parameter, value in added_parameters.items():
             if value < 0:
                 raise ValueError("Inputted parameters for fodder can not be negative!")
             cls.parameters[parameter] = value
+
         cls.parameters.update(added_parameters)
 
     def __init__(self):
-        """
+        """Constructor for the Landscape class
         Empty list to count the population, and here will we append the new values every year.
         Food count starts at f_max which will be updated every year.
         """
@@ -47,6 +55,11 @@ class Landscape:
         """
         This function updates the population for a given list with animals.
         It will also separately put the species in their respective list.
+
+        Parameters
+        ----------
+        population_list : list
+                    This will put separately put the species in their respective list.
         """
         for individual in population_list:
             if individual["species"] == "Herbivore":

@@ -72,7 +72,7 @@ class Animal:
 
     def aging(self):
         """
-        Aging the animals.
+        Aging the animals every year with +1.
         """
         self.age += 1.0
         self.fitness_animal()
@@ -214,6 +214,7 @@ class Animal:
 
 
 class Herbivore(Animal):
+    """Subclass of the Animals class. This class is for the herbivore species in Biosim"""
     param = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
@@ -233,17 +234,36 @@ class Herbivore(Animal):
     }
 
     def __init__(self, age=None, weight=None):
+        """
+           This is a constructor that gives us new carnivores
+
+           Parameters
+           ----------
+           age : int
+                   Gives age to a new herbivore. This will start a 0 by default.
+
+           weight : int
+                   Gives weight to a new herbivore. Here we use Gaussian distribution for
+                   determining the weight of a newborn baby.
+           """
         super().__init__(age, weight)
 
     def weight_increase(self, fodder):
-        """
+        r"""
         Increasing the weight of a herbivore once it eats some fodder F.
+
+        ..math::
+            \begin{equation}
+            \beta                      w < \zeta(w_{birth} + \sigma_{birth})
+            \end{equation}
+
         """
         self.weight += self.param["beta"] * fodder
         self.fitness_animal()
 
 
 class Carnivore(Animal):
+    """Subclass of the Animals class. This class is for the carnivore species in Biosim"""
     param = {
         "w_birth": 6.0,
         "sigma_birth": 1.0,
@@ -263,6 +283,17 @@ class Carnivore(Animal):
     }
 
     def __init__(self, age=None, weight=None):
+        """
+        This is a constructor that gives us new carnivores
+
+        Parameters
+        ----------
+        age : int
+                Gives age to a new carnivore. This will start a 0 by default.
+
+        weight : int
+                Gives weight to a new carnivore. Here we use Gaussian distribution for determining
+                the weight of a newborn baby.
+        """
         super().__init__(age=age, weight=weight)
         self.kill_p = None
-

@@ -9,10 +9,6 @@ def test_create_map():
     pass
 
 
-#def test_map_input():
- #   pass
-
-
 def test_map_boundaries():
     """
     This test will check if the map boundaries are water(W)
@@ -24,10 +20,6 @@ def test_map_boundaries():
 
     with pytest.raises(ValueError):
         Island(map_of_island=geogr)
-
-
-#def test_set_new_parameters():
-  #  pass
 
 
 def test_map_lines():
@@ -53,7 +45,7 @@ def test_population_cell():
             WWW"""
 
     population = [{'loc': (2, 2),
-                 'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
+                   'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
                   {'loc': (2, 2),
                    'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
                   {'loc': (2, 2),
@@ -65,7 +57,7 @@ def test_population_cell():
     assert len(island.map[(2, 2)].herbivores) == 3
 
 
-#def test_migrate():
+# def test_migrate():
 #   geogr = """\
 #                WWW
 #                WLW
@@ -82,8 +74,7 @@ def test_population_cell():
 #   island = Island(map_of_island=geogr)
 
 
-#def test_annual_cycle():
-   # pass
+# def test_annual_cycle():
 
 
 def test_get_all_herbivores():
