@@ -97,7 +97,7 @@ class BioSim:
         self.vis_years = vis_years
         self.img_fmt = img_fmt
 
-        #self.visualization = Visualization(img_dir, img_name, img_fmt)
+        self.visualization = Visualization(self.island)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -140,12 +140,14 @@ class BioSim:
         :param num_years: number of years to simulate
         """
         # self.visualization.setup(final_step=self._current_year + num_years, img_step=1)
+        #self.visualization.setup(self._current_year + num_years, 1)
         for num_year in range(self._current_year, self._current_year + num_years):
+           # self.visualization.update()
             self.island.annual_cycle()
             print(self.island.matrix_herbivores(),"Year")
 
-            #self.Visualization.update(num_year, self.island.animal_distribution,
-            #                         self.island.num_herbs, self.island.num_carni)
+            self.Visualization.update(num_year, self.island.animal_distribution,
+                                     self.island.num_herbs, self.island.num_carni)
         self._current_year += num_years
 
     def add_population(self, population):

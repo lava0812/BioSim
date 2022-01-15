@@ -15,7 +15,6 @@
      files.
 
 """
-from biosim.island import Island
 
 """
 visualization.py is highly inspired by Hans Ekkehard Plesser´s
@@ -79,8 +78,21 @@ class Visualization:
         self._count_ax = None
         self._count_line = None
 
-        #We have added these
+        # We have added these
         self._yearly_count_disp = None
+        self._heat_herbivore_ax = None
+        self._heat_carnivore_ax = None
+        self._count_fitness_ax = None
+        self._count_age_ax = None
+        self._count_weight_ax = None
+        self._img_herb_axis = None
+        self._img_count_axis = None
+        self._img_carni_axis = None
+        self._img_count_fit_axis = None
+        self._img_count_age_axis = None
+        self._img_count_weight_axis = None
+        self._img_herb_figure = None
+        self._img_carni_figure = None
 
     def update(self, step, sys_map, sys_mean):  # Very important method, sys_map will be matrix
         """
@@ -162,15 +174,51 @@ class Visualization:
         # We cannot create the actual ImageAxis object before we know
         # the size of the image, so we delay its creation.
         # this is for the heat map of animal distribution
+
+        # This will be the first subplot, and is the subplot for the map
+        # of the island.
         if self._map_ax is None:
-            self._map_ax = self._fig.add_subplot(1, 2, 1)
+            self._map_ax = self._fig.add_subplot(3, 3, 1)
             self._img_axis = None
 
         # Add right subplot for line graph of mean.
         # this is for the line plot for both herbs and carns
+        # This is the subplot for the animal count, and will be at the top right corner
+        # of the subplot.
         if self._count_ax is None:
-            self._count_ax = self._fig.add_subplot(1, 2, 2)
+            self._count_ax = self._fig.add_subplot(3, 3, 3)
             self._count_ax.set_ylim(-0.05, 0.05)
+            self._img_count_axis = None
+
+        # This will be the subplot for the heatmap for herbivores.
+        if self._heat_herbivore_ax is None:
+            self._heat_herbivore_ax = self._fig.add_subplot(3, 3, 4)
+            self._heat_herbivore_ax.set_ylim(-0.05, 0.05)
+            self._img_herb_axis = None
+
+        # Heatmap for carnivores.
+        if self._heat_carnivore_ax is None:
+            self._heat_carnivore_ax = self._fig.add_subplot(3, 3, 6)
+            self._heat_carnivore_ax.set_ylim(-0.05, 0.05)
+            self._img_carni_axis = None
+
+        # Histogram for fitness(herbivores, carnivores).
+        if self._count_fitness_ax is None:
+            self._count_fitness_ax = self._fig.add_subplot(3, 3, 7)
+            self._count_fitness_ax.set_ylim(-0.05, 0.05)
+            self._img_count_fit_axis = None
+
+        # Histogram for age(herbivores, carnivores).
+        if self._count_age_ax is None:
+            self._count_age_ax = self._fig.add_subplot(3, 3, 8)
+            self._count_age_ax.set_ylim(-0.05, 0.05)
+            self._img_count_age_axis = None
+
+        # Histogram for weight(herbivores, carnivores).
+        if self._count_weight_ax is None:
+            self._count_weight_ax = self._fig.add_subplot(3, 3, 9)
+            self._count_weight_ax.set_ylim(-0.05, 0.05)
+            self._img_count_weight_axis = None
 
         # needs updating on subsequent calls to simulate()
         # add 1 so we can show values for time zero and time final_step
@@ -179,21 +227,16 @@ class Visualization:
         if self._count_line is None:
             # plot one line (herb_line)
             count_plot_herbi = self._count_ax.plot(np.arange(0, final_step + 1).
-                                                  np.full(final_step + 1, np.nan))
+                                                   np.full(final_step + 1, np.nan))
 
             count_plot_carni = self._count_ax.plot(np.arange(0, final_step + 1).
-                                                  np.full(final_step + 1, np.nan))
+                                                   np.full(final_step + 1, np.nan))
             # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
             #                                np.full(final_step + 1, np.nan))
 
             self._herb_line = count_plot_herbi[0]
 
             self._carn_line = count_plot_carni[0]
-
-            # plot another line (carn_line)
-            # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
-            #                                np.full(final_step + 1, np.nan))
-            # self._mean_line = mean_plot[0]
 
         else:
             x_data, y_data = self._count_line.get_data()
@@ -204,27 +247,33 @@ class Visualization:
                                           np.hstack((y_data, y_new)))
 
     def heat_map_herbivores(self, amt_herbivores):
-        """Update the 2D-view of the system."""
+        """Update the 2D-view of the system.
+        This is the heatmap for herbivores.
+        """
 
-        if self._img_axis is not None:
-            self._img_axis.set_data(amt_herbivores)#will be the matrix
+        if self._img_herb_axis is not None:
+            self._img_herb_axis.set_data(amt_herbivores)  # will be the matrix
         else:
-            self._img_axis = self._map_ax.imshow(amt_herbivores,
-                                                 interpolation='nearest',
-                                                 vmin=0, vmax=self.cmax["Herbivores"])
-            plt.colorbar(self._img_axis, ax=self._map_ax,
+            self._img_herb_axis = self._heat_herbivore_ax.imshow(amt_herbivores,
+                                                                 interpolation='nearest',
+                                                                 vmin=0,
+                                                                 vmax=self.cmax["Herbivores"])
+            plt.colorbar(self._img_herb_axis, ax=self._heat_herbivore_ax,
                          orientation='vertical')
 
     def heat_map_carnivores(self, amt_carnivores):
-        """Update the 2D-view of the system."""
+        """Update the 2D-view of the system.
+        This is the heatmap for carnivores.
+            """
 
-        if self._img_axis is not None:
-            self._img_axis.set_data(amt_carnivores)
+        if self._img_carni_axis is not None:
+            self._img_carni_axis.set_data(amt_carnivores)
         else:
-            self._img_axis = self._map_ax.imshow(amt_carnivores,
-                                                 interpolation='nearest',
-                                                 vmin=0, vmax=self.cmax["Carnivores"])
-            plt.colorbar(self._img_axis, ax=self._map_ax,
+            self._img_carni_axis = self._heat_carnivore_ax.imshow(amt_carnivores,
+                                                                  interpolation='nearest',
+                                                                  vmin=0,
+                                                                  vmax=self.cmax["Carnivores"])
+            plt.colorbar(self._img_carni_axis, ax=self._heat_carnivore_ax,
                          orientation='vertical')
 
     def _update_mean_graph(self, step, mean):
@@ -235,18 +284,27 @@ class Visualization:
         y_data[step] = mean
         self._count_line.set_ydata(y_data)
 
-    def histo_herbi(self):
-        # fitness, age og weight
-        for herbivore in Island().get_all_herbivores():
-            herbivore.fitness
-            herbivore.weight
-            herbivore.age
+    def histo_fitness_update(self, herbivores, carnivores):
+        # Here we create the histogram for the fitness update.
+        # This will be a histogram at the bottom left of the plot window.
+        if self._count_fitness_ax is None:
+            self._img_herb_figure.hist(herbivores["fitness"], color="blue", histtype="step")
+            self._img_carni_figure.hist(carnivores["fitness"], color="red", histtype="step")
 
-    def histo_carni(self):
-        for carnivore in Island().get_all_carnivores():
-            carnivore.fitness
-            carnivore.weight
-            carnivore.age
+    def histo_age_update(self, herbivores, carnivores):
+        # Here we create the histogram for the age update.
+        # This will be a histogram at the bottom center of the plot window.
+        if self._count_age_ax is None:
+            self._img_herb_figure.hist(herbivores["age"], color="blue", histtype="step")
+            self._img_carni_figure.hist(carnivores["age"], color="red", histtype="step")
+
+    def histo_weight_update(self, herbivores, carnivores):
+        # Here we create the histogram for the weight update.
+        # This will be a histogram at the bottom right of the plot window.
+
+        if self._count_weight_ax is None:
+            self._img_herb_figure.hist(herbivores["weight"], color="blue", histtype="step")
+            self._img_carni_figure.hist(carnivores["weight"], color="red", histtype="step")
 
     def _save_graphics(self, step):
         """Saves graphics to file if file name given."""
@@ -259,22 +317,7 @@ class Visualization:
                                                      type=self._img_fmt))
         self._img_ctr += 1
 
-    def map_subplot(self):
-        pass
-
-    def year_subplot(self):
-        pass
-
-    def histogram_subplot(self):
-        pass
-
-    def curves_animal_count_subplot(self):
-        pass
-
-    def distribution_subplot(self):
-        pass
-
-    def map_graphics(self, island_map):
+    def map_graphics_update(self, island_map):
         #                   R    G    B
         rgb_value = {'W': (0.0, 0.0, 1.0),  # blue
                      'L': (0.0, 0.6, 0.0),  # dark green
@@ -309,18 +352,3 @@ class Visualization:
         This is a counter lapsed years on the island.
         """
         self._yearly_count_disp.set_text(f"Year: {year_on_island}")
-
-    def curves_update(self):
-        pass
-
-    def histo_age_update(self):
-        pass
-
-    def histo_weight_update(self):
-        pass
-
-    def histo_fitness_update(self):
-        pass
-
-    def graphics_update(self):
-        pass
