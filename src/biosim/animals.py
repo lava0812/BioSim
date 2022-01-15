@@ -165,7 +165,7 @@ class Animal:
         The probability to give birth is given by the formula:
         .. math::
             \begin{equation}
-            min(1,\gamma \times \Phi \times (N-1))
+            min (1,\gamma \times \Phi \times (N-1))
             \end{equation}
 
         N = The number of same type of animals.
