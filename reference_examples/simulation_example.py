@@ -31,4 +31,3 @@ for i in range(300):
 # for i in range(50):
 #     print(len(L.carni), L.fodder)
 #     L.simulate()
-

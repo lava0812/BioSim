@@ -12,6 +12,8 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
 
+import pytest
+
 from src.biosim.landscape import Lowland, Water, Highland
 
 
@@ -165,6 +167,18 @@ def test_eat_fodder():
     after_weight = land.herbivores[0].weight
 
     assert after_weight > before_weight
+
+def test_eating_too_much_fodder():
+    lowland = Lowland()
+    population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
+    lowland.population_update(population)
+    weight_before = lowland.herbivores[-1].weight
+    beta = lowland.herbivores[-1].param["beta"]
+    lowland.herbivores[-1].param["F"] = 10000000
+    lowland.eat_fodder()
+    assert lowland.fodder == 0
+    assert lowland.herbivores[-1].weight == weight_before+( 800 * beta)
+
 
 
 def test_eat_fodder2():
@@ -341,14 +355,23 @@ def test_newborn_carnivore(mocker):
 
     assert population_before_carnivore + 1 == len(land.carnivores)
 
+def test_parameters_landscape():
+    """Test to see if the subclass Lowland gives the right amount of fodder,
+    which should be "f_max" = 800"""
+    lowland = Lowland()
+    lowland.set_parameters({"f_max" : 300})
+    with pytest.raises(ValueError):
+        lowland.set_parameters({"f_max": -10000})
 
 def test_parameters_lowland():
     """Test to see if the subclass Lowland gives the right amount of fodder,
     which should be "f_max" = 800"""
     lowland = Lowland()
-    f_max = lowland.parameters["f_max"]
+    lowland.set_parameters({"f_max" : 300})
+    assert lowland.parameters["f_max"] == 300
+    with pytest.raises(ValueError):
+        lowland.set_parameters({"f_max": -10000})
 
-    assert f_max == 800
 
 
 def test_parameters_water():
@@ -358,3 +381,6 @@ def test_parameters_water():
     f_max = lowland.parameters["f_max"]
 
     assert f_max == 0
+
+
+

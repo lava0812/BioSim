@@ -15,7 +15,23 @@ import random
 
 
 class Animal:
-    param = {}
+    param = {
+        "w_birth": 8.0,
+        "sigma_birth": 1.5,
+        "beta": 0.9,
+        "eta": 0.05,
+        "a_half": 40.0,
+        "phi_age": 0.6,
+        "w_half": 10.0,
+        "phi_weight": 0.1,
+        "mu": 0.25,
+        "gamma": 0.2,
+        "zeta": 3.5,
+        "xi": 1.2,
+        "omega": 0.4,
+        "F": 10.0,
+        "DeltaPhiMax": None
+    }
 
     # Set param metoden vår er litt feil.
     @classmethod
@@ -29,10 +45,10 @@ class Animal:
         added_parameters : dict
             The new parameter is a dictionary
         """
+        '''
         for parameter in added_parameters.keys():
             if parameter not in cls.param.keys():
                 raise KeyError("Invalid parameter name")
-
         for parameter, value in added_parameters.items():
             if value < 0:
                 raise ValueError("Inputted parameters can not be negative!")
@@ -40,6 +56,22 @@ class Animal:
                 raise ValueError
             cls.param[parameter] = value
         cls.param.update(added_parameters)
+        '''
+        for key, value in added_parameters.items():
+            if key == "DeltaPhiMax":
+                if value < 0:
+                    raise ValueError("DeltaPhiMax must be > 0")
+            elif key == "eta":
+                if value >= 1:
+                    raise ValueError("Eta must be 1 < ")
+            elif key not in cls.param:
+                raise ValueError("Wrong Parameter")
+            elif value <= 0:
+                raise ValueError("Value must be positive integer")
+            cls.param[key] = value
+
+
+
 
     def __init__(self, age=None, weight=None):
 
@@ -220,6 +252,19 @@ class Animal:
             migrate_probability = self.fitness * self.param["mu"]
             return random.random() < migrate_probability
 
+    def weight_increase(self, fodder):
+        r"""
+        Increasing the weight of a herbivore once it eats some fodder F.
+
+        .. math::
+            \begin{equation}
+            \beta \times \F
+            \end{equation}
+
+        """
+        if self.migrate is False:  # SLETT
+            self.weight += self.param["beta"] * fodder
+            self.fitness_animal()
 
 class Herbivore(Animal):
     """Subclass of the Animals class. This class is for the herbivore species in Biosim"""
@@ -256,19 +301,7 @@ class Herbivore(Animal):
            """
         super().__init__(age, weight)
 
-    def weight_increase(self, fodder):
-        r"""
-        Increasing the weight of a herbivore once it eats some fodder F.
 
-        .. math::
-            \begin{equation}
-            \beta \times \F
-            \end{equation}
-
-        """
-        if self.migrate is False:  # SLETT
-            self.weight += self.param["beta"] * fodder
-            self.fitness_animal()
 
 
 class Carnivore(Animal):
@@ -314,59 +347,3 @@ class Carnivore(Animal):
             return (self.fitness - herbivore.fitness) / self.param["DeltaPhiMax"]
         else:
             return 1
-
-
-"""
-    def prey(self):
-
-        random.shuffle(self.carnivores)
-
-        self.herbivores.sort(key=lambda x: "fitness", reverse=True)
-        # ate = 0
-
-        for carnivore in self.carnivores:
-            #    if carnivore.hungryØ
-            #        self.hunt?herbivores(carnivore)
-
-            ate = 0
-
-            for herbivore in self.herbivores:
-
-                kill_probability = 0
-
-                if ate >= carnivore.param["F"] or carnivore.fitness <= herbivore.fitness:
-                    break
-                elif 0 < carnivore.fitness - herbivore.fitness < carnivore.param["DeltaPhiMax"]:
-                    kill_probability = (carnivore.fitness - herbivore.fitness) / \
-                                       carnivore.param["DeltaPhiMax"]
-
-                else:
-
-                    kill_probability = 1
-                if kill_probability > random.random():
-                    # w = herbivore.weight
-                    if ate + herbivore.weight > carnivore.param["F"]:
-                        w = carnivore.param["F"] - ate
-                        ate = carnivore.param["F"]
-                    else:
-                        w = herbivore.weight
-                        ate += herbivore.weight
-
-                    herbivore.death = True
-                    carnivore.weight += carnivore.param["beta"] * w
-                    carnivore.fitness_animal()
-
-                # carnivore.weight += carnivore.param["beta"] * herbivore.weight
-                # ate += herbivore.weight
-                # carnivore.fitness_animal()
-
-            self.death_population()  # finne en ny måte å fjerne herb på
-        # print(ate)
-
-    # def hunting carnirvore(carnivore)?
-    #    survivores =
-    #    for herbivore in self.herbivores
-    #        if carnivore.kill(herbivore)
-
-    # self.herbivores = survivors
-"""

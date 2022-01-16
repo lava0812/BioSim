@@ -11,9 +11,10 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 import random
 
 import numpy as np
+import pytest
 from scipy import stats
 
-from src.biosim.animals import Herbivore, Carnivore
+from src.biosim.animals import Herbivore, Carnivore, Animal
 
 
 def test_aging():
@@ -183,8 +184,16 @@ def test_init():
     """
     Testing the init method.
     """
-    a = Carnivore()
-    assert a.kill_p is None
+    carnivore = Carnivore(age = 10, weight = 100)
+    assert carnivore.age == 10
+    assert carnivore.weight == 100
+
+
+def test_weight_increase():
+    animal = Animal(weight = 10)
+    animal.weight_increase(10)
+    assert animal.weight > 10
+
 
 # def test_birth_weight_loss():
 #     """
@@ -198,3 +207,36 @@ def test_init():
 #     post_weight = herbivore.weight
 #
 #     assert pre_weight > post_weight
+def test_setting_parameters():
+    animal = Animal()
+    animal.set_param({"F": 1000})
+    assert animal.param["F"] == 1000
+
+def test_setting_wrong_parameters():
+    animal = Animal()
+    with pytest.raises(ValueError):
+        animal.set_param({"DeltaPhiMax": -10000})
+    with pytest.raises(ValueError):
+        animal.set_param({"eta": 10000})
+    with pytest.raises(ValueError):
+        animal.set_param({"wrongparam": -10000})
+    with pytest.raises(ValueError):
+        animal.set_param({"F": -10000})
+
+
+def test_carnivore_kill_probability(mocker):
+    carnivore = Carnivore()
+    herbivore = Herbivore()
+    carnivore.fitness = 0
+    assert carnivore.kill_probability(herbivore) == 0
+    carnivore.fitness = 5
+    herbivore.fitness = 2
+    assert 0 < carnivore.kill_probability(herbivore) < 1
+    carnivore.fitness = 1000000
+    herbivore.fitness = 0
+    assert carnivore.kill_probability(herbivore) == 1
+
+def test_migration(mocker):
+    mocker.patch("random.random", return_value=0)
+    animal = Animal()
+    assert animal.migration_probability()

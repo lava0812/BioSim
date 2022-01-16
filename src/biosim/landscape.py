@@ -32,7 +32,7 @@ from src.biosim.animals import Herbivore, Carnivore
 
 class Landscape:
     """Superclass for the landscape in Biosim"""
-    parameters = {}
+    parameters = {"f_max": 0}
     migration_possible = True
 
     @classmethod
@@ -211,11 +211,8 @@ class Landscape:
         :return: New weight after decreasing
         """
 
-        for individual in self.herbivores:
-            return individual.weight_decrease()
-
-        for individual in self.carnivores:
-            return individual.weight_decrease()
+        for individual in self.herbivores + self.carnivores:
+            individual.weight_decrease()
 
     def prey(self):
         """
