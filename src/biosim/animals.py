@@ -97,7 +97,7 @@ class Animal:
         Decrease the weight of an animal, which will happen every year.
         Updates the fitness right after.
         """
-        # reset the migrate state
+        # resetting the migrate state
         self.migrate = False
 
         self.weight -= self.weight * self.param["eta"]  # Can put this in aging
@@ -193,19 +193,20 @@ class Animal:
         """
 
         probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))
-
-        if self.weight < self.param["zeta"] * (self.param["w_birth"] + self.param["sigma_birth"]):
-            return None
-        elif random.random() < probability:
-            new_baby = type(self)()
-            if new_baby.weight * self.param["xi"] < self.weight:
-                self.weight -= self.param["xi"] * new_baby.weight
-                self.fitness_animal()
-                return new_baby
+        if self.migrate is False:  # SLETT
+            if self.weight < self.param["zeta"] * (
+                    self.param["w_birth"] + self.param["sigma_birth"]):
+                return None
+            elif random.random() < probability:
+                new_baby = type(self)()
+                if new_baby.weight * self.param["xi"] < self.weight:
+                    self.weight -= self.param["xi"] * new_baby.weight
+                    self.fitness_animal()
+                    return new_baby
+                else:
+                    return None
             else:
                 return None
-        else:
-            return None
 
     def migration_probability(self):
         r"""
@@ -215,9 +216,9 @@ class Animal:
         -------
 
         """
-
-        migrate_probability = self.fitness * self.param["mu"]
-        return random.random() < migrate_probability
+        if self.migrate is False:  # SLETT
+            migrate_probability = self.fitness * self.param["mu"]
+            return random.random() < migrate_probability
 
 
 class Herbivore(Animal):
@@ -265,8 +266,9 @@ class Herbivore(Animal):
             \end{equation}
 
         """
-        self.weight += self.param["beta"] * fodder
-        self.fitness_animal()
+        if self.migrate is False:  # SLETT
+            self.weight += self.param["beta"] * fodder
+            self.fitness_animal()
 
 
 class Carnivore(Animal):
@@ -303,7 +305,7 @@ class Carnivore(Animal):
                 the weight of a newborn baby.
         """
         super().__init__(age=age, weight=weight)
-        #self.kill_p = None
+        # self.kill_p = None
 
     def kill_probability(self, herbivore):
         if self.fitness < herbivore.fitness:
@@ -312,7 +314,6 @@ class Carnivore(Animal):
             return (self.fitness - herbivore.fitness) / self.param["DeltaPhiMax"]
         else:
             return 1
-
 
 
 """

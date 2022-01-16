@@ -2,7 +2,7 @@
 
 
 """
-:mod:`randvis.graphics` provides graphics support for RandVis.
+:mod:`randvis.graphics` provides graphics support for BioSim.
 
 .. note::
    * This module requires the program ``ffmpeg`` or ``convert``
@@ -44,7 +44,7 @@ _DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
 
 
 class Visualization:
-    """Provides graphics support for RandVis."""
+    """Provides graphics support for BioSim."""
     default_cmax = {"Herbivore": 200, "Carnivore": 5}
     default_specs = {'fitness': {'max': 1.0, 'delta': 0.05},
                      'age': {'max': 60.0, 'delta': 2},
@@ -114,7 +114,7 @@ class Visualization:
 
         # self._update_mean_graph(step, sys_mean)
         self._fig.canvas.flush_events()  # ensure every thing is drawn
-        plt.pause(1e-6)  # pause required to pass control to GUI
+        plt.pause(1e-5)  # pause required to pass control to GUI
 
         self._save_graphics(step)
 
