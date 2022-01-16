@@ -220,63 +220,28 @@ class Landscape:
         Method for the prey of a herbivore by the carnivore.
         I have to add a way of calculating how much the carnivore has eaten.
         """
-        # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
+
         random.shuffle(self.carnivores)
-        # carnivore = self.carni[0]
-
-        # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
-
         self.herbivores.sort(key=lambda x: "fitness", reverse=True)
-        # ate = 0
 
         for carnivore in self.carnivores:
-            #    if carnivore.hungryØ
-            #        self.hunt?herbivores(carnivore)
-
             ate = 0
-
+            # Her må jeg lage en sjekk for om carnivoren har prøvd å drepe alle herbivorene
+            # i cellen.
             for herbivore in self.herbivores:
-
-                kill_probability = 0
-
-                if ate >= carnivore.param["F"] or carnivore.fitness <= herbivore.fitness:
-                    break
-                elif 0 < carnivore.fitness - herbivore.fitness < carnivore.param["DeltaPhiMax"]:
-                    kill_probability = (carnivore.fitness - herbivore.fitness) / \
-                                       carnivore.param["DeltaPhiMax"]
-
-                else:
-
-                    kill_probability = 1
-                if kill_probability > random.random():
-                    # w = herbivore.weight
-                    if ate + herbivore.weight > carnivore.param["F"]:
-                        w = carnivore.param["F"] - ate
-                        ate = carnivore.param["F"]
-                    else:
-                        w = herbivore.weight
+                if ate <= carnivore.param["F"]:
+                    kill_prob = carnivore.kill_probability(herbivore)
+                    if random.random() < kill_prob:
                         ate += herbivore.weight
+                        herbivore.death = True
+                        carnivore.weight += carnivore.param["beta"] * herbivore.weight
+                        carnivore.fitness_animal()
 
-                    herbivore.death = True
-                    carnivore.weight += carnivore.param["beta"] * w
-                    carnivore.fitness_animal()
 
-                # carnivore.weight += carnivore.param["beta"] * herbivore.weight
-                # ate += herbivore.weight
-                # carnivore.fitness_animal()
-
-            self.death_population()  # finne en ny måte å fjerne herb på
-        # print(ate)
-
-    # def hunting carnirvore(carnivore)?
-    #    survivores =
-    #    for herbivore in self.herbivores
-    #        if carnivore.kill(herbivore)
-
-    # self.herbivores = survivors
+                self.death_population()
+                carnivore.fitness_animal()
 
     def migrated_animals(self):
-
         """
         This is not how it should be done, but I have done it for now. Ask TA about a better way
         of doing this.

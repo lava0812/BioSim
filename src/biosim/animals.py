@@ -113,9 +113,9 @@ class Animal:
             The generated fitness of the animal
         """
 
-        if self.weight == 0: # ==
+        if self.weight == 0:  # ==
             self.fitness = 0
-         #   return False  # Kan vurdere å returnere false.
+        #   return False  # Kan vurdere å returnere false.
         else:
 
             plus_exp = (self.param["phi_age"]) * (self.age - self.param["a_half"])
@@ -296,4 +296,69 @@ class Carnivore(Animal):
                 the weight of a newborn baby.
         """
         super().__init__(age=age, weight=weight)
-        self.kill_p = None
+        #self.kill_p = None
+
+    def kill_probability(self, herbivore):
+        if self.fitness < herbivore.fitness:
+            return 0
+        elif 0 < self.fitness - herbivore.fitness < self.param["DeltaPhiMax"]:
+            return (self.fitness - herbivore.fitness) / self.param["DeltaPhiMax"]
+        else:
+            return 1
+
+
+
+"""
+    def prey(self):
+
+        random.shuffle(self.carnivores)
+
+        self.herbivores.sort(key=lambda x: "fitness", reverse=True)
+        # ate = 0
+
+        for carnivore in self.carnivores:
+            #    if carnivore.hungryØ
+            #        self.hunt?herbivores(carnivore)
+
+            ate = 0
+
+            for herbivore in self.herbivores:
+
+                kill_probability = 0
+
+                if ate >= carnivore.param["F"] or carnivore.fitness <= herbivore.fitness:
+                    break
+                elif 0 < carnivore.fitness - herbivore.fitness < carnivore.param["DeltaPhiMax"]:
+                    kill_probability = (carnivore.fitness - herbivore.fitness) / \
+                                       carnivore.param["DeltaPhiMax"]
+
+                else:
+
+                    kill_probability = 1
+                if kill_probability > random.random():
+                    # w = herbivore.weight
+                    if ate + herbivore.weight > carnivore.param["F"]:
+                        w = carnivore.param["F"] - ate
+                        ate = carnivore.param["F"]
+                    else:
+                        w = herbivore.weight
+                        ate += herbivore.weight
+
+                    herbivore.death = True
+                    carnivore.weight += carnivore.param["beta"] * w
+                    carnivore.fitness_animal()
+
+                # carnivore.weight += carnivore.param["beta"] * herbivore.weight
+                # ate += herbivore.weight
+                # carnivore.fitness_animal()
+
+            self.death_population()  # finne en ny måte å fjerne herb på
+        # print(ate)
+
+    # def hunting carnirvore(carnivore)?
+    #    survivores =
+    #    for herbivore in self.herbivores
+    #        if carnivore.kill(herbivore)
+
+    # self.herbivores = survivors
+"""
