@@ -1,6 +1,28 @@
 # -*- encoding: utf-8 -*-
 
 """
+:mod:'src.biosim.landscape' is the foundation of the island Rossumøya we are going to build, and
+       each cells' respective characteristics.
+
+Rossumøya is divided into cells that are formed as squares. These cells will have one of the
+four subclass attribute. The cells will also have their own numerical location.
+
+
+This file contains the following superclass and subclasses and can be imported as a module:
+
+    *   Landscape (superclass) - Class that holds the common attributes of Rossumøya. The annual
+        cycle of the island is also stored in this class.
+
+    *   Lowland(Landscape) - Subclass of the Landscape class that holds the attributes for the
+        lowland cell type.
+
+    *   Highland(Landscape) - Subclass of the Landscape class that holds the attributes for the
+        highland cell type.
+
+    *   Water(Landscape) - Subclass of the Landscape class that holds the attributes for the
+        water cell type.
+
+
 This file wll contain a main class Landscape(Superclass).
 The Landscape class will have four subclasses, Highland, Lowland, Desert and Water.
 
@@ -104,11 +126,18 @@ class Landscape:
             individual.aging()
 
     def eat_fodder(self):
-        """
+        r"""
         Function to reduce the fodder after the herbivore are pleased with themselves.
         Then remove the fodder amount that have been consumed by the herbivores
         Using random shuffle to let the herbivores eat in a random order, and break the loop
         if the fodder amount is on 0
+
+        :math:`F` is the amount of food the animals can eat
+
+        if :math:`f_max = 0`
+            There is no food at all, because the fodder on the cell is equal to 0.
+
+        if :math:`
         """
         # random.shuffle(self.herbivores)
         self.herbivores.sort(key=lambda x: "fitness")  # Because herbivores eat from highest fitness
@@ -118,7 +147,7 @@ class Landscape:
             if self.fodder == 0:
                 break
 
-            elif self.fodder >= individual.param["F"]:
+            if self.fodder >= individual.param["F"]:
                 individual.weight_increase(individual.param["F"])
                 self.fodder -= individual.param["F"]
 
@@ -255,6 +284,8 @@ class Landscape:
         The animals will move from one cell to another, we use the migration_probability
         to determine to see the animals' movement probability. Where the animal will move
         is decided by a random choice method.
+
+
         """
 
         for herbivore in self.herbivores:

@@ -46,12 +46,12 @@ class Animal:
         """
         Constructor for Animal class.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
         age: int
-        Age of an animal, and the default value is set to be None.
+            Age of an animal, and the default value is set to be None.
         weight: int
-        Weight of an animal, and the default value is set to be None.
+            Weight of an animal, and the default value is set to be None.
 
         """
         if age is None:
@@ -162,9 +162,10 @@ class Animal:
         Probability to give birth for an animal.
 
         The probability to give birth is given by the formula:
+
         .. math::
             \begin{equation}
-            min (1,\gamma \times \Phi \times (N-1))
+            min(1,\gamma \times \Phi \times (N-1))
             \end{equation}
 
         N = The number of same type of animals.
@@ -184,7 +185,7 @@ class Animal:
         -------
         new_baby
             Generating a new baby
-        bool
+        boolean
             If the requirements for birth is not filled
         """
 
@@ -251,9 +252,9 @@ class Herbivore(Animal):
         r"""
         Increasing the weight of a herbivore once it eats some fodder F.
 
-        ..math::
+        .. math::
             \begin{equation}
-            \beta                      w < \zeta(w_{birth} + \sigma_{birth})
+            \beta \times \F
             \end{equation}
 
         """
