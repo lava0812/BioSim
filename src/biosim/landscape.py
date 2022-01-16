@@ -90,7 +90,7 @@ class Landscape:
     def display_herbivores(self):
         """
         This function will display the number of herbivores in the herbivores list
-        :return: the herbivore count
+        :return: The herbivore count
         """
         return len(self.herbivores)
 
@@ -135,9 +135,13 @@ class Landscape:
         if :math:`f_max = 0`
             There is no food at all, because the fodder on the cell is equal to 0.
 
-        if :math:`f_max >= F`
-            This
-            :math:
+        if :math:`f_max >finn måte å skrive >= F`
+            Here will the animal eat to their :math:`F` fills, and the remaining fodder will be
+             available to other to eat
+        #code
+            self.fodder < individual.param["F"]
+        #
+        Here will the animal eat to there is no more
         """
         # random.shuffle(self.herbivores)
         self.herbivores.sort(key=lambda x: "fitness")  # Because herbivores eat from highest fitness

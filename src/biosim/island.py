@@ -1,5 +1,18 @@
 # -*- encoding: utf-8 -*-
 
+"""
+:mod: 'src.biosim.island' is the part where we simulate the annual cycle
+
+This script will give the user the annual cycle of Rossumøya, and also give us the Island build.
+
+This file contains the following and can be imported as a module:
+
+    * Island - Class that makes the Rossumøya island, and a method to get alle the animals.
+Notes
+-----
+    To run this script, the user needs to have 'numpy' installed in the Python environment
+"""
+
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
@@ -47,7 +60,7 @@ class Island:
 
     def create_map(self):
         """Here we create the actual map of the island."""
-        #It can be useful to use two for loops here.
+        # It can be useful to use two for loops here.
         self.map_lines()
         self.map_boundaries()
         for i, rows in enumerate(self.lines):
@@ -95,10 +108,7 @@ class Island:
         pass
 
     def map_lines(self):
-        """
-        Check if the map lines are the equal length.
-        """
-
+        """Check if the map lines are the equal length."""
         for line in self.lines:
             if len(self.lines[0]) != len(line):  # len(self.lines[0]) != len(self.lines[1])
                 raise ValueError("All the lines on the map should have equal lengths!")
@@ -129,7 +139,8 @@ class Island:
             cell.annual_cycle()
         pass
 
-    # in island, we move the animals from one cell to another cell. move only if the cell is not water.
+    # in island, we move the animals from one cell to another cell.
+    # move only if the cell is not water.
     # after we move, we change self.migrate to true, this is for checking if it has migrated.
 
     def get_all_herbivores(self):
