@@ -11,9 +11,18 @@ from src.biosim.landscape import Lowland, Water, Highland, Desert
 
 
 class Island:
+    """Class for Island in Biosim """
     landscape_types = {"L": Lowland, "W": Water, "H": Highland, "D": Desert}
 
     def __init__(self, map_of_island=None):
+        """
+        Constructor for the Island class
+
+        Parameters
+        ----------
+        map_of_island: str
+                Multiline string to create a map
+        """
 
         self.ini_herbs = []
         self.ini_carns = []
@@ -37,10 +46,8 @@ class Island:
         # Don't know if we need this.
 
     def create_map(self):
-        """
-        Here we create the actual map of the island.
-        It can be useful to use two for loops here.
-        """
+        """Here we create the actual map of the island."""
+        #It can be useful to use two for loops here.
         self.map_lines()
         self.map_boundaries()
         for i, rows in enumerate(self.lines):
@@ -68,9 +75,7 @@ class Island:
                     cell.neighbors.append(neighbor_cell)
 
     def map_boundaries(self):
-        """
-        Here we define the boundaries of the map.
-        """
+        """Here we define the boundaries of the map."""
         # fix this function, check on geogr instead
         for row in self.lines[0] + self.lines[-1]:
             for elements in row:
@@ -103,6 +108,11 @@ class Island:
     def population_cell(self, population):
         """
         Check how many animals there are in a cell, for both herbivores and carnivores
+
+        Parameters
+        ----------
+        population: list
+                    List of dicts that contains the newly populated animals
         """
         for item in population:
             population = item["pop"]
@@ -123,6 +133,13 @@ class Island:
     # after we move, we change self.migrate to true, this is for checking if it has migrated.
 
     def get_all_herbivores(self):
+        """
+        Method to get all the carnivores
+        Returns
+        -------
+        all_carnivore_list: list
+                        List of alle the carnivores
+        """
         all_herbivore_list = []
 
         for loc, cell in self.map.items():
@@ -132,6 +149,13 @@ class Island:
         return all_herbivore_list
 
     def get_all_carnivores(self):
+        """
+        Method to get all the carnivores
+        Returns
+        -------
+        all_carnivore_list: List
+                    List of alle the carnivores
+        """
         all_carnivore_list = []
 
         for loc, cell in self.map.items():
@@ -143,6 +167,8 @@ class Island:
     def matrix_herbivores(self):
         """
         Matrix for herbivores.
+
+        :return: Matrix of the herbivore movement
         """
         dim = list(self.map.items())[-1][0]
         matrix_herb = np.zeros(dim)
@@ -156,6 +182,8 @@ class Island:
     def matrix_carnivores(self):
         """
         Matrix for carnivores.
+
+        :return: Matrix of the carnivore movement
         """
         dim = list(self.map.items())[-1][0]
         matrix_carn = np.zeros(dim)

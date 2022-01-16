@@ -135,8 +135,11 @@ class Animal:
         r"""
         Death of an animal, using probability. If the animal is fitter then the other,
         the chance of survival increase a lot.
-
+         :math:``
         If an animal has a weight higher than zero, the probability to die is given by the formula:
+
+
+        :math:`Mu`
 
         .. math::
             \begin{equation}
@@ -205,8 +208,12 @@ class Animal:
             return None
 
     def migration_probability(self):
-        """
+        r"""
         This calculates the probability of an animal moving.
+
+        Returns
+        -------
+
         """
 
         migrate_probability = self.fitness * self.param["mu"]

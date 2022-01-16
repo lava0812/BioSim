@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 
 """
-:mod:'src.biosim.landscape' is the foundation of the island Rossumøya we are going to build, and
+:mod: 'src.biosim.landscape' is the foundation of the island Rossumøya we are going to build, and
        each cells' respective characteristics.
+
 
 Rossumøya is divided into cells that are formed as squares. These cells will have one of the
 four subclass attribute. The cells will also have their own numerical location.
-
 
 This file contains the following superclass and subclasses and can be imported as a module:
 
@@ -21,12 +21,6 @@ This file contains the following superclass and subclasses and can be imported a
 
     *   Water(Landscape) - Subclass of the Landscape class that holds the attributes for the
         water cell type.
-
-
-This file wll contain a main class Landscape(Superclass).
-The Landscape class will have four subclasses, Highland, Lowland, Desert and Water.
-
-We will use information from this file to build our map and island of Rossumøya
 """
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
@@ -117,6 +111,10 @@ class Landscape:
         """
         This function will age all the living population on Rossumøya
         every year since it common for both carnivores and herbivores.
+        Uses animals.py method aging. ::
+        #
+            self.age += 1.0
+        #
         """
 
         for individual in self.herbivores:
@@ -137,7 +135,9 @@ class Landscape:
         if :math:`f_max = 0`
             There is no food at all, because the fodder on the cell is equal to 0.
 
-        if :math:`
+        if :math:`f_max >= F`
+            This
+            :math:
         """
         # random.shuffle(self.herbivores)
         self.herbivores.sort(key=lambda x: "fitness")  # Because herbivores eat from highest fitness
@@ -156,9 +156,7 @@ class Landscape:
                 self.fodder = 0
 
     def death_population(self):
-        """
-        Remove the animals that have died from the population list
-        """
+        """Remove the animals that have died from the population list"""
         self.herbivores = [individual for individual in self.herbivores
                            if not individual.death_animal()]
         self.carnivores = [individual for individual in self.carnivores
@@ -204,9 +202,9 @@ class Landscape:
 
     def weight_loss(self):
         """
-        The animals on the island will lose a specific amount of weight,
-        and this will happen on this function
+        The animals on the island will lose a specific amount of weight.
 
+        :return: New weight after decreasing
         """
 
         for individual in self.herbivores:
@@ -257,6 +255,10 @@ class Landscape:
         to determine to see the animals' movement probability. Where the animal will move
         is decided by a random choice method.
 
+        Returns
+        -------
+
+
 
         """
 
@@ -281,6 +283,29 @@ class Landscape:
                     break
 
     def annual_cycle(self):
+        r"""
+        This part will give us the annual cycle of Rossumøya, with the structure of:
+
+        A year in Rossumøya
+        ===================
+
+        **New fodder:** New fodder will grow for the herbivores to eat
+
+        **Eat fodder:** The herbivores gets to eat the new grown fodder
+
+        **Prey:** Carnivores gets to hunt the herbivores
+
+        **Newborn babies:** Each species gets new babies
+
+        **Migration:** Each year the animals will move once
+
+        **Aging:** Every animal will age +1 every year
+
+        **Weight loss:** Every year the animals will lose weight by the formula :math:`\eta\omega`
+
+
+
+        """
         self.new_fodder()
         self.eat_fodder()
 
