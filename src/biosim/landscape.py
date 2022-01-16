@@ -226,17 +226,24 @@ class Landscape:
 
         for carnivore in self.carnivores:
             ate = 0
-            # Her må jeg lage en sjekk for om carnivoren har prøvd å drepe alle herbivorene
-            # i cellen.
+
             for herbivore in self.herbivores:
-                if ate <= carnivore.param["F"]:
-                    kill_prob = carnivore.kill_probability(herbivore)
+                kill_prob = carnivore.kill_probability(herbivore)
+
+                if ate < carnivore.param["F"]:
+
                     if random.random() < kill_prob:
+                        weight_herbivore = herbivore.weight
+
+                        if ate + weight_herbivore > carnivore.param["F"]:
+                            w = carnivore.param["F"] - ate
+                            ate = carnivore.param["F"]
+                        else:
+                            ate += weight_herbivore
+
                         ate += herbivore.weight
                         herbivore.death = True
                         carnivore.weight += carnivore.param["beta"] * herbivore.weight
-                        carnivore.fitness_animal()
-
 
                 self.death_population()
                 carnivore.fitness_animal()
