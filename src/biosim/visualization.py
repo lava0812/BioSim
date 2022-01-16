@@ -203,10 +203,6 @@ class Visualization:
             count_plot_herbi = self._count_ax.plot(np.arange(0, final_step + 1),
                                                    np.full(final_step + 1, np.nan))
 
-
-            # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
-            #                                np.full(final_step + 1, np.nan))
-
             self._herb_line = count_plot_herbi[0]
 
         else:
@@ -221,8 +217,6 @@ class Visualization:
             # plot one line (herb_line)
             count_plot_carni = self._count_ax.plot(np.arange(0, final_step + 1),
                                                    np.full(final_step + 1, np.nan))
-            # mean_plot = self._mean_ax.plot(np.arange(0, final_step + 1),
-            #                                np.full(final_step + 1, np.nan))
 
             self._carn_line = count_plot_carni[0]
 

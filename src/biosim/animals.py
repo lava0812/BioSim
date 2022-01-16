@@ -113,16 +113,16 @@ class Animal:
             The generated fitness of the animal
         """
 
-        if self.weight <= 0:
+        if self.weight == 0: # ==
             self.fitness = 0
          #   return False  # Kan vurdere å returnere false.
         else:
 
-            tall = (self.param["phi_age"]) * (self.age - self.param["a_half"])
-            tall2 = (-self.param["phi_weight"]) * (self.weight - self.param["w_half"])
+            plus_exp = (self.param["phi_age"]) * (self.age - self.param["a_half"])
+            neg_exp = (-1 * self.param["phi_weight"]) * (self.weight - self.param["w_half"])
 
-            q_positive = 1 / (1 + math.exp(tall))
-            q_negative = 1 / (1 + math.exp(tall2))
+            q_positive = 1 / (1 + math.exp(plus_exp))
+            q_negative = 1 / (1 + math.exp(neg_exp))
 
             self.fitness = q_positive * q_negative
 
@@ -148,11 +148,10 @@ class Animal:
         self.death: Boolean
         Returning if death is equal to true or false.
         """
-        probability_die = self.param["omega"] * (
-                1 - self.fitness)
+        probability_die = self.param["omega"] * (1 - self.fitness)
         # Herbivore, carnivore will die with a probability of w(1-fitness)
 
-        if self.weight <= 0:  # Retta på fra =< til ==
+        if self.weight == 0:  # Retta på fra =< til ==
             self.death = True  # Herbivore, carnivore dies with certainty
         elif probability_die > random.random():
             self.death = True

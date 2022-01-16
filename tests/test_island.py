@@ -1,8 +1,9 @@
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-from src.biosim.island import Island
 import pytest
+
+from src.biosim.island import Island
 
 
 def test_create_map():
@@ -11,7 +12,7 @@ def test_create_map():
 
 def test_map_boundaries():
     """
-    This test will check if the map boundaries are water(W)
+    This test will check if the map boundaries are water(W).
     """
     geogr = """\
             WWW
@@ -78,29 +79,9 @@ def test_population_cell():
 
 
 def test_get_all_herbivores():
-    geogr = """\
-               WWW
-               WLW
-               WWW"""
-
-    population = [{'loc': (2, 2),
-                   'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
-                  {'loc': (2, 2),
-                   'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
-                  {'loc': (2, 2),
-                   'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]}]
-
-    island = Island(map_of_island=geogr)
-    island.population_cell(population)
-
-    check = island.get_all_carnivores()
-
-    assert check == 3
-
-    pass
-
-
-def test_get_all_herbivores():
+    """
+    This tests if all herbivores on the same location gets appended to the list.
+    """
     geogr = """\
                WWW
                WLW
@@ -140,3 +121,11 @@ def test_get_all_carnivores():
     check = island.get_all_carnivores()
 
     assert len(check) == 3
+
+
+def test_matrix_herbivores():
+    pass
+
+
+def test_matrix_carnivores():
+    pass

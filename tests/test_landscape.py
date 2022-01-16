@@ -261,7 +261,10 @@ def test_prey_randomized():
     random.seed(123456)
     carni = [{'species': 'Carnivore', 'age': 10, 'weight': 12.5},
              {'species': 'Carnivore', 'age': 3, 'weight': 7.3},
-             {'species': 'Carnivore', 'age': 5, 'weight': 8.1}]
+             {'species': 'Carnivore', 'age': 5, 'weight': 8.1},
+             {'species': 'Carnivore', 'age': 5, 'weight': 10.1},
+             {'species': 'Carnivore', 'age': 15, 'weight': 12.1},
+             {'species': 'Carnivore', 'age': 22, 'weight': 11.1}]
     land = Lowland()
     land.population_update(carni)
 

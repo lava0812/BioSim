@@ -198,39 +198,53 @@ class Landscape:
         # herbivores_newlist = sorted(herbivores_list, key=lambda x: "fitness", reverse=True)
 
         self.herbivores.sort(key=lambda x: "fitness", reverse=True)
-        ate = 0
+        # ate = 0
 
         for carnivore in self.carnivores:
-            for herbivores in self.herbivores:
+            #    if carnivore.hungryØ
+            #        self.hunt?herbivores(carnivore)
+
+            ate = 0
+
+            for herbivore in self.herbivores:
 
                 kill_probability = 0
 
-                if ate >= carnivore.param["F"] and carnivore.fitness <= herbivores.fitness:
-                    pass
-                elif 0 < carnivore.fitness - herbivores.fitness < carnivore.param["DeltaPhiMax"]:
-                    kill_probability = (carnivore.fitness - herbivores.fitness) / \
+                if ate >= carnivore.param["F"] or carnivore.fitness <= herbivore.fitness:
+                    break
+                elif 0 < carnivore.fitness - herbivore.fitness < carnivore.param["DeltaPhiMax"]:
+                    kill_probability = (carnivore.fitness - herbivore.fitness) / \
                                        carnivore.param["DeltaPhiMax"]
 
                 else:
 
                     kill_probability = 1
-                if kill_probability < random.random():
-                    w = herbivores.weight
-                    if ate + herbivores.weight > carnivore.param["F"]:
+                if kill_probability > random.random():
+                    # w = herbivore.weight
+                    if ate + herbivore.weight > carnivore.param["F"]:
                         w = carnivore.param["F"] - ate
                         ate = carnivore.param["F"]
+                    else:
+                        w = herbivore.weight
+                        ate += herbivore.weight
 
-                    ate += herbivores.weight
-                    herbivores.death_animal()
+                    herbivore.death = True
                     carnivore.weight += carnivore.param["beta"] * w
                     carnivore.fitness_animal()
 
-                carnivore.weight += carnivore.param["beta"] * herbivores.weight
-                ate += herbivores.weight
-                herbivores.death = True
-                carnivore.fitness_animal()
+                # carnivore.weight += carnivore.param["beta"] * herbivore.weight
+                # ate += herbivore.weight
+                # carnivore.fitness_animal()
 
-        self.death_population()  # finne en ny måte å fjerne herb på
+            self.death_population()  # finne en ny måte å fjerne herb på
+        # print(ate)
+
+    # def hunting carnirvore(carnivore)?
+    #    survivores =
+    #    for herbivore in self.herbivores
+    #        if carnivore.kill(herbivore)
+
+    # self.herbivores = survivors
 
     def migrated_animals(self):
 

@@ -17,10 +17,16 @@ from src.biosim.animals import Herbivore, Carnivore
 
 
 def test_aging():
+    """
+    Test to check if the herbivores and carnivores are aging.
+    """
     herbivore = Herbivore()
     herbivore.aging()
+    carnivore = Carnivore()
+    carnivore.aging()
 
     assert herbivore.age == 1
+    assert carnivore.age == 1
 
 
 # def test_weight_baby():
@@ -174,6 +180,9 @@ def test_birth_one_carni():
 
 
 def test_init():
+    """
+    Testing the init method.
+    """
     a = Carnivore()
     assert a.kill_p is None
 
