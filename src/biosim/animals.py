@@ -266,6 +266,7 @@ class Animal:
         self.weight += self.param["beta"] * food
         self.fitness_animal()
 
+
 class Herbivore(Animal):
     """Subclass of the Animals class. This class is for the herbivore species in Biosim"""
     param = {
@@ -288,7 +289,7 @@ class Herbivore(Animal):
 
     def __init__(self, age=None, weight=None):
         """
-           This is a constructor that gives us new carnivores
+           This is a constructor that gives us new herbivores
 
            Parameters
            ----------

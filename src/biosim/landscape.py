@@ -27,7 +27,7 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
 
-from src.biosim.animals import Herbivore, Carnivore
+from biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
@@ -102,19 +102,14 @@ class Landscape:
         return len(self.carnivores)
 
     def new_fodder(self):
-        """
-        Function to add the parameter "f_max" every year in Lowland and Highland
-        """
+        """Function to add the parameter "f_max" every year in Lowland and Highland"""
         self.fodder = self.parameters["f_max"]
 
     def aging_population(self):
         """
         This function will age all the living population on Rossumøya
         every year since it common for both carnivores and herbivores.
-        Uses animals.py method aging. ::
-        #
-            self.age += 1.0
-        #
+        Uses animals.py method aging.
         """
 
         for individual in self.herbivores:
@@ -288,22 +283,21 @@ class Landscape:
         r"""
         This part will give us the annual cycle of Rossumøya, with the structure of:
 
-        A year in Rossumøya
-        ===================
+        **A year in Rossumøya**
 
-        **New fodder:** New fodder will grow for the herbivores to eat
+        *New fodder:* New fodder will grow for the herbivores to eat
 
-        **Eat fodder:** The herbivores gets to eat the new grown fodder
+        *Eat fodder:* The herbivores gets to eat the new grown fodder
 
-        **Prey:** Carnivores gets to hunt the herbivores
+        *Prey:* Carnivores gets to hunt the herbivores
 
-        **Newborn babies:** Each species gets new babies
+        *Newborn babies:* Each species gets new babies
 
-        **Migration:** Each year the animals will move once
+        *Migration:* Each year the animals will move once
 
-        **Aging:** Every animal will age +1 every year
+        *Aging:* Every animal will age +1 every year
 
-        **Weight loss:** Every year the animals will lose weight by the formula :math:`\eta\omega`
+        *Weight loss:* Every year the animals will lose weight by the formula :math:`\eta\omega`
 
 
 
@@ -323,14 +317,14 @@ class Landscape:
 
 class Lowland(Landscape):
     """
-    This class is a subclass of the Landscape class to portray the lowland
+    This class is a subclass of the Landscape class to portray the lowland.
     """
     parameters = {"f_max": 800}
 
 
 class Water(Landscape):
     """
-    This class is a subclass of the Landscape class to portray the water
+    This class is a subclass of the Landscape class to portray the water.
     """
     parameters = {"f_max": 0}
     migration_possible = False
@@ -344,13 +338,13 @@ class Water(Landscape):
 
 class Highland(Landscape):
     """
-    This class is a subclass of the Landscape class to portray the highland
+    This class is a subclass of the Landscape class to portray the highland.
     """
     parameters = {"f_max": 300}
 
 
 class Desert(Landscape):
     """
-    This class is a subclass of the Landscape class to portray the desert
+    This class is a subclass of the Landscape class to portray the desert.
     """
     parameters = {"f_max": 0}

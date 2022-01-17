@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 """
 :mod: 'src.biosim.island' is the part where we simulate the annual cycle
 
@@ -20,7 +19,7 @@ import textwrap
 
 import numpy as np
 
-from src.biosim.landscape import Lowland, Water, Highland, Desert
+from biosim.landscape import Lowland, Water, Highland, Desert
 
 
 class Island:
@@ -50,13 +49,6 @@ class Island:
         self.lines = self.geogr.splitlines()
         self.map = {}
         self.create_map()
-
-    def map_input(self):
-        """
-        Started on the map_input method here. This will take care of the error messages if
-        something is wrong with the input the user have put in.
-        """
-        # Don't know if we need this.
 
     def create_map(self):
         """Here we create the actual map of the island."""
@@ -104,13 +96,6 @@ class Island:
                 if row[0][i] != "W" and row[-1][i] != "W":
                     raise ValueError("The inputted map is not surrounded by water. Try again!")
 
-    def set_new_parameters(self):
-        """
-        Give user the option to set parameters themselves.
-        """
-        # I dont know if we need to do this.
-        pass
-
     def map_lines(self):
         """Check if the map lines are the equal length."""
         for line in self.lines:
@@ -121,7 +106,7 @@ class Island:
 
     def population_cell(self, population):
         """
-        Check how many animals there are in a cell, for both herbivores and carnivores
+        Check how many animals there are in a cell, for both herbivores and carnivores.
 
         Parameters
         ----------
@@ -135,9 +120,7 @@ class Island:
             self.map[loc].population_update(population)
 
     def annual_cycle(self):
-        """
-        This method will run the annual cycle method, which is used in landscape.
-        """
+        """This method will run the annual cycle method, which is used in landscape."""
 
         for cell in self.map.values():
             cell.annual_cycle()
@@ -148,7 +131,8 @@ class Island:
 
     def get_all_herbivores(self):
         """
-        Method to get all the carnivores
+        Method to get all the carnivores.
+
         Returns
         -------
         all_carnivore_list: list
@@ -164,11 +148,12 @@ class Island:
 
     def get_all_carnivores(self):
         """
-        Method to get all the carnivores
+        Method to get all the carnivores.
+
         Returns
         -------
         all_carnivore_list: List
-                    List of alle the carnivores
+                    List of alle the carnivores.
         """
         all_carnivore_list = []
 
@@ -182,7 +167,7 @@ class Island:
         """
         Matrix for herbivores.
 
-        :return: Matrix of the herbivore movement
+        :return: Matrix of the herbivore movement.
         """
         dim = list(self.map.items())[-1][0]
         matrix_herb = np.zeros(dim)
@@ -197,7 +182,7 @@ class Island:
         """
         Matrix for carnivores.
 
-        :return: Matrix of the carnivore movement
+        :return: Matrix of the carnivore movement.
         """
         dim = list(self.map.items())[-1][0]
         matrix_carn = np.zeros(dim)

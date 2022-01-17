@@ -10,6 +10,11 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import subprocess
+import random
+
+from biosim.animals import Carnivore, Herbivore
+from biosim.island import Island, Water, Lowland, Highland, Desert
+from biosim.visualization import _FFMPEG_BINARY, Visualization
 
 """
 simulation.py is highly inspired by Hans Ekkehard Plesser´s
@@ -17,12 +22,6 @@ randvis project. This is the link for the gitlab project:
 https://gitlab.com/nmbu.no/emner/inf200/h2021
 /inf200-course-materials/-/tree/main/january_block/examples/randvis_project
 """
-
-import random
-
-from src.biosim.animals import Carnivore, Herbivore
-from src.biosim.island import Island, Water, Lowland, Highland, Desert
-from src.biosim.visualization import _FFMPEG_BINARY, Visualization
 
 
 # The material in this file is licensed under the BSD 3-clause license
