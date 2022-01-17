@@ -15,6 +15,7 @@ import random
 
 
 class Animal:
+    """Superclass Animal in Biosim"""
     parameters_animal = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
@@ -321,6 +322,33 @@ class Carnivore(Animal):
         # self.kill_p = None
 
     def kill_probability(self, herbivore):
+        r"""
+        This method will show the kill probability, The carnivores will kill a herbivore
+        with probability:
+
+        .. math::
+            \begin{equation}
+            p =
+            \begin{cases}
+                0, & \text{if} \Phi_carn \leq \Phi_herb \\
+                0, & \text{if}\ 0 < \phi_carn - \phi_herb < \delta\Phi_max \\
+                1, & \text{otherwise}
+            \end{cases}
+            \end{equation}
+
+        carnivore's weight increases by :math:`\beta \times` w_{\text{birth}}
+        where
+
+
+        Parameters
+        ----------
+        herbivore
+
+        Returns
+        -------
+
+        """
+
         if self.fitness < herbivore.fitness:
             return 0
         elif 0 < self.fitness - herbivore.fitness < self.parameters_animal["DeltaPhiMax"]:
