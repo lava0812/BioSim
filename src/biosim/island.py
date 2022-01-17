@@ -88,7 +88,11 @@ class Island:
                     cell.neighbors.append(neighbor_cell)
 
     def map_boundaries(self):
-        """Here we define the boundaries of the map."""
+        """Here we define the boundaries of the map.
+
+        :raises ValueError: Some multi-line \
+        exception description.
+        """
         # fix this function, check on geogr instead
         for row in self.lines[0] + self.lines[-1]:
             for elements in row:

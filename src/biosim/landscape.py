@@ -135,13 +135,14 @@ class Landscape:
         if :math:`f_max = 0`
             There is no food at all, because the fodder on the cell is equal to 0.
 
-        if :math:`f_max >finn måte å skrive >= F`
+        if :math:`f_max \geq F`
             Here will the animal eat to their :math:`F` fills, and the remaining fodder will be
              available to other to eat
-        #code
-            self.fodder < individual.param["F"]
-        #
-        Here will the animal eat to there is no more
+
+        if :math:`fodder < F`
+
+        Here will the animal eat to there is no more fodder since the F is bigger than
+         available fodder
         """
         # random.shuffle(self.herbivores)
         self.herbivores.sort(key=lambda x: "fitness")  # Because herbivores eat from highest fitness
@@ -215,9 +216,11 @@ class Landscape:
             individual.weight_decrease()
 
     def prey(self):
-        """
+        r"""
         Method for the prey of a herbivore by the carnivore.
         I have to add a way of calculating how much the carnivore has eaten.
+
+
         """
 
         random.shuffle(self.carnivores)
