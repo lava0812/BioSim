@@ -188,6 +188,7 @@ class Visualization:
         # create new figure window
         if self._fig is None:
             self._fig = plt.figure(figsize=(12, 8))
+            self._fig.set_facecolor("lightgray")
 
         # Add left subplot for images created with imshow().
         # We cannot create the actual ImageAxis object before we know
