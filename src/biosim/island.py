@@ -137,7 +137,6 @@ class Island:
 
         for cell in self.map.values():
             cell.annual_cycle()
-        pass
 
     # in island, we move the animals from one cell to another cell.
     # move only if the cell is not water.
