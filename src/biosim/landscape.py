@@ -32,11 +32,11 @@ from biosim.animals import Herbivore, Carnivore
 
 class Landscape:
     """Superclass for the landscape in Biosim"""
-    parameters = {"f_max": 0}
+    parameters_fodder = {"f_max": 0}
     migration_possible = True
 
     @classmethod
-    def set_parameters(cls, added_parameters):
+    def set_parameters_fodder(cls, added_parameters):
         """
         Classmethod for setting the parameter for fodder.
 
@@ -49,9 +49,9 @@ class Landscape:
         for parameter, value in added_parameters.items():
             if value < 0:
                 raise ValueError("Inputted parameters for fodder can not be negative!")
-            cls.parameters[parameter] = value
+            cls.parameters_fodder[parameter] = value
 
-        cls.parameters.update(added_parameters)
+        cls.parameters_fodder.update(added_parameters)
 
     def __init__(self):
         """Constructor for the Landscape class
@@ -62,7 +62,7 @@ class Landscape:
         self.param = None
         self.herbivores = []
         self.carnivores = []
-        self.fodder = self.parameters["f_max"]  # Kanskje ha en test her, om denne verdien er
+        self.fodder = self.parameters_fodder["f_max"]  # Kanskje ha en test her, om denne verdien er
         # mindre enn null.
         self.kill_probability = None
         self.migrate_probability = 0
@@ -103,7 +103,7 @@ class Landscape:
 
     def new_fodder(self):
         """Function to add the parameter "f_max" every year in Lowland and Highland"""
-        self.fodder = self.parameters["f_max"]
+        self.fodder = self.parameters_fodder["f_max"]
 
     def aging_population(self):
         """
@@ -127,10 +127,10 @@ class Landscape:
 
         :math:`F` is the amount of food the animals can eat
 
-        if :math:`f_(max) = 0`
+        if :math:`f_max = 0`
             There is no food at all, because the fodder on the cell is equal to 0.
 
-        if :math:`f_(max) \geq F`
+        if :math:`f_max \geq F`
             Here will the animal eat to their :math:`F` fills, and the remaining fodder will be
              available to other to eat
 
@@ -139,19 +139,22 @@ class Landscape:
         Here will the animal eat to there is no more fodder since the F is bigger than
          available fodder
         """
+
         # random.shuffle(self.herbivores)
-        self.herbivores.sort(key=lambda x: "fitness")  # Because herbivores eat from highest fitness
+        # TODO: Should it be reverse=True, or nothing at all? Ask TA!
+        self.herbivores.sort(key=lambda x: "fitness", reverse=True)
+        # Because herbivores eat from highest fitness
         # to lowest fitness.
         for individual in self.herbivores:
 
             if self.fodder == 0:
                 break
 
-            if self.fodder >= individual.param["F"]:
-                individual.weight_increase(individual.param["F"])
-                self.fodder -= individual.param["F"]
+            if self.fodder >= individual.parameters_animal["F"]:
+                individual.weight_increase(individual.parameters_animal["F"])
+                self.fodder -= individual.parameters_animal["F"]
 
-            elif self.fodder < individual.param["F"]:
+            elif self.fodder < individual.parameters_animal["F"]:
                 individual.weight_increase(self.fodder)
                 self.fodder = 0
 
@@ -217,7 +220,7 @@ class Landscape:
 
 
         """
-
+        # TODO: Add test for prey function!
         random.shuffle(self.carnivores)
         self.herbivores.sort(key=lambda x: "fitness")
 
@@ -227,14 +230,14 @@ class Landscape:
             for herbivore in self.herbivores:
                 kill_prob = carnivore.kill_probability(herbivore)
 
-                if ate < carnivore.param["F"]:
+                if ate < carnivore.parameters_animal["F"]:
 
                     if random.random() < kill_prob:
                         weight_eaten = herbivore.weight
 
-                        if ate + weight_eaten > carnivore.param["F"]:
-                            weight_eaten = carnivore.param["F"] - ate
-                            ate = carnivore.param["F"]
+                        if ate + weight_eaten > carnivore.parameters_animal["F"]:
+                            weight_eaten = carnivore.parameters_animal["F"] - ate
+                            ate = carnivore.parameters_animal["F"]
                         else:
                             ate += weight_eaten
 
@@ -297,6 +300,9 @@ class Landscape:
         *Aging:* Every animal will age +1 every year
 
         *Weight loss:* Every year the animals will lose weight by the formula :math:`\eta\omega`
+
+
+
         """
         self.new_fodder()
         self.eat_fodder()
@@ -312,27 +318,35 @@ class Landscape:
 
 
 class Lowland(Landscape):
-    """This class is a subclass of the Landscape class to portray the lowland."""
-    parameters = {"f_max": 800}
+    """
+    This class is a subclass of the Landscape class to portray the lowland.
+    """
+    parameters_fodder = {"f_max": 800}
 
 
 class Water(Landscape):
-    """This class is a subclass of the Landscape class to portray the water."""
-    parameters = {"f_max": 0}
+    """
+    This class is a subclass of the Landscape class to portray the water.
+    """
+    parameters_fodder = {"f_max": 0}
     migration_possible = False
 
     #    rc = len(self.map) #rows
     #    len(self.map[0]) #columns
 
-   # def annual_cycle(self):
-       # pass
+    def annual_cycle(self):
+        pass
 
 
 class Highland(Landscape):
-    """This class is a subclass of the Landscape class to portray the highland."""
-    parameters = {"f_max": 300}
+    """
+    This class is a subclass of the Landscape class to portray the highland.
+    """
+    parameters_fodder = {"f_max": 300}
 
 
 class Desert(Landscape):
-    """This class is a subclass of the Landscape class to portray the desert."""
-    parameters = {"f_max": 0}
+    """
+    This class is a subclass of the Landscape class to portray the desert.
+    """
+    parameters_fodder = {"f_max": 0}

@@ -56,7 +56,7 @@ def test_new_fodder():
     land = Lowland()
     land.fodder = 0
     land.new_fodder()
-    assert land.fodder == 800
+    assert land.fodder == land.parameters["f_max"]
 
 
 def test_new_fodder_not_updated():
@@ -168,17 +168,17 @@ def test_eat_fodder():
 
     assert after_weight > before_weight
 
+
 def test_eating_too_much_fodder():
     lowland = Lowland()
     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]
     lowland.population_update(population)
     weight_before = lowland.herbivores[-1].weight
-    beta = lowland.herbivores[-1].param["beta"]
-    lowland.herbivores[-1].param["F"] = 10000000
+    beta = lowland.herbivores[-1].parameters_animal["beta"]
+    lowland.herbivores[-1].parameters_animal["F"] = 10000000
     lowland.eat_fodder()
     assert lowland.fodder == 0
-    assert lowland.herbivores[-1].weight == weight_before+( 800 * beta)
-
+    assert lowland.herbivores[-1].weight == weight_before + (800 * beta)
 
 
 def test_eat_fodder2():
@@ -355,23 +355,24 @@ def test_newborn_carnivore(mocker):
 
     assert population_before_carnivore + 1 == len(land.carnivores)
 
+
 def test_parameters_landscape():
     """Test to see if the subclass Lowland gives the right amount of fodder,
     which should be "f_max" = 800"""
     lowland = Lowland()
-    lowland.set_parameters({"f_max" : 300})
+    lowland.set_parameters_fodder({"f_max": 300})
     with pytest.raises(ValueError):
-        lowland.set_parameters({"f_max": -10000})
+        lowland.set_parameters_fodder({"f_max": -10000})
+
 
 def test_parameters_lowland():
     """Test to see if the subclass Lowland gives the right amount of fodder,
     which should be "f_max" = 800"""
     lowland = Lowland()
-    lowland.set_parameters({"f_max" : 300})
+    lowland.set_parameters_fodder({"f_max": 300})
     assert lowland.parameters["f_max"] == 300
     with pytest.raises(ValueError):
-        lowland.set_parameters({"f_max": -10000})
-
+        lowland.set_parameters_fodder({"f_max": -10000})
 
 
 def test_parameters_water():
@@ -382,5 +383,24 @@ def test_parameters_water():
 
     assert f_max == 0
 
+def test_migration(mocker):
+    """
+    Test if the list is bigger before, than after.
+    """
+    population_herbivore = [{'species': 'Herbivore', 'age': 18, 'weight': 50},
+                            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
+                            {'species': 'Herbivore', 'age': 20, 'weight': 33.3},
+                            {'species': 'Herbivore', 'age': 15, 'weight': 35.3},
+                            {'species': 'Herbivore', 'age': 9, 'weight': 10.3}]
+    land = Lowland()
+    migrating_land = Highland()
+    mocker.patch("random.choice", return_value = migrating_land)
+    mocker.patch("random.random", return_value = -1)
 
+    land.population_update(population_herbivore)
 
+    animals_before = len(land.herbivores)
+
+    land.migrated_animals()
+
+    assert  animals_before > len(land.herbivores)

@@ -15,8 +15,7 @@ import random
 
 
 class Animal:
-    """Class for Animals in Biosim"""
-    param = {
+    parameters_animal = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
         "beta": 0.9,
@@ -34,9 +33,8 @@ class Animal:
         "DeltaPhiMax": None
     }
 
-    # Set param metoden vår er litt feil.
     @classmethod
-    def set_param(cls, added_parameters):
+    def set_parameters_animals(cls, added_parameters):
         """
         This will be a method for adding new parameters to the function.
         This will be a classmethod because it involves changing the class variables.
@@ -46,18 +44,7 @@ class Animal:
         added_parameters : dict
             The new parameter is a dictionary
         """
-        '''
-        for parameter in added_parameters.keys():
-            if parameter not in cls.param.keys():
-                raise KeyError("Invalid parameter name")
-        for parameter, value in added_parameters.items():
-            if value < 0:
-                raise ValueError("Inputted parameters can not be negative!")
-            if parameter == "eta" and value > 1:
-                raise ValueError
-            cls.param[parameter] = value
-        cls.param.update(added_parameters)
-        '''
+
         for key, value in added_parameters.items():
             if key == "DeltaPhiMax":
                 if value < 0:
@@ -65,15 +52,16 @@ class Animal:
             elif key == "eta":
                 if value >= 1:
                     raise ValueError("Eta must be 1 < ")
-            elif key not in cls.param:
+            elif key not in cls.parameters_animal:
                 raise ValueError("Wrong Parameter")
             elif value <= 0:
                 raise ValueError("Value must be positive integer")
-            cls.param[key] = value
+            cls.parameters_animal[key] = value
 
     def __init__(self, age=None, weight=None):
+
         """
-        Constructor for the Animal class.
+        Constructor for Animal class.
 
         Parameters
         ----------
@@ -100,7 +88,9 @@ class Animal:
         # self.migrate should be false after aging.in the same year.
 
     def aging(self):
-        """Aging the animals every year with +1."""
+        """
+        Aging the animals every year with +1.
+        """
         self.age += 1.0
         self.fitness_animal()
 
@@ -109,19 +99,16 @@ class Animal:
         """
         Gaussian distribution for determining the weight of a newborn baby.
         Used only for the purpose of testing.
-            .. math::
-            \begin{equation}
-
-            \end{equation}
 
         Returns
         -------
         weight: int
         Generate a weight, using random.gauss.
         """
-        weight_baby = random.gauss(self.param["w_birth"], self.param["sigma_birth"])
+        # TODO: Don´t know if I use this function somewhere
+        weight_baby = random.gauss(self.parameters_animal["w_birth"],
+                                   self.parameters_animal["sigma_birth"])
         return weight_baby
-        # Bruker ikke denne funksjonen noen steder.
 
     def weight_decrease(self):
         """
@@ -131,17 +118,12 @@ class Animal:
         # resetting the migrate state
         self.migrate = False
 
-        self.weight -= self.weight * self.param["eta"]  # Can put this in aging
+        self.weight -= self.weight * self.parameters_animal["eta"]  # Can put this in aging
         self.fitness_animal()
 
     def fitness_animal(self):
-        r"""
+        """
         Calculate the fitness of an animal.
-
-        .. math::
-        \begin{equation}
-        min(1,\gamma \times \Phi \times (N-1))
-        \end{equation}
 
         Returns
         -------
@@ -149,30 +131,29 @@ class Animal:
             The generated fitness of the animal
         """
 
-        if self.weight == 0:  # ==
+        if self.weight == 0:
             self.fitness = 0
-        #   return False  # Kan vurdere å returnere false.
         else:
 
-            plus_exp = (self.param["phi_age"]) * (self.age - self.param["a_half"])
-            neg_exp = (-1 * self.param["phi_weight"]) * (self.weight - self.param["w_half"])
+            plus_exp = (self.parameters_animal["phi_age"]) * (
+                    self.age - self.parameters_animal["a_half"])
+            neg_exp = (-1 * self.parameters_animal["phi_weight"]) * (
+                    self.weight - self.parameters_animal["w_half"])
 
             q_positive = 1 / (1 + math.exp(plus_exp))
             q_negative = 1 / (1 + math.exp(neg_exp))
 
             self.fitness = q_positive * q_negative
 
-        # if self.weight <= 0:
-        #     self.fitness = 0
-        # else:
-        #     self.fitness = q_positive * q_negative
-
     def death_animal(self):
         r"""
         Death of an animal, using probability. If the animal is fitter then the other,
         the chance of survival increase a lot.
-
+         :math:``
         If an animal has a weight higher than zero, the probability to die is given by the formula:
+
+
+        :math:`Mu`
 
         .. math::
             \begin{equation}
@@ -182,9 +163,9 @@ class Animal:
         Returns
         -------
         self.death: Boolean
-             Returning if death is equal to true or false.
+        Returning if death is equal to true or false.
         """
-        probability_die = self.param["omega"] * (1 - self.fitness)
+        probability_die = self.parameters_animal["omega"] * (1 - self.fitness)
         # Herbivore, carnivore will die with a probability of w(1-fitness)
 
         if self.weight == 0:  # Retta på fra =< til ==
@@ -225,15 +206,16 @@ class Animal:
             If the requirements for birth is not filled
         """
 
-        probability = min(1, self.param["gamma"] * self.fitness * (n_animals_in_same_species - 1))
+        probability = min(1, self.parameters_animal["gamma"] * self.fitness * (
+                n_animals_in_same_species - 1))
         if self.migrate is False:  # SLETT
-            if self.weight < self.param["zeta"] * (
-                    self.param["w_birth"] + self.param["sigma_birth"]):
+            if self.weight < self.parameters_animal["zeta"] * (
+                    self.parameters_animal["w_birth"] + self.parameters_animal["sigma_birth"]):
                 return None
             elif random.random() < probability:
                 new_baby = type(self)()
-                if new_baby.weight * self.param["xi"] < self.weight:
-                    self.weight -= self.param["xi"] * new_baby.weight
+                if new_baby.weight * self.parameters_animal["xi"] < self.weight:
+                    self.weight -= self.parameters_animal["xi"] * new_baby.weight
                     self.fitness_animal()
                     return new_baby
                 else:
@@ -249,28 +231,26 @@ class Animal:
         -------
 
         """
-        if self.migrate is False:  # SLETT
-            migrate_probability = self.fitness * self.param["mu"]
-            return random.random() < migrate_probability
+        migrate_probability = self.fitness * self.parameters_animal["mu"]
+        return random.random() < migrate_probability
 
     def weight_increase(self, food):
         r"""
-        Increasing the weight of an animal once it eats some food F.
+        Increasing the weight of a animal once it eats some food F.
 
         .. math::
             \begin{equation}
-            \beta \times F
+            \beta \times \F
             \end{equation}
 
         """
-        #if self.migrate is False:  # SLETT
-        self.weight += self.param["beta"] * food
+        self.weight += self.parameters_animal["beta"] * food
         self.fitness_animal()
 
 
 class Herbivore(Animal):
     """Subclass of the Animals class. This class is for the herbivore species in Biosim"""
-    param = {
+    parameters_animal = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
         "beta": 0.9,
@@ -304,11 +284,9 @@ class Herbivore(Animal):
         super().__init__(age, weight)
 
 
-
-
 class Carnivore(Animal):
     """Subclass of the Animals class. This class is for the carnivore species in Biosim"""
-    param = {
+    parameters_animal = {
         "w_birth": 6.0,
         "sigma_birth": 1.0,
         "beta": 0.75,
@@ -343,39 +321,9 @@ class Carnivore(Animal):
         # self.kill_p = None
 
     def kill_probability(self, herbivore):
-        r"""
-        This method will show the kill probability, The carnivores will kill a herbivore
-        with probability:
-
-        .. math::
-            \begin{equation}
-            p =
-            \begin{cases}
-                0, & \text{if} \Phi_{\text{carn}} \leq \Phi_{\text{herb} \\
-                0, & \text{if}\ 0 < \phi_{\text{carn}} - \phi_{\text{herb}} < \Delta\Phi \\
-                1, & \text{otherwise}
-            \end{cases}
-            \end{equation}
-
-        carnivore's weight increases by :math:`\beta \times` w_birth
-        where
-
-
-
-
-
-        Parameters
-        ----------
-        herbivore
-
-        Returns
-        -------
-
-        """
-
         if self.fitness < herbivore.fitness:
             return 0
-        elif 0 < self.fitness - herbivore.fitness < self.param["DeltaPhiMax"]:
-            return (self.fitness - herbivore.fitness) / self.param["DeltaPhiMax"]
+        elif 0 < self.fitness - herbivore.fitness < self.parameters_animal["DeltaPhiMax"]:
+            return (self.fitness - herbivore.fitness) / self.parameters_animal["DeltaPhiMax"]
         else:
             return 1

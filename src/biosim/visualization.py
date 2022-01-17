@@ -1,5 +1,9 @@
 # -*- encoding: utf-8 -*-
+import os
+import subprocess
 
+import matplotlib.pyplot as plt
+import numpy as np
 
 """
 :mod:`randvis.graphics` provides graphics support for BioSim.
@@ -23,12 +27,6 @@ https://gitlab.com/nmbu.no/emner/inf200/h2021
 /inf200-course-materials/-/tree/main/january_block/examples/randvis_project
 """
 
-import os
-import subprocess
-
-import matplotlib.pyplot as plt
-import numpy as np
-
 # Update these variables to point to your ffmpeg and convert binaries
 # If you installed ffmpeg using conda or installed both softwares in
 # standard ways on your computer, no changes should be required.
@@ -45,7 +43,7 @@ _DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
 
 class Visualization:
     """Provides graphics support for BioSim."""
-    default_cmax = {"Herbivore": 200, "Carnivore": 5}
+    default_cmax = {"Herbivore": 200, "Carnivore": 100}
     default_specs = {'fitness': {'max': 1.0, 'delta': 0.05},
                      'age': {'max': 60.0, 'delta': 2},
                      'weight': {'max': 60, 'delta': 2}}
@@ -94,12 +92,9 @@ class Visualization:
         self._count_fitness_ax = None
         self._count_age_ax = None
         self._count_weight_ax = None
-        self._img_count_fit_axis = None
-        self._img_count_age_axis = None
-        self._img_count_weight_axis = None
-
+        self._year_ax = None
     def update(self, step, cnt_animals, herb_map,
-               carn_map):  # Very important method, sys_map will be matrix
+               carn_map, h_list, c_list):  # Very important method, sys_map will be matrix
         """
         Updates graphics with current data and save to file if necessary.
 
@@ -111,6 +106,19 @@ class Visualization:
 
         self.heat_map_carnivores(carn_map)
         self.heat_map_herbivores(herb_map)
+        #self.year_update(current_year)
+
+        fitness_herb = [h.fitness for h in h_list]
+        fitness_carn = [c.fitness for c in c_list]
+        self.histo_fitness_update(fitness_herb, fitness_carn)
+
+        age_herb = [h.fitness for h in h_list]
+        age_carn = [c.fitness for c in c_list]
+        self.histo_age_update(age_herb, age_carn)
+
+        weight_herb = [h.weight for h in h_list]
+        weight_carn = [c.weight for c in c_list]
+        self.histo_weight_update(weight_herb, weight_carn)
 
         # self._update_mean_graph(step, sys_mean)
         self._fig.canvas.flush_events()  # ensure every thing is drawn
@@ -201,7 +209,8 @@ class Visualization:
         if self._herb_line is None:
             # plot one line (herb_line)
             count_plot_herbi = self._count_ax.plot(np.arange(0, final_step + 1),
-                                                   np.full(final_step + 1, np.nan))
+                                                   np.full(final_step + 1, np.nan),
+                                                   label="Herbivore")
 
             self._herb_line = count_plot_herbi[0]
 
@@ -216,7 +225,8 @@ class Visualization:
         if self._carn_line is None:
             # plot one line (herb_line)
             count_plot_carni = self._count_ax.plot(np.arange(0, final_step + 1),
-                                                   np.full(final_step + 1, np.nan))
+                                                   np.full(final_step + 1, np.nan),
+                                                   label="Carnivore")
 
             self._carn_line = count_plot_carni[0]
 
@@ -228,38 +238,49 @@ class Visualization:
                 self._carn_line.set_data(np.hstack((x_data, x_new)),
                                          np.hstack((y_data, y_new)))
 
+        self._count_ax.set_title("Animal count")
+
         self._count_ax.set_xlim(0, final_step + 1)
-        plt.title("Animal count")
+        self._count_ax.legend(handles=[self._herb_line, self._carn_line])
 
         # This will be the subplot for the heatmap for herbivores.
         if self._heat_herbivore_ax is None:
             self._heat_herbivore_ax = self._fig.add_subplot(3, 3, 4)
-            plt.title("Herbivore distribution")
+            self._heat_herbivore_ax.set_title("Herbivore distribution")
             self._img_herb_axis = None
 
         # Heatmap for carnivores.
         if self._heat_carnivore_ax is None:
             self._heat_carnivore_ax = self._fig.add_subplot(3, 3, 6)
-            plt.title("Carnivore distribution")
+            self._heat_carnivore_ax.set_title("Carnivore distribution")
             self._img_carni_axis = None
 
         # Histogram for fitness(herbivores, carnivores).
         if self._count_fitness_ax is None:
             self._count_fitness_ax = self._fig.add_subplot(3, 3, 7)
-            plt.title("Fitness")
+            self._count_fitness_ax.set_title("Fitness")
             self._img_count_fit_axis = None
 
         # Histogram for age(herbivores, carnivores).
         if self._count_age_ax is None:
             self._count_age_ax = self._fig.add_subplot(3, 3, 8)
-            plt.title("Age")
+            self._count_age_ax.set_title("Age")
             self._img_count_age_axis = None
 
         # Histogram for weight(herbivores, carnivores).
         if self._count_weight_ax is None:
             self._count_weight_ax = self._fig.add_subplot(3, 3, 9)
-            plt.title("Weight")
+            self._count_weight_ax.set_title("Weight")
             self._img_count_weight_axis = None
+
+        if self._year_ax is None:
+            self._year_ax = self._fig.add_subplot(3, 3, 2)
+            template = 'Count: {:5d}'
+            self._yearly_count_disp = self._year_ax.text(0.5, 0.5, template.format(0),
+                                                         horizontalalignment='center',
+                                                         verticalalignment='center',
+                                                         transform=self._year_ax.transAxes)
+            self._year_ax.axis('off')
 
         # needs updating on subsequent calls to simulate()
         # add 1 so we can show values for time zero and time final_step
@@ -309,26 +330,27 @@ class Visualization:
     def histo_fitness_update(self, herbivores, carnivores):
         # Here we create the histogram for the fitness update.
         # This will be a histogram at the bottom left of the plot window.
-        if self._count_fitness_ax is None:
-            self._img_herb_figure.hist(herbivores["fitness"], color="blue", histtype="step")
-            self._img_carni_figure.hist(carnivores["fitness"], color="red", histtype="step")
+        self._count_fitness_ax.clear()
+        self._count_fitness_ax.hist(herbivores, color="blue", histtype="step", label="Herbivore")
+        self._count_fitness_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
+        self._count_fitness_ax.legend()
 
     def histo_age_update(self, herbivores, carnivores):
         # Here we create the histogram for the age update.
         # This will be a histogram at the bottom center of the plot window.
-        if self._count_age_ax is None:
-            self._img_herb_figure.hist(herbivores["age"], color="blue", histtype="step")
-            self._img_carni_figure.hist(carnivores["age"], color="red", histtype="step")
-        else:
-            self._count_age_ax.clear()
+        self._count_age_ax.clear()
+        self._count_age_ax.hist(herbivores, color="blue", histtype="step", label="Herbivore")
+        self._count_age_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
+        self._count_age_ax.legend()
 
     def histo_weight_update(self, herbivores, carnivores):
         # Here we create the histogram for the weight update.
         # This will be a histogram at the bottom right of the plot window.
 
-        if self._count_weight_ax is None:
-            self._img_herb_figure.hist(herbivores["weight"], color="blue", histtype="step")
-            self._img_carni_figure.hist(carnivores["weight"], color="red", histtype="step")
+        self._count_weight_ax.clear()
+        self._count_weight_ax.hist(herbivores, color="blue", histtype="step", label="Herbivore")
+        self._count_weight_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
+        self._count_weight_ax.legend()
 
     def _save_graphics(self, step):
         """Saves graphics to file if file name given."""
@@ -373,4 +395,4 @@ class Visualization:
         """
         This is a counter lapsed years on the island.
         """
-        self._yearly_count_disp.set_text(f"Year: {year_on_island}")
+        self.yearly_disp_text.set_text(f"Year: {year_on_island}")

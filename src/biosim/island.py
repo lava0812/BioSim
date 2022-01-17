@@ -125,10 +125,6 @@ class Island:
         for cell in self.map.values():
             cell.annual_cycle()
 
-    # in island, we move the animals from one cell to another cell.
-    # move only if the cell is not water.
-    # after we move, we change self.migrate to true, this is for checking if it has migrated.
-
     def get_all_herbivores(self):
         """
         Method to get all the carnivores.

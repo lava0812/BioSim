@@ -7,13 +7,20 @@ from src.biosim.island import Island
 
 
 def test_create_map():
-    pass
+    """
+
+    """
+    geogr = """\
+            WWW
+            WQW
+            WWW"""
+
+    with pytest.raises(ValueError):
+        Island(map_of_island=geogr)
 
 
 def test_map_boundaries():
-    """
-    This test will check if the map boundaries are water(W).
-    """
+    """This test will check if the map boundaries are water(W)."""
     geogr = """\
             WWW
             WLW
@@ -24,9 +31,7 @@ def test_map_boundaries():
 
 
 def test_map_lines():
-    """
-    This test will check if the map lines are equal length
-    """
+    """This test will check if the map lines are equal length."""
     geogr = """\
             WWWW
             WLW
@@ -37,9 +42,7 @@ def test_map_lines():
 
 
 def test_population_cell():
-    """
-    Test
-    """
+    """This test will check if the animal count is correct for each cell. """
     geogr = """\
             WWW
             WLW
@@ -58,30 +61,8 @@ def test_population_cell():
     assert len(island.map[(2, 2)].herbivores) == 3
 
 
-# def test_migrate():
-#   geogr = """\
-#                WWW
-#                WLW
-#                WWW"""
-#
-#   population = [{'loc': (2, 2),
-#                      'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
-#                     {'loc': (2, 2),
-#                      'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]},
-#                     {'loc': (2, 2),
-#                      'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]}]
-
-
-#   island = Island(map_of_island=geogr)
-
-
-# def test_annual_cycle():
-
-
 def test_get_all_herbivores():
-    """
-    This tests if all herbivores on the same location gets appended to the list.
-    """
+    """This tests if all herbivores on the same location gets appended to the list."""
     geogr = """\
                WWW
                WLW
@@ -103,6 +84,7 @@ def test_get_all_herbivores():
 
 
 def test_get_all_carnivores():
+    """Test if we can get out the amount of carnivores in a cell."""
     geogr = """\
                WWW
                WLW
@@ -124,8 +106,12 @@ def test_get_all_carnivores():
 
 
 def test_matrix_herbivores():
+    """Test if a matrix will be created, and the amount of herbivores in each cell will be added
+    in the matrix"""
     pass
 
 
 def test_matrix_carnivores():
+    """Test if a matrix will be created, and the amount of carnivores in each cell will be added
+    in the matrix"""
     pass

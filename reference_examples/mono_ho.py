@@ -13,7 +13,7 @@ geogr = """\
            WWW
            WLW
            WWW"""
-geogr = "L"
+#geogr = "L"
 
 geogr = textwrap.dedent(geogr)
 

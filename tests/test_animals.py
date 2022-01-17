@@ -9,7 +9,6 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
-
 import numpy as np
 import pytest
 from scipy import stats
@@ -45,7 +44,7 @@ def test_aging():
 
 def test_gaussian_distribution():
     """
-    Check if weight of baby actually is a gaussian distribution.
+    Check if the weight of the babies actually is a gaussian distribution.
     """
     random.seed(12345)
     weights = [Herbivore().weight_baby() for _ in range(5000)]
@@ -63,8 +62,7 @@ def test_weight_increase_herb():
     """
     Test on the weight increase once a herbivore eats fodder.
     """
-    #kan teste om hvor mye den øker
-    # kan gjøre den litt mer tydeligere
+    #TODO Can test this more exact.
     herbivore = Herbivore()
 
     pre_weight = herbivore.weight
@@ -209,19 +207,19 @@ def test_weight_increase():
 #     assert pre_weight > post_weight
 def test_setting_parameters():
     animal = Animal()
-    animal.set_param({"F": 1000})
-    assert animal.param["F"] == 1000
+    animal.set_parameters_animals({"F": 1000})
+    assert animal.parameters_animal["F"] == 1000
 
 def test_setting_wrong_parameters():
     animal = Animal()
     with pytest.raises(ValueError):
-        animal.set_param({"DeltaPhiMax": -10000})
+        animal.set_parameters_animals({"DeltaPhiMax": -10000})
     with pytest.raises(ValueError):
-        animal.set_param({"eta": 10000})
+        animal.set_parameters_animals({"eta": 10000})
     with pytest.raises(ValueError):
-        animal.set_param({"wrongparam": -10000})
+        animal.set_parameters_animals({"wrongparam": -10000})
     with pytest.raises(ValueError):
-        animal.set_param({"F": -10000})
+        animal.set_parameters_animals({"F": -10000})
 
 
 def test_carnivore_kill_probability(mocker):

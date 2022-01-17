@@ -102,9 +102,9 @@ class BioSim:
         :param params: Dict with valid parameter specification for species
         """
         if species == "Herbivore" or species == "herbivore":
-            Herbivore.set_param(params)
+            Herbivore.set_parameters_animals(params)
         elif species == "Carnivore" or species == "carnivore":
-            Carnivore.set_param(params)
+            Carnivore.set_parameters_animals(params)
         else:
             raise ValueError("Choose a valid species! Choose between herbivore and carnivore.")
 
@@ -117,13 +117,13 @@ class BioSim:
         :param params: Dict with valid parameter specification for landscape
         """
         if landscape == "W":
-            Water.set_parameters(params)
+            Water.set_parameters_fodder(params)
         elif landscape == "L":
-            Lowland.set_parameters(params)
+            Lowland.set_parameters_fodder(params)
         elif landscape == "H":
-            Highland.set_parameters(params)
+            Highland.set_parameters_fodder(params)
         elif landscape == "D":
-            Desert.set_parameters(params)
+            Desert.set_parameters_fodder(params)
         else:
             raise ValueError("Choose a valid landscape type!")
 
@@ -141,7 +141,9 @@ class BioSim:
 
             self.visualization.update(self._current_year, self.num_animals_per_species,
                                       self.island.matrix_herbivores(),
-                                      self.island.matrix_carnivores())
+                                      self.island.matrix_carnivores(),
+                                      self.island.get_all_herbivores(),
+                                      self.island.get_all_carnivores())
             self._current_year += 1
 
     def add_population(self, population):
