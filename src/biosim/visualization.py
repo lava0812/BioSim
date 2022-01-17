@@ -93,6 +93,7 @@ class Visualization:
         self._count_age_ax = None
         self._count_weight_ax = None
         self._year_ax = None
+        self.yearly_disp_text = None
     def update(self, step, cnt_animals, herb_map,
                carn_map, h_list, c_list):  # Very important method, sys_map will be matrix
         """
@@ -112,13 +113,15 @@ class Visualization:
         fitness_carn = [c.fitness for c in c_list]
         self.histo_fitness_update(fitness_herb, fitness_carn)
 
-        age_herb = [h.fitness for h in h_list]
-        age_carn = [c.fitness for c in c_list]
+        age_herb = [h.age for h in h_list]
+        age_carn = [c.age for c in c_list]
         self.histo_age_update(age_herb, age_carn)
 
         weight_herb = [h.weight for h in h_list]
         weight_carn = [c.weight for c in c_list]
         self.histo_weight_update(weight_herb, weight_carn)
+
+        self.update_yearly_counter(step)
 
         # self._update_mean_graph(step, sys_mean)
         self._fig.canvas.flush_events()  # ensure every thing is drawn
@@ -331,6 +334,7 @@ class Visualization:
         # Here we create the histogram for the fitness update.
         # This will be a histogram at the bottom left of the plot window.
         self._count_fitness_ax.clear()
+        self._count_fitness_ax.set_title("Fitness")
         self._count_fitness_ax.hist(herbivores, color="blue", histtype="step", label="Herbivore")
         self._count_fitness_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
         self._count_fitness_ax.legend()
@@ -352,6 +356,9 @@ class Visualization:
         self._count_weight_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
         self._count_weight_ax.legend()
 
+    def update_yearly_counter(self, year):
+
+        self._yearly_count_disp.set_text(f'Count: {year:5d}')
     def _save_graphics(self, step):
         """Saves graphics to file if file name given."""
 
