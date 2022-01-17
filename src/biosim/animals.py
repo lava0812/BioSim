@@ -15,6 +15,7 @@ import random
 
 
 class Animal:
+    """Class for Animals in Biosim"""
     param = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,
@@ -70,13 +71,9 @@ class Animal:
                 raise ValueError("Value must be positive integer")
             cls.param[key] = value
 
-
-
-
     def __init__(self, age=None, weight=None):
-
         """
-        Constructor for Animal class.
+        Constructor for the Animal class.
 
         Parameters
         ----------
@@ -103,9 +100,7 @@ class Animal:
         # self.migrate should be false after aging.in the same year.
 
     def aging(self):
-        """
-        Aging the animals every year with +1.
-        """
+        """Aging the animals every year with +1."""
         self.age += 1.0
         self.fitness_animal()
 
@@ -114,6 +109,10 @@ class Animal:
         """
         Gaussian distribution for determining the weight of a newborn baby.
         Used only for the purpose of testing.
+            .. math::
+            \begin{equation}
+
+            \end{equation}
 
         Returns
         -------
@@ -136,8 +135,13 @@ class Animal:
         self.fitness_animal()
 
     def fitness_animal(self):
-        """
+        r"""
         Calculate the fitness of an animal.
+
+        .. math::
+        \begin{equation}
+        min(1,\gamma \times \Phi \times (N-1))
+        \end{equation}
 
         Returns
         -------
@@ -167,11 +171,8 @@ class Animal:
         r"""
         Death of an animal, using probability. If the animal is fitter then the other,
         the chance of survival increase a lot.
-         :math:``
+
         If an animal has a weight higher than zero, the probability to die is given by the formula:
-
-
-        :math:`Mu`
 
         .. math::
             \begin{equation}
@@ -181,7 +182,7 @@ class Animal:
         Returns
         -------
         self.death: Boolean
-        Returning if death is equal to true or false.
+             Returning if death is equal to true or false.
         """
         probability_die = self.param["omega"] * (1 - self.fitness)
         # Herbivore, carnivore will die with a probability of w(1-fitness)
@@ -254,11 +255,11 @@ class Animal:
 
     def weight_increase(self, food):
         r"""
-        Increasing the weight of a animal once it eats some food F.
+        Increasing the weight of an animal once it eats some food F.
 
         .. math::
             \begin{equation}
-            \beta \times \F
+            \beta \times F
             \end{equation}
 
         """
@@ -342,6 +343,36 @@ class Carnivore(Animal):
         # self.kill_p = None
 
     def kill_probability(self, herbivore):
+        r"""
+        This method will show the kill probability, The carnivores will kill a herbivore
+        with probability:
+
+        .. math::
+            \begin{equation}
+            p =
+            \begin{cases}
+                0, & \text{if} \Phi_{\text{carn}} \leq \Phi_{\text{herb} \\
+                0, & \text{if}\ 0 < \phi_{\text{carn}} - \phi_{\text{herb}} < \Delta\Phi \\
+                1, & \text{otherwise}
+            \end{cases}
+            \end{equation}
+
+        carnivore's weight increases by :math:`\beta \times` w_birth
+        where
+
+
+
+
+
+        Parameters
+        ----------
+        herbivore
+
+        Returns
+        -------
+
+        """
+
         if self.fitness < herbivore.fitness:
             return 0
         elif 0 < self.fitness - herbivore.fitness < self.param["DeltaPhiMax"]:

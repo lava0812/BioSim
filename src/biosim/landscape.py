@@ -127,10 +127,10 @@ class Landscape:
 
         :math:`F` is the amount of food the animals can eat
 
-        if :math:`f_max = 0`
+        if :math:`f_(max) = 0`
             There is no food at all, because the fodder on the cell is equal to 0.
 
-        if :math:`f_max \geq F`
+        if :math:`f_(max) \geq F`
             Here will the animal eat to their :math:`F` fills, and the remaining fodder will be
              available to other to eat
 
@@ -242,7 +242,6 @@ class Landscape:
                         carnivore.weight_increase(weight_eaten)
             self.herbivores = [herb for herb in self.herbivores if not herb.death]
 
-
     def migrated_animals(self):
         """
         This is not how it should be done, but I have done it for now. Ask TA about a better way
@@ -298,9 +297,6 @@ class Landscape:
         *Aging:* Every animal will age +1 every year
 
         *Weight loss:* Every year the animals will lose weight by the formula :math:`\eta\omega`
-
-
-
         """
         self.new_fodder()
         self.eat_fodder()
@@ -316,35 +312,27 @@ class Landscape:
 
 
 class Lowland(Landscape):
-    """
-    This class is a subclass of the Landscape class to portray the lowland.
-    """
+    """This class is a subclass of the Landscape class to portray the lowland."""
     parameters = {"f_max": 800}
 
 
 class Water(Landscape):
-    """
-    This class is a subclass of the Landscape class to portray the water.
-    """
+    """This class is a subclass of the Landscape class to portray the water."""
     parameters = {"f_max": 0}
     migration_possible = False
 
     #    rc = len(self.map) #rows
     #    len(self.map[0]) #columns
 
-    def annual_cycle(self):
-        pass
+   # def annual_cycle(self):
+       # pass
 
 
 class Highland(Landscape):
-    """
-    This class is a subclass of the Landscape class to portray the highland.
-    """
+    """This class is a subclass of the Landscape class to portray the highland."""
     parameters = {"f_max": 300}
 
 
 class Desert(Landscape):
-    """
-    This class is a subclass of the Landscape class to portray the desert.
-    """
+    """This class is a subclass of the Landscape class to portray the desert."""
     parameters = {"f_max": 0}

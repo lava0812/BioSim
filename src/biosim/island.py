@@ -82,8 +82,7 @@ class Island:
     def map_boundaries(self):
         """Here we define the boundaries of the map.
 
-        :raises ValueError: Some multi-line \
-        exception description.
+        :raises ValueError: The boarders are not water
         """
         # fix this function, check on geogr instead
         for row in self.lines[0] + self.lines[-1]:
@@ -112,6 +111,7 @@ class Island:
         ----------
         population: list
                     List of dicts that contains the newly populated animals
+
         """
         for item in population:
             population = item["pop"]
