@@ -252,9 +252,9 @@ class Animal:
             migrate_probability = self.fitness * self.param["mu"]
             return random.random() < migrate_probability
 
-    def weight_increase(self, fodder):
+    def weight_increase(self, food):
         r"""
-        Increasing the weight of a herbivore once it eats some fodder F.
+        Increasing the weight of a animal once it eats some food F.
 
         .. math::
             \begin{equation}
@@ -262,9 +262,9 @@ class Animal:
             \end{equation}
 
         """
-        if self.migrate is False:  # SLETT
-            self.weight += self.param["beta"] * fodder
-            self.fitness_animal()
+        #if self.migrate is False:  # SLETT
+        self.weight += self.param["beta"] * food
+        self.fitness_animal()
 
 class Herbivore(Animal):
     """Subclass of the Animals class. This class is for the herbivore species in Biosim"""

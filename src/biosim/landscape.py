@@ -221,7 +221,7 @@ class Landscape:
         """
 
         random.shuffle(self.carnivores)
-        self.herbivores.sort(key=lambda x: "fitness", reverse=True)
+        self.herbivores.sort(key=lambda x: "fitness")
 
         for carnivore in self.carnivores:
             ate = 0
@@ -232,20 +232,18 @@ class Landscape:
                 if ate < carnivore.param["F"]:
 
                     if random.random() < kill_prob:
-                        weight_herbivore = herbivore.weight
+                        weight_eaten = herbivore.weight
 
-                        if ate + weight_herbivore > carnivore.param["F"]:
-                            w = carnivore.param["F"] - ate
+                        if ate + weight_eaten > carnivore.param["F"]:
+                            weight_eaten = carnivore.param["F"] - ate
                             ate = carnivore.param["F"]
                         else:
-                            ate += weight_herbivore
+                            ate += weight_eaten
 
-                        ate += herbivore.weight
                         herbivore.death = True
-                        carnivore.weight += carnivore.param["beta"] * herbivore.weight
+                        carnivore.weight_increase(weight_eaten)
+            self.herbivores = [herb for herb in self.herbivores if not herb.death]
 
-                self.death_population()
-                carnivore.fitness_animal()
 
     def migrated_animals(self):
         """
