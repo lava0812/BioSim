@@ -152,6 +152,9 @@ class Animal:
 
         :math:`\mathcal{N}` = Gaussian distribution
 
+        NOTE! This model will not be an actual model of the Gaussian distribution, since we
+        do not include negative numbers.
+
         Returns
         -------
         weight: float
