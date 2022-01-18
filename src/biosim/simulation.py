@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 
 from biosim.animals import Carnivore, Herbivore
 from biosim.island import Island, Water, Lowland, Highland, Desert
-from biosim.visualization import _FFMPEG_BINARY, Visualization
+from biosim.visualization import Visualization
 
 """
 simulation.py is highly inspired by Hans Ekkehard Plesser´s
@@ -75,8 +75,6 @@ class BioSim:
         random.seed(seed)
 
         if img_dir is None:
-            # f'{os.path.join(img_dir, img_base}_{img_number:05d}.{img_fmt}'
-            # No figures are written to file.
             pass
 
         if img_base is not None:
@@ -189,20 +187,4 @@ class BioSim:
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""
 
-        # if self.img_base is None:
-        #     raise RuntimeError("A filename is not defined!")
-        #
-        # try:
-        #     subprocess.check_call([_FFMPEG_BINARY,
-        #                            '-i', '{}_%05d.png'.format(self.img_base),
-        #                            '-y',
-        #                            '-profile:v', 'baseline',
-        #                            '-level', '3.0',
-        #                            '-pix_fmt', 'yuv420p',
-        #                            '{}.{}'.format(self.img_base, "mp4")])
-        # except subprocess.CalledProcessError as err:
-        #     raise RuntimeError("ERROR: convert failed with: {}".format(err))
-        #
-        # else:
-        #     raise ValueError("Unknown movie format:" + "mp4")
         self.visualization.make_movie()

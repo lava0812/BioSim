@@ -54,7 +54,7 @@ class Island:
 
     def create_map(self):
         """Here we create the actual map of the island."""
-        # It can be useful to use two for loops here.
+
         self.map_lines()
         self.map_boundaries()
         for i, rows in enumerate(self.lines):
