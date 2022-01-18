@@ -383,6 +383,7 @@ def test_parameters_water():
 
     assert f_max == 0
 
+
 def test_migration(mocker):
     """
     Test if the list is bigger before, than after.
@@ -394,8 +395,8 @@ def test_migration(mocker):
                             {'species': 'Herbivore', 'age': 9, 'weight': 10.3}]
     land = Lowland()
     migrating_land = Highland()
-    mocker.patch("random.choice", return_value = migrating_land)
-    mocker.patch("random.random", return_value = -1)
+    mocker.patch("random.choice", return_value=migrating_land)
+    mocker.patch("random.random", return_value=-1)
 
     land.population_update(population_herbivore)
 
@@ -404,6 +405,7 @@ def test_migration(mocker):
     land.migrated_animals()
 
     assert  animals_before > len(land.herbivores)
+
 
 def test_carnivore_prey(mocker):
     mocker.patch("random.random", return_value = 0)
