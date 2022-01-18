@@ -8,7 +8,6 @@ __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
-import subprocess
 
 from matplotlib import pyplot as plt
 

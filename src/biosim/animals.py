@@ -118,14 +118,14 @@ class Animal:
             The number of same species in one cell.
         Returns
         -------
-        new_baby: #TODO spør hva den returner
+        new_baby:
             Generating a new baby
         not new baby: boolean
             If the requirements for birth is not filled
         """
 
         probability = min(1, self.parameters_animal["gamma"] * self.fitness * (
-                n_animals_in_same_species - 1))  # TODO trenger vi denne
+                n_animals_in_same_species - 1))
         if self.weight < self.parameters_animal["zeta"] * (
                 self.parameters_animal["w_birth"] + self.parameters_animal["sigma_birth"]):
             return None
@@ -157,7 +157,6 @@ class Animal:
         weight: float
             Generates the new baby weight
         """
-        # TODO: Don´t know if I use this function somewhere
         weight_baby = random.gauss(self.parameters_animal["w_birth"],
                                    self.parameters_animal["sigma_birth"])
         return weight_baby
@@ -210,7 +209,7 @@ class Animal:
 
         Returns
         -------
-        # TODO finn ut hva den gjør
+        Boolean
         """
         migrate_probability = self.fitness * self.parameters_animal["mu"]
         return random.random() < migrate_probability
@@ -219,7 +218,6 @@ class Animal:
         r"""
         Decrease the weight of an animal, which will happen every year with :math:`\eta w`
         """
-        # TODO
         self.migrate = False
 
         self.weight -= self.weight * self.parameters_animal["eta"]  # Can put this in aging
@@ -324,7 +322,6 @@ class Carnivore(Animal):
                 the weight of a newborn baby.
         """
         super().__init__(age=age, weight=weight)
-        # self.kill_p = None
 
     def kill_probability(self, herbivore):
         r"""
