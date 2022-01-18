@@ -33,6 +33,8 @@ The template for this file is also given by Hans Ekkehard Plesser.
 class BioSim:
     """Class for BioSim"""
 
+
+
     def __init__(self, island_map, ini_pop, seed,
                  vis_years=1, ymax_animals=None, cmax_animals=None, hist_specs=None,
                  img_dir=None, img_base=None, img_fmt='png', img_years=None,
@@ -188,19 +190,20 @@ class BioSim:
     def make_movie(self):
         """Create MPEG4 movie from visualization images saved."""
 
-        if self.img_base is None:
-            raise RuntimeError("A filename is not defined!")
-
-        try:
-            subprocess.check_call([_FFMPEG_BINARY,
-                                   '-i', '{}_%05d.png'.format(self.img_base),
-                                   '-y',
-                                   '-profile:v', 'baseline',
-                                   '-level', '3.0',
-                                   '-pix_fmt', 'yuv420p',
-                                   '{}.{}'.format(self.img_base, "mp4")])
-        except subprocess.CalledProcessError as err:
-            raise RuntimeError("ERROR: convert failed with: {}".format(err))
-
-        else:
-            raise ValueError("Unknown movie format:" + "mp4")
+        # if self.img_base is None:
+        #     raise RuntimeError("A filename is not defined!")
+        #
+        # try:
+        #     subprocess.check_call([_FFMPEG_BINARY,
+        #                            '-i', '{}_%05d.png'.format(self.img_base),
+        #                            '-y',
+        #                            '-profile:v', 'baseline',
+        #                            '-level', '3.0',
+        #                            '-pix_fmt', 'yuv420p',
+        #                            '{}.{}'.format(self.img_base, "mp4")])
+        # except subprocess.CalledProcessError as err:
+        #     raise RuntimeError("ERROR: convert failed with: {}".format(err))
+        #
+        # else:
+        #     raise ValueError("Unknown movie format:" + "mp4")
+        self.visualization.make_movie()

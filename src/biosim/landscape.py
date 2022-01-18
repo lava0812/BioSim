@@ -29,6 +29,10 @@ from biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
+    __slots__ = (
+        "param", "herbivores", "carnivores", "fodder", "kill_probability",
+        "migrate_probability", "neighbors")
+
     """Superclass for the landscape in Biosim"""
     parameters_fodder = {"f_max": 0}
     migration_possible = True
@@ -60,7 +64,6 @@ class Landscape:
         self.herbivores = []
         self.carnivores = []
         self.fodder = self.parameters_fodder["f_max"]
-        # mindre enn null.
         self.kill_probability = None
         self.migrate_probability = 0
         self.neighbors = []

@@ -34,7 +34,7 @@ _MAGICK_BINARY = 'magick'
 
 # update this to the directory and file-name beginning
 # for the graphics files
-_DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data')
+_DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data/')
 _DEFAULT_GRAPHICS_NAME = 'dv'
 _DEFAULT_IMG_FORMAT = 'png'
 _DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
@@ -72,8 +72,10 @@ class Visualization:
         else:
             try:
                 os.mkdir(_DEFAULT_GRAPHICS_DIR)
+            except:
+                pass
             finally:
-                self._img_base = _DEFAULT_GRAPHICS_DIR
+                self._img_base = os.path.join(_DEFAULT_GRAPHICS_DIR, img_name)
 
         self._img_fmt = img_fmt if img_fmt is not None else _DEFAULT_IMG_FORMAT
 

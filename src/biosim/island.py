@@ -24,6 +24,8 @@ from biosim.landscape import Lowland, Water, Highland, Desert
 
 class Island:
     """Class for Island in Biosim """
+
+    __slots__ = ("ini_herbs", "ini_carns", "geogr", "lines", "map")
     landscape_types = {"L": Lowland, "W": Water, "H": Highland, "D": Desert}
 
     def __init__(self, map_of_island=None):
