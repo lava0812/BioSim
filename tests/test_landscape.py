@@ -358,7 +358,7 @@ def test_parameters_lowland():
     which should be "f_max" = 800"""
     lowland = Lowland()
     lowland.set_parameters_fodder({"f_max": 300})
-    assert lowland.parameters["f_max"] == 300
+    assert lowland.parameters_fodder["f_max"] == 300
     with pytest.raises(ValueError):
         lowland.set_parameters_fodder({"f_max": -10000})
 
