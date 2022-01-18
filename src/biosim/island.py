@@ -3,13 +3,13 @@
 :mod: 'src.biosim.island' is the part where we simulate the annual cycle
 
 This script will give the user the annual cycle of Rossumøya, and also give us the Island build.
-
-This file contains the following and can be imported as a module:
+.. note::
+     This file contains the following and can be imported as a module:
 
     * Island - Class that makes the Rossumøya island, and a method to get alle the animals.
-Notes
------
-    To run this script, the user needs to have 'numpy' installed in the Python environment
+    Notes
+    -----
+        To run this script, the user needs to have 'numpy' installed in the Python environment
 """
 
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
@@ -21,6 +21,8 @@ import numpy as np
 
 from biosim.landscape import Lowland, Water, Highland, Desert
 
+
+np.mean
 
 class Island:
     """Class for Island in Biosim """
@@ -83,6 +85,13 @@ class Island:
 
     def map_boundaries(self):
         """Here we define the boundaries of the map.
+
+        .. code-block:: python
+        :caption: island.py
+        :name: island
+        if elements != "W":
+
+        raise ValueError("The inputted map is not surrounded by water. Try again!")
 
         :raises ValueError: The boarders are not water
         """
