@@ -1,11 +1,17 @@
 # -*- encoding: utf-8 -*-
 
 """
-This file will contain a main class Animals(Superclass).
-These Animals class will contain methods for characteristics
-that are common for both herbivores and carnivores. The Animals class will have two subclasses,
-Herbivores and Carnivores.
-These to subclasses will contain methods specifically for herbivores and carnivores.
+:mod: 'biosim.animals' is the script that holds information on the carnivores and herbivores
+
+This file contains the following superclass and subclasses and can be imported as a module:
+
+.. note::
+    * Animals (superclass) - This Animals class will contain methods for characteristics
+      that are common for both herbivores and carnivores.
+    * Herbivores(Animals) - Subclass of the Animals class that holds the attributes for the
+      Herbivore specie.
+    * Carnivores(Animals) - Subclass of the Animals class that holds the attributes for
+      the Carnivore specie.
 """
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
@@ -88,9 +94,7 @@ class Animal:
         # self.migrate should be false after aging.in the same year.
 
     def aging(self):
-        """
-        Aging the animals every year with +1.
-        """
+        """Aging the animals every year with +1."""
         self.age += 1.0
         self.fitness_animal()
 
@@ -119,14 +123,7 @@ class Animal:
 
     def weight_decrease(self):
         r"""
-        Decrease the weight of an animal, which will happen every year.
-        Updates the fitness right after.
-
-        .. math::
-            \begin{equation}
-            \eta
-            \end{equation}
-
+        Decrease the weight of an animal, which will happen every year with :math:`\eta w`
         """
         # resetting the migrate state
         self.migrate = False
@@ -147,7 +144,7 @@ class Animal:
             \end{cases}
         Returns
         -------
-        float
+        fitness: float
             The generated fitness of the animal
         """
 
@@ -216,9 +213,9 @@ class Animal:
             The number of same species in one cell.
         Returns
         -------
-        new_baby
+        new_baby:
             Generating a new baby
-        boolean
+        not new baby: boolean
             If the requirements for birth is not filled
         """
 
@@ -241,7 +238,7 @@ class Animal:
 
     def migration_probability(self):
         r"""
-        This calculates the probability of an animal moving.
+        This calculates the probability of an animal moving with :math:`\mu \Phi`
 
         Returns
         -------
@@ -259,9 +256,13 @@ class Animal:
             \beta \times F
             \end{equation}
 
+        Parameters
+        ----------
+        food:
         """
         self.weight += self.parameters_animal["beta"] * food
         self.fitness_animal()
+
 
 
 class Herbivore(Animal):

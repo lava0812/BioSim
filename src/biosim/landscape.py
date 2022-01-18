@@ -1,24 +1,22 @@
 # -*- encoding: utf-8 -*-
 
 """
-:mod: 'src.biosim.landscape' is the foundation of the island Rossumøya we are going to build, and
+:mod: 'biosim.landscape' is the foundation of the island Rossumøya we are going to build, and
        each cells' respective characteristics.
 
 
 Rossumøya is divided into cells that are formed as squares. These cells will have one of the
 four subclass attribute. The cells will also have their own numerical location.
 
-This file contains the following superclass and subclasses and can be imported as a module:
+.. note::
+    This file contains the following superclass and subclasses and can be imported as a module:
 
     *   Landscape (superclass) - Class that holds the common attributes of Rossumøya. The annual
         cycle of the island is also stored in this class.
-
     *   Lowland(Landscape) - Subclass of the Landscape class that holds the attributes for the
         lowland cell type.
-
     *   Highland(Landscape) - Subclass of the Landscape class that holds the attributes for the
         highland cell type.
-
     *   Water(Landscape) - Subclass of the Landscape class that holds the attributes for the
         water cell type.
 """
