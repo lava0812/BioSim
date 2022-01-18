@@ -3,17 +3,18 @@
 This is the test function for the Animals class, which contains the subclasses, herbivores and
 carnivores.
 """
-#We should use pytest.fixtures here.
+# We should use pytest.fixtures here.
 
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
 import random
+
 import numpy as np
 import pytest
 from scipy import stats
 
-from src.biosim.animals import Herbivore, Carnivore, Animal
+from src.biosim.animals import Animal, Carnivore, Herbivore
 
 
 def test_aging():
@@ -62,7 +63,7 @@ def test_weight_increase_herb():
     """
     Test on the weight increase once a herbivore eats fodder.
     """
-    #TODO Can test this more exact.
+    # TODO Can test this more exact.
     herbivore = Herbivore()
 
     pre_weight = herbivore.weight
@@ -76,7 +77,7 @@ def test_weight_decrease():
     """
     Test on the weight decrease every year.
     """
-    #kan gjøre den litt mer tydeligere
+    # kan gjøre den litt mer tydeligere
 
     herbivore = Herbivore(5, 10)
     herbivore.weight_baby()
@@ -152,6 +153,17 @@ def test_birth_carni(mocker):
     carnivore = Carnivore(3, 14)
     n_animals_in_same_species = 5
     birth_carni = carnivore.birth(n_animals_in_same_species)
+    assert birth_carni is None
+
+
+def test_certain_birth(mocker):
+    """
+    Test the birth function when there is only one carnivore in the cell.
+    """
+    mocker.patch("random.random", return_value=0)
+    carnivore = Carnivore(3, 14)
+    n_animals_in_same_species = 5
+    birth_carni = carnivore.birth(n_animals_in_same_species)
 
     assert birth_carni is None
 
@@ -182,13 +194,13 @@ def test_init():
     """
     Testing the init method.
     """
-    carnivore = Carnivore(age = 10, weight = 100)
+    carnivore = Carnivore(age=10, weight=100)
     assert carnivore.age == 10
     assert carnivore.weight == 100
 
 
 def test_weight_increase():
-    animal = Animal(weight = 10)
+    animal = Animal(weight=10)
     animal.weight_increase(10)
     assert animal.weight > 10
 
@@ -209,6 +221,7 @@ def test_setting_parameters():
     animal = Animal()
     animal.set_parameters_animals({"F": 1000})
     assert animal.parameters_animal["F"] == 1000
+
 
 def test_setting_wrong_parameters():
     animal = Animal()
@@ -233,6 +246,7 @@ def test_carnivore_kill_probability(mocker):
     carnivore.fitness = 1000000
     herbivore.fitness = 0
     assert carnivore.kill_probability(herbivore) == 1
+
 
 def test_migration(mocker):
     mocker.patch("random.random", return_value=0)

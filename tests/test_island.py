@@ -108,10 +108,32 @@ def test_get_all_carnivores():
 def test_matrix_herbivores():
     """Test if a matrix will be created, and the amount of herbivores in each cell will be added
     in the matrix"""
-    pass
+    geogr = """\
+                   WWW
+                   WLW
+                   WWW"""
+    population = [{'loc': (2, 2),
+                   'pop': [{'species': 'Herbivore', 'age': 10, 'weight': 12.5}]}]
+
+    island = Island(map_of_island=geogr)
+    island.population_cell(population)
+    matrix = island.matrix_herbivores()
+    print(matrix)
+    assert matrix[1][1] == 1
 
 
 def test_matrix_carnivores():
-    """Test if a matrix will be created, and the amount of carnivores in each cell will be added
+    """Test if a matrix will be created, and the amount of herbivores in each cell will be added
     in the matrix"""
-    pass
+    geogr = """\
+                   WWW
+                   WLW
+                   WWW"""
+    population = [{'loc': (2, 2),
+                   'pop': [{'species': 'Carnivore', 'age': 10, 'weight': 12.5}]}]
+
+    island = Island(map_of_island=geogr)
+    island.population_cell(population)
+    matrix = island.matrix_carnivores()
+    print(matrix)
+    assert matrix[1][1] == 1
