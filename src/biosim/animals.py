@@ -20,9 +20,9 @@ import random
 
 
 class Animal:
+    """Superclass Animal in Biosim"""
     __slots__ = ("age", "weight", "fitness", "death", "migrate", )
 
-    """Superclass Animal in Biosim"""
     parameters_animal = {
         "w_birth": 8.0,
         "sigma_birth": 1.5,

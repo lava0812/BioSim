@@ -29,11 +29,11 @@ from biosim.animals import Herbivore, Carnivore
 
 
 class Landscape:
+    """Superclass for the landscape in Biosim"""
     __slots__ = (
         "param", "herbivores", "carnivores", "fodder", "kill_probability",
         "migrate_probability", "neighbors")
 
-    """Superclass for the landscape in Biosim"""
     parameters_fodder = {"f_max": 0}
     migration_possible = True
 

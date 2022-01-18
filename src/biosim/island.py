@@ -87,8 +87,6 @@ class Island:
         """Here we define the boundaries of the map.
 
         .. code-block:: python
-        :caption: island.py
-        :name: island
         if elements != "W":
 
         raise ValueError("The inputted map is not surrounded by water. Try again!")
