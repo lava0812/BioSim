@@ -60,7 +60,6 @@ class Animal:
             cls.parameters_animal[key] = value
 
     def __init__(self, age=None, weight=None):
-
         """
         Constructor for Animal class.
 
@@ -97,14 +96,21 @@ class Animal:
 
     # @classmethod
     def weight_baby(self):
-        """
+        r"""
         Gaussian distribution for determining the weight of a newborn baby.
-        Used only for the purpose of testing.
+        Used only for the purpose of testing. The formula is given by:
+
+        .. math::
+            \begin{equation}
+            w \sim \mathcal{N}(w_{birth}, \sigma_{birth})
+            \end{equation}
+
+        :math:`\mathcal{N}` = Gaussian distribution
 
         Returns
         -------
         weight: int
-        Generate a weight, using random.gauss.
+            Generate a weight, using random.gauss.
         """
         # TODO: Don´t know if I use this function somewhere
         weight_baby = random.gauss(self.parameters_animal["w_birth"],
@@ -112,9 +118,15 @@ class Animal:
         return weight_baby
 
     def weight_decrease(self):
-        """
+        r"""
         Decrease the weight of an animal, which will happen every year.
         Updates the fitness right after.
+
+        .. math::
+            \begin{equation}
+            \eta
+            \end{equation}
+
         """
         # resetting the migrate state
         self.migrate = False
@@ -123,9 +135,16 @@ class Animal:
         self.fitness_animal()
 
     def fitness_animal(self):
-        """
+        r"""
         Calculate the fitness of an animal.
 
+        .. math::
+            \Phi =
+            \begin{cases}
+            0 & \text{for }w\le0\\
+            q^{+}(a, a_{\frac{1}{2}},\phi_{age}) \times
+            q^{-}(w, w_{\frac{1}{2}},\phi_{weight}) & \text{else}
+            \end{cases}
         Returns
         -------
         float
@@ -150,11 +169,7 @@ class Animal:
         r"""
         Death of an animal, using probability. If the animal is fitter then the other,
         the chance of survival increase a lot.
-         :math:``
         If an animal has a weight higher than zero, the probability to die is given by the formula:
-
-
-        :math:`Mu`
 
         .. math::
             \begin{equation}
@@ -164,7 +179,7 @@ class Animal:
         Returns
         -------
         self.death: Boolean
-        Returning if death is equal to true or false.
+            Returning if death is equal to true or false.
         """
         probability_die = self.parameters_animal["omega"] * (1 - self.fitness)
         # Herbivore, carnivore will die with a probability of w(1-fitness)
@@ -241,7 +256,7 @@ class Animal:
 
         .. math::
             \begin{equation}
-            \beta \times \F
+            \beta \times F
             \end{equation}
 
         """
