@@ -22,8 +22,6 @@ import numpy as np
 from biosim.landscape import Lowland, Water, Highland, Desert
 
 
-np.mean
-
 class Island:
     """Class for Island in Biosim """
     landscape_types = {"L": Lowland, "W": Water, "H": Highland, "D": Desert}
@@ -95,7 +93,7 @@ class Island:
 
         :raises ValueError: The boarders are not water
         """
-        # fix this function, check on geogr instead
+
         for row in self.lines[0] + self.lines[-1]:
             for elements in row:
                 if elements != "W":
@@ -109,7 +107,7 @@ class Island:
     def map_lines(self):
         """Check if the map lines are the equal length."""
         for line in self.lines:
-            if len(self.lines[0]) != len(line):  # len(self.lines[0]) != len(self.lines[1])
+            if len(self.lines[0]) != len(line):
                 raise ValueError("All the lines on the map should have equal lengths!")
             else:
                 pass

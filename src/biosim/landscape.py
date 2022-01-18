@@ -59,7 +59,7 @@ class Landscape:
         self.param = None
         self.herbivores = []
         self.carnivores = []
-        self.fodder = self.parameters_fodder["f_max"]  # Kanskje ha en test her, om denne verdien er
+        self.fodder = self.parameters_fodder["f_max"]
         # mindre enn null.
         self.kill_probability = None
         self.migrate_probability = 0
@@ -133,11 +133,8 @@ class Landscape:
             available fodder
         """
 
-        # random.shuffle(self.herbivores)
-        # TODO: Should it be reverse=True, or nothing at all? Ask TA!
         self.herbivores.sort(key=lambda x: "fitness", reverse=True)
-        # Because herbivores eat from highest fitness
-        # to lowest fitness.
+
         for individual in self.herbivores:
 
             if self.fodder == 0:
@@ -156,7 +153,7 @@ class Landscape:
         Method for the prey of a herbivore by the carnivore. They will eat to their appetite fills,
         with the formula: :math:`w_{herbi-eaten} \geq F`
         """
-        # TODO: Add test for prey function!
+
         random.shuffle(self.carnivores)
         self.herbivores.sort(key=lambda x: x.fitness)
 
@@ -165,7 +162,7 @@ class Landscape:
 
             for herbivore in self.herbivores:
                 kill_prob = carnivore.kill_probability(herbivore)
-                eating=0
+                eating = 0
 
                 if herbivore.death:
                     continue
@@ -181,7 +178,6 @@ class Landscape:
                 if ate >= carnivore.parameters_animal["F"]:
                     break
             self.herbivores = [herbivore for herbivore in self.herbivores if not herbivore.death]
-            # carnivore.fitness_animal()
 
     def newborn_herbivore(self):
         """
@@ -232,7 +228,7 @@ class Landscape:
 
         Returns
         -------
-        # TODO finne ut hva det her er
+
         """
         migrated_animals = []
         for herbivore in self.herbivores:
@@ -328,9 +324,6 @@ class Water(Landscape):
     """
     parameters_fodder = {"f_max": 0}
     migration_possible = False
-
-    #    rc = len(self.map) #rows
-    #    len(self.map[0]) #columns
 
     def annual_cycle(self):
         pass

@@ -26,7 +26,6 @@ import subprocess
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 # Update these variables to point to your ffmpeg and convert binaries
 # If you installed ffmpeg using conda or installed both softwares in
 # standard ways on your computer, no changes should be required.
@@ -74,7 +73,7 @@ class Visualization:
             try:
                 os.mkdir(_DEFAULT_GRAPHICS_DIR)
             finally:
-                self._img_base =_DEFAULT_GRAPHICS_DIR
+                self._img_base = _DEFAULT_GRAPHICS_DIR
 
         self._img_fmt = img_fmt if img_fmt is not None else _DEFAULT_IMG_FORMAT
 
@@ -82,7 +81,6 @@ class Visualization:
         self._img_step = 1
 
         self.save_years = save_years
-
 
         self.ymax = ymax if ymax is not None else 18000
         self.cmax = cmax if cmax is not None else self.default_cmax
@@ -116,7 +114,6 @@ class Visualization:
 
         self.heat_map_carnivores(carn_map)
         self.heat_map_herbivores(herb_map)
-        # self.year_update(current_year)
 
         fitness_herb = [h.fitness for h in h_list]
         fitness_carn = [c.fitness for c in c_list]
@@ -132,11 +129,10 @@ class Visualization:
 
         self.update_yearly_counter(step)
 
-        # self._update_mean_graph(step, sys_mean)
-        self._fig.canvas.flush_events()  # ensure every thing is drawn
-        plt.pause(1e-5)  # pause required to pass control to GUI
+        self._fig.canvas.flush_events()
+        plt.pause(1e-5)
         if self.save_years is not None:
-            if step%self.save_years==0:
+            if step % self.save_years == 0:
                 self._save_graphics()
 
     def make_movie(self, movie_fmt=None):
@@ -181,7 +177,7 @@ class Visualization:
             raise ValueError('Unknown movie format: ' + movie_fmt)
 
     def setup(self, final_step, img_step,
-              island_map):  # setup and update are the most important files.
+              island_map):
         """
         Prepare graphics.
 
@@ -296,9 +292,6 @@ class Visualization:
                                                          transform=self._year_ax.transAxes)
             self._year_ax.axis('off')
 
-        # needs updating on subsequent calls to simulate()
-        # add 1 so we can show values for time zero and time final_step
-
     def heat_map_herbivores(self, herb_matrix):
         """Update the 2D-view of the system.
         This is the heatmap for herbivores.
@@ -342,34 +335,36 @@ class Visualization:
         self._carn_line.set_ydata(y_data)
 
     def histo_fitness_update(self, herbivores, carnivores):
-        # Here we create the histogram for the fitness update.
-        # This will be a histogram at the bottom left of the plot window.
+
         self._count_fitness_ax.clear()
         self._count_fitness_ax.set_title("Fitness")
-        bins = int(self.hist_specs["fitness"]["max"]//self.hist_specs["fitness"]["delta"])
-        self._count_fitness_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["fitness"]["max"]))
-        self._count_fitness_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["fitness"]["max"]))
+        bins = int(self.hist_specs["fitness"]["max"] // self.hist_specs["fitness"]["delta"])
+        self._count_fitness_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
+                                    label="Herbivore", range=(0, self.hist_specs["fitness"]["max"]))
+        self._count_fitness_ax.hist(carnivores, bins=bins, color="red", histtype="step",
+                                    label="Carnivore", range=(0, self.hist_specs["fitness"]["max"]))
         self._count_fitness_ax.legend()
 
     def histo_age_update(self, herbivores, carnivores):
-        # Here we create the histogram for the age update.
-        # This will be a histogram at the bottom center of the plot window.
+
         self._count_age_ax.clear()
         self._count_age_ax.set_title("Age")
         bins = int(self.hist_specs["age"]["max"] // self.hist_specs["age"]["delta"])
-        self._count_age_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore",range =(0, self.hist_specs["age"]["max"]))
-        self._count_age_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore",range =(0, self.hist_specs["age"]["max"]))
+        self._count_age_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
+                                label="Herbivore", range=(0, self.hist_specs["age"]["max"]))
+        self._count_age_ax.hist(carnivores, bins=bins, color="red", histtype="step",
+                                label="Carnivore", range=(0, self.hist_specs["age"]["max"]))
         self._count_age_ax.legend()
 
     def histo_weight_update(self, herbivores, carnivores):
-        # Here we create the histogram for the weight update.
-        # This will be a histogram at the bottom right of the plot window.
 
         self._count_weight_ax.clear()
         self._count_weight_ax.set_title("Weight")
         bins = int(self.hist_specs["weight"]["max"] // self.hist_specs["weight"]["delta"])
-        self._count_weight_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["weight"]["max"]))
-        self._count_weight_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["weight"]["max"]))
+        self._count_weight_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
+                                   label="Herbivore", range=(0, self.hist_specs["weight"]["max"]))
+        self._count_weight_ax.hist(carnivores, bins=bins, color="red", histtype="step",
+                                   label="Carnivore", range=(0, self.hist_specs["weight"]["max"]))
         self._count_weight_ax.legend()
 
     def update_yearly_counter(self, year):
@@ -378,7 +373,6 @@ class Visualization:
 
     def _save_graphics(self):
         """Saves graphics to file if file name given."""
-
 
         plt.savefig('{base}_{num:05d}.{type}'.format(base=self._img_base,
                                                      num=self._img_ctr,
@@ -394,8 +388,6 @@ class Visualization:
 
         map_rgb = [[rgb_value[column] for column in row]
                    for row in island_map.splitlines()]
-
-        # self._map_ax = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
 
         self._map_ax.imshow(map_rgb)
 

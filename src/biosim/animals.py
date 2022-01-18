@@ -138,7 +138,6 @@ class Animal:
         else:
             return None
 
-    # @classmethod
     def weight_baby(self):
         r"""
         Gaussian distribution for determining the weight of a newborn baby.

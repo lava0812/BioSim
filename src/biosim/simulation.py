@@ -7,8 +7,8 @@ This script will provide us with simulation of Rossumøya.
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 
-import subprocess
 import random
+import subprocess
 
 from matplotlib import pyplot as plt
 
@@ -20,7 +20,8 @@ from biosim.visualization import _FFMPEG_BINARY, Visualization
 simulation.py is highly inspired by Hans Ekkehard Plesser´s
 randvis project. This is the link for the gitlab project: 
 https://gitlab.com/nmbu.no/emner/inf200/h2021
-/inf200-course-materials/-/tree/main/january_block/examples/randvis_project
+/inf200-course-materials/-/tree/main/january_block/examples/randvis_project. 
+The template for this file is also given by Hans Ekkehard Plesser. 
 """
 
 
@@ -31,6 +32,7 @@ https://gitlab.com/nmbu.no/emner/inf200/h2021
 
 class BioSim:
     """Class for BioSim"""
+
     def __init__(self, island_map, ini_pop, seed,
                  vis_years=1, ymax_animals=None, cmax_animals=None, hist_specs=None,
                  img_dir=None, img_base=None, img_fmt='png', img_years=None,
@@ -81,19 +83,18 @@ class BioSim:
         else:
             self._img_base = None
 
-
         self.island_map = island_map
         self.island = Island(island_map)
 
         if ini_pop is not None:
             self.island.population_cell(ini_pop)
-        # else:
-        #    self.ini_pop = ini_pop
+
         self._current_year = 0
         self.vis_years = vis_years
         self.img_fmt = img_fmt if img_fmt is not None else "png"
 
-        self.visualization = Visualization(ymax_animals, cmax_animals, hist_specs, img_dir, img_base,img_fmt, img_years)
+        self.visualization = Visualization(ymax_animals, cmax_animals, hist_specs, img_dir,
+                                           img_base, img_fmt, img_years)
 
     @staticmethod
     def set_animal_parameters(species, params):
@@ -137,7 +138,6 @@ class BioSim:
         """
         self.visualization.setup(self._current_year + num_years, 1, self.island_map)
         for num_year in range(self._current_year, self._current_year + num_years):
-            # self.visualization.update()
             self.island.annual_cycle()
             print(self.num_animals_per_species)
 
@@ -176,7 +176,6 @@ class BioSim:
             animal_count_per_species["Carnivore"] += len(landscape.carnivores)
         return animal_count_per_species
 
-
     def save_fig(self):
         if self._img_base is None:
             return
@@ -186,24 +185,22 @@ class BioSim:
                                                      type=self._img_fmt))
         self._img_count += 1
 
-
     def make_movie(self):
-            """Create MPEG4 movie from visualization images saved."""
+        """Create MPEG4 movie from visualization images saved."""
 
-            if self.img_base is None:
-                raise RuntimeError("A filename is not defined!")
+        if self.img_base is None:
+            raise RuntimeError("A filename is not defined!")
 
-            try:
-                subprocess.check_call([_FFMPEG_BINARY,
-                                       '-i', '{}_%05d.png'.format(self.img_base),
-                                       '-y',
-                                       '-profile:v', 'baseline',
-                                       '-level', '3.0',
-                                       '-pix_fmt', 'yuv420p',
-                                       '{}.{}'.format(self.img_base, "mp4")])
-            except subprocess.CalledProcessError as err:
-                raise RuntimeError("ERROR: convert failed with: {}".format(err))
+        try:
+            subprocess.check_call([_FFMPEG_BINARY,
+                                   '-i', '{}_%05d.png'.format(self.img_base),
+                                   '-y',
+                                   '-profile:v', 'baseline',
+                                   '-level', '3.0',
+                                   '-pix_fmt', 'yuv420p',
+                                   '{}.{}'.format(self.img_base, "mp4")])
+        except subprocess.CalledProcessError as err:
+            raise RuntimeError("ERROR: convert failed with: {}".format(err))
 
-            else:
-                raise ValueError("Unknown movie format:" + "mp4")
-
+        else:
+            raise ValueError("Unknown movie format:" + "mp4")
