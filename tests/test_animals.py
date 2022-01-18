@@ -30,19 +30,6 @@ def test_aging():
     assert carnivore.age == 1
 
 
-# def test_weight_baby():
-#     """
-#     Check if the baby will be given a weight.
-#     """
-#     herbivore1 = Herbivore()
-#     herbivore2 = Herbivore()
-#
-#     herbivore1.weight_baby()
-#     herbivore2.weight_baby()
-#
-#     assert herbivore1.weight != herbivore2.weight
-
-
 def test_gaussian_distribution():
     """
     Check if the weight of the babies actually is a gaussian distribution.
@@ -77,7 +64,6 @@ def test_weight_decrease():
     """
     Test on the weight decrease every year.
     """
-    # kan gjøre den litt mer tydeligere
 
     herbivore = Herbivore(5, 10)
     herbivore.weight_baby()
@@ -205,18 +191,6 @@ def test_weight_increase():
     assert animal.weight > 10
 
 
-# def test_birth_weight_loss():
-#     """
-#     Testing if weight of mother pre birth is larger than weight of mother
-#     post birth.
-#     """
-#     herbivore = Herbivore(10, 20)
-#     pre_weight = herbivore.weight
-#     herbivore.birth_weight_loss()
-#
-#     post_weight = herbivore.weight
-#
-#     assert pre_weight > post_weight
 def test_setting_parameters():
     animal = Animal()
     animal.set_parameters_animals({"F": 1000})

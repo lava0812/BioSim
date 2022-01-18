@@ -4,6 +4,8 @@
 [build-system]
 requires = [
     "setuptools",
-    "wheel"
+    "wheel",
+    "matploblib",
+    "numpy"
 ]
 build-backend = "setuptools.build_meta"

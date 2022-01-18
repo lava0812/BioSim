@@ -223,7 +223,7 @@ class Animal:
         """
         self.migrate = False
 
-        self.weight -= self.weight * self.parameters_animal["eta"]  # Can put this in aging
+        self.weight -= self.weight * self.parameters_animal["eta"]
         self.fitness_animal()
 
     def aging(self):
@@ -349,6 +349,7 @@ class Carnivore(Animal):
 
         Returns
         -------
+        Int
 
 
         """

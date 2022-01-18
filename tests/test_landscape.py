@@ -195,18 +195,6 @@ def test_eat_fodder2():
     land.population_update(population)
     land.new_fodder()
 
-
-# def test_eat_fodder3(mocker):
-#
-#     population = [{'species': 'Herbivore', 'age': 10, 'weight': 12.5},
-#            {'species': 'Herbivore', 'age': 9, 'weight': 10.3},
-#            {'species': 'Herbivore', 'age': 5, 'weight': 8.1}]
-#     land = Landscape()
-#     land.population_update(population)
-#     land.fodder = 0
-#     land.eat_fodder()
-
-
 def test_eat_fodder_not_eat():
     """
     Here I test if the Herbivores do not eat by placing 0 fodder on the landscape,
