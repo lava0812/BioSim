@@ -345,7 +345,7 @@ class Carnivore(Animal):
 
         Parameters
         ----------
-        herbivore: #TODO
+        herbivore:
 
         Returns
         -------

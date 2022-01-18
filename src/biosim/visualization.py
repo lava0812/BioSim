@@ -325,14 +325,14 @@ class Visualization:
                          orientation='vertical')
 
     def _update_count_graph(self, step, count_h, count_c):
-        # [nan, nan, nan, nan]
+
         y_data = self._herb_line.get_ydata()
-        # if step = 0, the list becomes [1, nan, nan, nan]
+
         y_data[step] = count_h
         self._herb_line.set_ydata(y_data)
 
         y_data = self._carn_line.get_ydata()
-        # if step = 0, the list becomes [1, nan, nan, nan]
+
         y_data[step] = count_c
         self._carn_line.set_ydata(y_data)
 
