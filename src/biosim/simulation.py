@@ -32,8 +32,8 @@ The template for this file is also given by Hans Ekkehard Plesser.
 
 class BioSim:
     """Class for BioSim"""
-
-
+    __slots__ = ("_img_count", "_img_base", "island_map", "island", "_current_year",
+                 "vis_years", "img_fmt", "visualization", "_img_fmt")
 
     def __init__(self, island_map, ini_pop, seed,
                  vis_years=1, ymax_animals=None, cmax_animals=None, hist_specs=None,
