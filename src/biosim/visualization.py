@@ -337,8 +337,9 @@ class Visualization:
         # This will be a histogram at the bottom left of the plot window.
         self._count_fitness_ax.clear()
         self._count_fitness_ax.set_title("Fitness")
-        self._count_fitness_ax.hist(herbivores, color="blue", histtype="step", label="Herbivore")
-        self._count_fitness_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
+        bins = int(self.hist_specs["fitness"]["max"]//self.hist_specs["fitness"]["delta"])
+        self._count_fitness_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["fitness"]["max"]))
+        self._count_fitness_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["fitness"]["max"]))
         self._count_fitness_ax.legend()
 
     def histo_age_update(self, herbivores, carnivores):
@@ -346,8 +347,9 @@ class Visualization:
         # This will be a histogram at the bottom center of the plot window.
         self._count_age_ax.clear()
         self._count_age_ax.set_title("Age")
-        self._count_age_ax.hist(herbivores, color="blue", histtype="step", label="Herbivore")
-        self._count_age_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
+        bins = int(self.hist_specs["age"]["max"] // self.hist_specs["age"]["delta"])
+        self._count_age_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore",range =(0, self.hist_specs["age"]["max"]))
+        self._count_age_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore",range =(0, self.hist_specs["age"]["max"]))
         self._count_age_ax.legend()
 
     def histo_weight_update(self, herbivores, carnivores):
@@ -356,8 +358,9 @@ class Visualization:
 
         self._count_weight_ax.clear()
         self._count_weight_ax.set_title("Weight")
-        self._count_weight_ax.hist(herbivores, color="blue", histtype="step", label="Herbivore")
-        self._count_weight_ax.hist(carnivores, color="red", histtype="step", label="Carnivore")
+        bins = int(self.hist_specs["weight"]["max"] // self.hist_specs["weight"]["delta"])
+        self._count_weight_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["weight"]["max"]))
+        self._count_weight_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["weight"]["max"]))
         self._count_weight_ax.legend()
 
     def update_yearly_counter(self, year):

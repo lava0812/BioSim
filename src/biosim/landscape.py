@@ -230,20 +230,16 @@ class Landscape:
             for herbivore in self.herbivores:
                 kill_prob = carnivore.kill_probability(herbivore)
 
-                if ate < carnivore.parameters_animal["F"]:
-
-                    if random.random() < kill_prob:
-                        weight_eaten = herbivore.weight
-
-                        if ate + weight_eaten > carnivore.parameters_animal["F"]:
-                            weight_eaten = carnivore.parameters_animal["F"] - ate
-                            ate = carnivore.parameters_animal["F"]
-                        else:
-                            ate += weight_eaten
-
-                        herbivore.death = True
-                        carnivore.weight_increase(weight_eaten)
-            self.herbivores = [herb for herb in self.herbivores if not herb.death]
+                if herbivore.death:
+                    continue
+                if random.random() < kill_prob:
+                    herbivore.death = True
+                    ate += herbivore.weight
+                if ate >= carnivore.parameters_animal["F"]:
+                    break
+            carnivore.weight_increase(ate)
+            # carnivore.fitness_animal()
+            self.herbivores = [herbivore for herbivore in self.herbivores if not herbivore.death]
 
     def migrated_animals(self):
         """

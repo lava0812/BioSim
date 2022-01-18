@@ -56,7 +56,7 @@ def test_new_fodder():
     land = Lowland()
     land.fodder = 0
     land.new_fodder()
-    assert land.fodder == land.parameters["f_max"]
+    assert land.fodder == land.parameters_fodder["f_max"]
 
 
 def test_new_fodder_not_updated():
@@ -379,7 +379,7 @@ def test_parameters_water():
     """Test to see if the subclass water gives the right amount of fodder,
     which should be "f_max" = 0"""
     lowland = Water()
-    f_max = lowland.parameters["f_max"]
+    f_max = lowland.parameters_fodder["f_max"]
 
     assert f_max == 0
 
@@ -404,3 +404,6 @@ def test_migration(mocker):
     land.migrated_animals()
 
     assert  animals_before > len(land.herbivores)
+
+def test_carnivore_prey(mocker):
+    mocker.patch("random.random", return_value = 0)
