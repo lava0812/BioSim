@@ -12,6 +12,8 @@ __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
 import subprocess
 import random
 
+from matplotlib import pyplot as plt
+
 from biosim.animals import Carnivore, Herbivore
 from biosim.island import Island, Water, Lowland, Highland, Desert
 from biosim.visualization import _FFMPEG_BINARY, Visualization
@@ -68,6 +70,7 @@ class BioSim:
 
         img_dir and img_base must either be both None or both strings.
         """
+        self._img_count = None
         random.seed(seed)
 
         if img_dir is None:
@@ -76,9 +79,10 @@ class BioSim:
             pass
 
         if img_base is not None:
-            self.img_base = img_base
+            self._img_base = img_base
         else:
-            self.img_base = img_base
+            self._img_base = None
+
 
         self.island_map = island_map
         self.island = Island(island_map)
@@ -89,7 +93,7 @@ class BioSim:
         #    self.ini_pop = ini_pop
         self._current_year = 0
         self.vis_years = vis_years
-        self.img_fmt = img_fmt
+        self.img_fmt = img_fmt if img_fmt is not None else "png"
 
         self.visualization = Visualization(ymax_animals, cmax_animals, hist_specs)
 
@@ -174,22 +178,34 @@ class BioSim:
             animal_count_per_species["Carnivore"] += len(landscape.carnivores)
         return animal_count_per_species
 
+
+    def save_fig(self):
+        if self._img_base is None:
+            return
+
+        plt.savefig('{base}_{num:05d}.{type}'.format(base=self._img_base,
+                                                     num=self._img_count,
+                                                     type=self._img_fmt))
+        self._img_count += 1
+
+
     def make_movie(self):
-        """Create MPEG4 movie from visualization images saved."""
+            """Create MPEG4 movie from visualization images saved."""
 
-        if self.img_base is None:
-            raise RuntimeError("A filename is not defined!")
+            if self.img_base is None:
+                raise RuntimeError("A filename is not defined!")
 
-        try:
-            subprocess.check_call([_FFMPEG_BINARY,
-                                   '-i', '{}_%05d.png'.format(self.img_base),
-                                   '-y',
-                                   '-profile:v', 'baseline',
-                                   '-level', '3.0',
-                                   '-pix_fmt', 'yuv420p',
-                                   '{}.{}'.format(self.img_base, "mp4")])
-        except subprocess.CalledProcessError as err:
-            raise RuntimeError("ERROR: convert failed with: {}".format(err))
+            try:
+                subprocess.check_call([_FFMPEG_BINARY,
+                                       '-i', '{}_%05d.png'.format(self.img_base),
+                                       '-y',
+                                       '-profile:v', 'baseline',
+                                       '-level', '3.0',
+                                       '-pix_fmt', 'yuv420p',
+                                       '{}.{}'.format(self.img_base, "mp4")])
+            except subprocess.CalledProcessError as err:
+                raise RuntimeError("ERROR: convert failed with: {}".format(err))
 
-        else:
-            raise ValueError("Unknown movie format:" + "mp4")
+            else:
+                raise ValueError("Unknown movie format:" + "mp4")
+

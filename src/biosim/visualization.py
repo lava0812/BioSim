@@ -69,7 +69,7 @@ class Visualization:
         else:
             self._img_base = None
 
-        self._img_fmt = img_fmt if img_fmt is not None else _DEFAULT_IMG_FORMAT
+        self._img_fmt = img_fmt if img_fmt is not None else "png"
 
         self._img_ctr = 0
         self._img_step = 1
@@ -128,7 +128,7 @@ class Visualization:
         self._fig.canvas.flush_events()  # ensure every thing is drawn
         plt.pause(1e-5)  # pause required to pass control to GUI
 
-        self._save_graphics(step)
+        #self._save_graphics(step)
 
     def make_movie(self, movie_fmt=None):
         """
@@ -337,9 +337,11 @@ class Visualization:
         # This will be a histogram at the bottom left of the plot window.
         self._count_fitness_ax.clear()
         self._count_fitness_ax.set_title("Fitness")
-        bins = int(self.hist_specs["fitness"]["max"]//self.hist_specs["fitness"]["delta"])
-        self._count_fitness_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["fitness"]["max"]))
-        self._count_fitness_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["fitness"]["max"]))
+        bins = int(self.hist_specs["fitness"]["max"] // self.hist_specs["fitness"]["delta"])
+        self._count_fitness_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
+                                    label="Herbivore", range=(0, self.hist_specs["fitness"]["max"]))
+        self._count_fitness_ax.hist(carnivores, bins=bins, color="red", histtype="step",
+                                    label="Carnivore", range=(0, self.hist_specs["fitness"]["max"]))
         self._count_fitness_ax.legend()
 
     def histo_age_update(self, herbivores, carnivores):
@@ -348,8 +350,10 @@ class Visualization:
         self._count_age_ax.clear()
         self._count_age_ax.set_title("Age")
         bins = int(self.hist_specs["age"]["max"] // self.hist_specs["age"]["delta"])
-        self._count_age_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore",range =(0, self.hist_specs["age"]["max"]))
-        self._count_age_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore",range =(0, self.hist_specs["age"]["max"]))
+        self._count_age_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
+                                label="Herbivore", range=(0, self.hist_specs["age"]["max"]))
+        self._count_age_ax.hist(carnivores, bins=bins, color="red", histtype="step",
+                                label="Carnivore", range=(0, self.hist_specs["age"]["max"]))
         self._count_age_ax.legend()
 
     def histo_weight_update(self, herbivores, carnivores):
@@ -359,24 +363,16 @@ class Visualization:
         self._count_weight_ax.clear()
         self._count_weight_ax.set_title("Weight")
         bins = int(self.hist_specs["weight"]["max"] // self.hist_specs["weight"]["delta"])
-        self._count_weight_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["weight"]["max"]))
-        self._count_weight_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["weight"]["max"]))
+        self._count_weight_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
+                                   label="Herbivore", range=(0, self.hist_specs["weight"]["max"]))
+        self._count_weight_ax.hist(carnivores, bins=bins, color="red", histtype="step",
+                                   label="Carnivore", range=(0, self.hist_specs["weight"]["max"]))
         self._count_weight_ax.legend()
 
     def update_yearly_counter(self, year):
 
         self._yearly_count_disp.set_text(f'Count: {year:5d}')
 
-    def _save_graphics(self, step):
-        """Saves graphics to file if file name given."""
-
-        if self._img_base is None or step % self._img_step != 0:
-            return
-
-        plt.savefig('{base}_{num:05d}.{type}'.format(base=self._img_base,
-                                                     num=self._img_ctr,
-                                                     type=self._img_fmt))
-        self._img_ctr += 1
 
     def map_graphics_plot(self, island_map):
         #                   R    G    B
