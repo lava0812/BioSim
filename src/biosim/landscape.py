@@ -153,10 +153,8 @@ class Landscape:
 
     def prey(self):
         r"""
-        Method for the prey of a herbivore by the carnivore.
-        I have to add a way of calculating how much the carnivore has eaten.
-
-
+        Method for the prey of a herbivore by the carnivore. They will eat to their appetite fills,
+        with the formula: :math:`w_{herbi-eaten} \geq F`
         """
         # TODO: Add test for prey function!
         random.shuffle(self.carnivores)
@@ -234,9 +232,7 @@ class Landscape:
 
         Returns
         -------
-
-
-
+        # TODO finne ut hva det her er
         """
         migrated_animals = []
         for herbivore in self.herbivores:
@@ -304,8 +300,6 @@ class Landscape:
         *Aging:* Every animal will age +1 every year
 
         *Weight loss:* Every year the animals will lose weight by the formula :math:`\eta\omega`
-
-
 
         """
         self.new_fodder()

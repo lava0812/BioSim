@@ -3,8 +3,6 @@
 :mod: 'biosim.simulation' gives us the interface to the package
 
 This script will provide us with simulation of Rossumøya.
-
-
 """
 __author__ = "Sathuriyan Sivathas & Lavanyan Rathy"
 __email__ = "sathuriyan.sivathas@nmbu.no & lavanyan.rathy@nmbu.no"
@@ -95,7 +93,7 @@ class BioSim:
         self.vis_years = vis_years
         self.img_fmt = img_fmt if img_fmt is not None else "png"
 
-        self.visualization = Visualization(ymax_animals, cmax_animals, hist_specs)
+        self.visualization = Visualization(ymax_animals, cmax_animals, hist_specs, img_dir, img_base,img_fmt, img_years)
 
     @staticmethod
     def set_animal_parameters(species, params):

@@ -1,11 +1,6 @@
 # -*- encoding: utf-8 -*-
-import os
-import subprocess
 
-import matplotlib.pyplot as plt
-import numpy as np
-
-"""
+r"""
 :mod:`randvis.graphics` provides graphics support for BioSim.
 
 .. note::
@@ -18,14 +13,19 @@ import numpy as np
      directory and file-name start you want to use for the graphics output
      files.
 
+visualization.py is highly inspired by Hans Ekkehard Plesser´s
+randvis project. This is the link for the gitlab project:
+
+:role: `Hans Ekkehard Plesser https://gitlab.com/nmbu.no/emner/inf200/h2021
+/inf200-course-materials/-/tree/main/january_block/examples/randvis_project`
 """
 
-"""
-visualization.py is highly inspired by Hans Ekkehard Plesser´s
-randvis project. This is the link for the gitlab project: 
-https://gitlab.com/nmbu.no/emner/inf200/h2021
-/inf200-course-materials/-/tree/main/january_block/examples/randvis_project
-"""
+import os
+import subprocess
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 # Update these variables to point to your ffmpeg and convert binaries
 # If you installed ffmpeg using conda or installed both softwares in
@@ -35,7 +35,7 @@ _MAGICK_BINARY = 'magick'
 
 # update this to the directory and file-name beginning
 # for the graphics files
-_DEFAULT_GRAPHICS_DIR = os.path.join('../..', 'data')
+_DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data')
 _DEFAULT_GRAPHICS_NAME = 'dv'
 _DEFAULT_IMG_FORMAT = 'png'
 _DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
@@ -49,7 +49,7 @@ class Visualization:
                      'weight': {'max': 60, 'delta': 2}}
 
     def __init__(self, ymax=None, cmax=None, hist_specs=None, img_dir=None, img_name=None,
-                 img_fmt=None):
+                 img_fmt=None, save_years=None):
         """
         :param img_dir: directory for image files; no images if None
         :type img_dir: str
@@ -66,15 +66,23 @@ class Visualization:
 
         if img_dir is not None:
             self._img_base = os.path.join(img_dir, img_name)
+            if not os.path.isdir(img_dir):
+                os.mkdir(img_dir)
+            if save_years is None:
+                save_years = 1
         else:
-            self._img_base = None
+            try:
+                os.mkdir(_DEFAULT_GRAPHICS_DIR)
+            finally:
+                self._img_base =_DEFAULT_GRAPHICS_DIR
 
-        self._img_fmt = img_fmt if img_fmt is not None else "png"
+        self._img_fmt = img_fmt if img_fmt is not None else _DEFAULT_IMG_FORMAT
 
         self._img_ctr = 0
         self._img_step = 1
 
-        # the following will be initialized by _setup_graphics
+        self.save_years = save_years
+
 
         self.ymax = ymax if ymax is not None else 18000
         self.cmax = cmax if cmax is not None else self.default_cmax
@@ -127,8 +135,9 @@ class Visualization:
         # self._update_mean_graph(step, sys_mean)
         self._fig.canvas.flush_events()  # ensure every thing is drawn
         plt.pause(1e-5)  # pause required to pass control to GUI
-
-        #self._save_graphics(step)
+        if self.save_years is not None:
+            if step%self.save_years==0:
+                self._save_graphics()
 
     def make_movie(self, movie_fmt=None):
         """
@@ -337,11 +346,9 @@ class Visualization:
         # This will be a histogram at the bottom left of the plot window.
         self._count_fitness_ax.clear()
         self._count_fitness_ax.set_title("Fitness")
-        bins = int(self.hist_specs["fitness"]["max"] // self.hist_specs["fitness"]["delta"])
-        self._count_fitness_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
-                                    label="Herbivore", range=(0, self.hist_specs["fitness"]["max"]))
-        self._count_fitness_ax.hist(carnivores, bins=bins, color="red", histtype="step",
-                                    label="Carnivore", range=(0, self.hist_specs["fitness"]["max"]))
+        bins = int(self.hist_specs["fitness"]["max"]//self.hist_specs["fitness"]["delta"])
+        self._count_fitness_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["fitness"]["max"]))
+        self._count_fitness_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["fitness"]["max"]))
         self._count_fitness_ax.legend()
 
     def histo_age_update(self, herbivores, carnivores):
@@ -350,10 +357,8 @@ class Visualization:
         self._count_age_ax.clear()
         self._count_age_ax.set_title("Age")
         bins = int(self.hist_specs["age"]["max"] // self.hist_specs["age"]["delta"])
-        self._count_age_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
-                                label="Herbivore", range=(0, self.hist_specs["age"]["max"]))
-        self._count_age_ax.hist(carnivores, bins=bins, color="red", histtype="step",
-                                label="Carnivore", range=(0, self.hist_specs["age"]["max"]))
+        self._count_age_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore",range =(0, self.hist_specs["age"]["max"]))
+        self._count_age_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore",range =(0, self.hist_specs["age"]["max"]))
         self._count_age_ax.legend()
 
     def histo_weight_update(self, herbivores, carnivores):
@@ -363,16 +368,22 @@ class Visualization:
         self._count_weight_ax.clear()
         self._count_weight_ax.set_title("Weight")
         bins = int(self.hist_specs["weight"]["max"] // self.hist_specs["weight"]["delta"])
-        self._count_weight_ax.hist(herbivores, bins=bins, color="blue", histtype="step",
-                                   label="Herbivore", range=(0, self.hist_specs["weight"]["max"]))
-        self._count_weight_ax.hist(carnivores, bins=bins, color="red", histtype="step",
-                                   label="Carnivore", range=(0, self.hist_specs["weight"]["max"]))
+        self._count_weight_ax.hist(herbivores,bins=bins, color="blue", histtype="step", label="Herbivore", range =(0, self.hist_specs["weight"]["max"]))
+        self._count_weight_ax.hist(carnivores,bins=bins, color="red", histtype="step", label="Carnivore", range =(0, self.hist_specs["weight"]["max"]))
         self._count_weight_ax.legend()
 
     def update_yearly_counter(self, year):
 
         self._yearly_count_disp.set_text(f'Count: {year:5d}')
 
+    def _save_graphics(self):
+        """Saves graphics to file if file name given."""
+
+
+        plt.savefig('{base}_{num:05d}.{type}'.format(base=self._img_base,
+                                                     num=self._img_ctr,
+                                                     type=self._img_fmt))
+        self._img_ctr += 1
 
     def map_graphics_plot(self, island_map):
         #                   R    G    B
