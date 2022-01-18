@@ -69,6 +69,8 @@ class Island:
                     raise ValueError("This is not a valid landscape type. Try again!")
 
         for loc, cell in self.map.items():
+            if not cell.migration_possible:
+                continue
             neighbor_loc = (loc[0], loc[1] - 1), \
                            (loc[0], loc[1] + 1), \
                            (loc[0] - 1, loc[1]), \

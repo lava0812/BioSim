@@ -160,24 +160,30 @@ class Landscape:
         """
         # TODO: Add test for prey function!
         random.shuffle(self.carnivores)
-        self.herbivores.sort(key=lambda x: "fitness")
+        self.herbivores.sort(key=lambda x: x.fitness)
 
         for carnivore in self.carnivores:
             ate = 0
 
             for herbivore in self.herbivores:
                 kill_prob = carnivore.kill_probability(herbivore)
+                eating=0
 
                 if herbivore.death:
                     continue
                 if random.random() < kill_prob:
                     herbivore.death = True
-                    ate += herbivore.weight
+                    if eating + herbivore.weight < carnivore.parameters_animal["F"]:
+                        ate += herbivore.weight
+                        eating = herbivore.weight
+                    else:
+                        eating = carnivore.parameters_animal["F"] - ate
+                        ate = carnivore.parameters_animal["F"]
+                    carnivore.weight_increase(eating)
                 if ate >= carnivore.parameters_animal["F"]:
                     break
-            carnivore.weight_increase(ate)
-            # carnivore.fitness_animal()
             self.herbivores = [herbivore for herbivore in self.herbivores if not herbivore.death]
+            # carnivore.fitness_animal()
 
     def newborn_herbivore(self):
         """
@@ -232,26 +238,25 @@ class Landscape:
 
 
         """
-
+        migrated_animals = []
         for herbivore in self.herbivores:
             if not herbivore.migrate and herbivore.migration_probability():
                 arrival_cell = random.choice(self.neighbors)
                 if arrival_cell.migration_possible:
                     herbivore.migrate = True
                     arrival_cell.herbivores.append(herbivore)
-                    self.herbivores.remove(herbivore)
-                else:
-                    break
+                    migrated_animals.append(herbivore)
+        self.herbivores[:] = [herb for herb in self.herbivores if herb not in migrated_animals]
 
+        migrated_animals = []
         for carnivore in self.carnivores:
             if not carnivore.migrate and carnivore.migration_probability():
                 arrival_cell = random.choice(self.neighbors)
                 if arrival_cell.migration_possible:
                     carnivore.migrate = True
                     arrival_cell.carnivores.append(carnivore)
-                    self.carnivores.remove(carnivore)
-                else:
-                    break
+                    migrated_animals.append(carnivore)
+        self.carnivores[:] = [carn for carn in self.carnivores if carn not in migrated_animals]
 
     def aging_population(self):
         """
@@ -260,10 +265,7 @@ class Landscape:
         Uses animals.py method aging.
         """
 
-        for individual in self.herbivores:
-            individual.aging()
-
-        for individual in self.carnivores:
+        for individual in self.herbivores + self.carnivores:
             individual.aging()
 
     def weight_loss(self):

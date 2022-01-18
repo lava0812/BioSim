@@ -46,7 +46,7 @@ if __name__ == '__main__':
                           for _ in range(40)]}]
 
     sim = BioSim(island_map=geogr, ini_pop=ini_herbs,
-                 seed=123456,
+                 seed=12345678,
                  hist_specs={'fitness': {'max': 1.0, 'delta': 0.05},
                              'age': {'max': 60.0, 'delta': 2},
                              'weight': {'max': 60, 'delta': 2}},
@@ -60,4 +60,4 @@ if __name__ == '__main__':
 
     sim.simulate(num_years=100)
     sim.add_population(population=ini_carns)
-    sim.simulate(num_years=500)
+    sim.simulate(num_years=100)

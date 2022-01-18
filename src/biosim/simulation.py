@@ -137,7 +137,7 @@ class BioSim:
         for num_year in range(self._current_year, self._current_year + num_years):
             # self.visualization.update()
             self.island.annual_cycle()
-            # print(self.island.matrix_herbivores(),"Year")
+            print(self.num_animals_per_species)
 
             self.visualization.update(self._current_year, self.num_animals_per_species,
                                       self.island.matrix_herbivores(),

@@ -123,21 +123,20 @@ class Animal:
         """
 
         probability = min(1, self.parameters_animal["gamma"] * self.fitness * (
-                n_animals_in_same_species - 1))
-        if self.migrate is False:  # TODO trenger vi denne
-            if self.weight < self.parameters_animal["zeta"] * (
-                    self.parameters_animal["w_birth"] + self.parameters_animal["sigma_birth"]):
-                return None
-            elif random.random() < probability:
-                new_baby = type(self)()
-                if new_baby.weight * self.parameters_animal["xi"] < self.weight:
-                    self.weight -= self.parameters_animal["xi"] * new_baby.weight
-                    self.fitness_animal()
-                    return new_baby
-                else:
-                    return None
+                n_animals_in_same_species - 1))  # TODO trenger vi denne
+        if self.weight < self.parameters_animal["zeta"] * (
+                self.parameters_animal["w_birth"] + self.parameters_animal["sigma_birth"]):
+            return None
+        elif random.random() < probability:
+            new_baby = type(self)()
+            if new_baby.weight * self.parameters_animal["xi"] < self.weight:
+                self.weight -= self.parameters_animal["xi"] * new_baby.weight
+                self.fitness_animal()
+                return new_baby
             else:
                 return None
+        else:
+            return None
 
     # @classmethod
     def weight_baby(self):
@@ -228,7 +227,6 @@ class Animal:
     def aging(self):
         """Aging the animals every year with +1."""
         self.age += 1.0
-        self.fitness_animal()
 
     def death_animal(self):
         r"""
