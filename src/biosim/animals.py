@@ -219,7 +219,7 @@ class Animal:
         r"""
         Decrease the weight of an animal, which will happen every year with :math:`\eta w`
         """
-        #TODO
+        # TODO
         self.migrate = False
 
         self.weight -= self.weight * self.parameters_animal["eta"]  # Can put this in aging
@@ -337,18 +337,16 @@ class Carnivore(Animal):
             p =
             \begin{cases}
                 0, & \text{if} \Phi_{carn} \leq \Phi_{herb} \\
-                0, & \text{if}\ 0 < \phi_{carn} - \phi_{herb} < \delta\Phi_{max} \\
+                0, & \text{if}\ 0 < \phi_{carn} - \phi_{herb} < \Delta\Phi_{max} \\
                 1, & \text{otherwise}
             \end{cases}
             \end{equation}
 
-        carnivore's weight increases by :math:`\beta \times` w_{\text{birth}}
-        where
-
+        carnivore's weight increases by :math:`\beta w_{birth}`
 
         Parameters
         ----------
-        herbivore
+        herbivore: #TODO
 
         Returns
         -------

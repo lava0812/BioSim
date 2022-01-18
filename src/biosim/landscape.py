@@ -6,7 +6,7 @@
 
 
 Rossumøya is divided into cells that are formed as squares. These cells will have one of the
-four subclass attribute. The cells will also have their own numerical location.
+four subclass attributes. The cells will also have their own numerical location.
 
 .. note::
     This file contains the following superclass and subclasses and can be imported as a module:
@@ -42,7 +42,6 @@ class Landscape:
         ----------
         added_parameters : dict
                         Dictionary that gives new parameters for the landscape
-
         """
         for parameter, value in added_parameters.items():
             if value < 0:
@@ -88,33 +87,30 @@ class Landscape:
     def display_herbivores(self):
         """
         This function will display the number of herbivores in the herbivores list
-        :return: The herbivore count
+
+        Returns
+        -------
+        herbivores: int
+            The herbivore count
+
         """
         return len(self.herbivores)
 
     def display_carnivores(self):
         """
         This function will display the number of carnivores in the carnivores list
-        :return: the carnivore count
+
+        Returns
+        -------
+        carnivores: int
+            The carnivores count
+
         """
         return len(self.carnivores)
 
     def new_fodder(self):
         """Function to add the parameter "f_max" every year in Lowland and Highland"""
         self.fodder = self.parameters_fodder["f_max"]
-
-    def aging_population(self):
-        """
-        This function will age all the living population on Rossumøya
-        every year since it common for both carnivores and herbivores.
-        Uses animals.py method aging.
-        """
-
-        for individual in self.herbivores:
-            individual.aging()
-
-        for individual in self.carnivores:
-            individual.aging()
 
     def eat_fodder(self):
         r"""
@@ -130,12 +126,11 @@ class Landscape:
 
         if :math:`f_max \geq F`
             Here will the animal eat to their :math:`F` fills, and the remaining fodder will be
-             available to other to eat
+            available to other to eat
 
         if :math:`fodder < F`
-
-        Here will the animal eat to there is no more fodder since the F is bigger than
-         available fodder
+            Here will the animal eat to there is no more fodder since the F is bigger than
+            available fodder
         """
 
         # random.shuffle(self.herbivores)
@@ -156,12 +151,33 @@ class Landscape:
                 individual.weight_increase(self.fodder)
                 self.fodder = 0
 
-    def death_population(self):
-        """Remove the animals that have died from the population list"""
-        self.herbivores = [individual for individual in self.herbivores
-                           if not individual.death_animal()]
-        self.carnivores = [individual for individual in self.carnivores
-                           if not individual.death_animal()]
+    def prey(self):
+        r"""
+        Method for the prey of a herbivore by the carnivore.
+        I have to add a way of calculating how much the carnivore has eaten.
+
+
+        """
+        # TODO: Add test for prey function!
+        random.shuffle(self.carnivores)
+        self.herbivores.sort(key=lambda x: "fitness")
+
+        for carnivore in self.carnivores:
+            ate = 0
+
+            for herbivore in self.herbivores:
+                kill_prob = carnivore.kill_probability(herbivore)
+
+                if herbivore.death:
+                    continue
+                if random.random() < kill_prob:
+                    herbivore.death = True
+                    ate += herbivore.weight
+                if ate >= carnivore.parameters_animal["F"]:
+                    break
+            carnivore.weight_increase(ate)
+            # carnivore.fitness_animal()
+            self.herbivores = [herbivore for herbivore in self.herbivores if not herbivore.death]
 
     def newborn_herbivore(self):
         """
@@ -201,44 +217,6 @@ class Landscape:
                     newborn_carnivore.append(newborn)
         self.carnivores.extend(newborn_carnivore)
 
-    def weight_loss(self):
-        """
-        The animals on the island will lose a specific amount of weight.
-
-        :return: New weight after decreasing
-        """
-
-        for individual in self.herbivores + self.carnivores:
-            individual.weight_decrease()
-
-    def prey(self):
-        r"""
-        Method for the prey of a herbivore by the carnivore.
-        I have to add a way of calculating how much the carnivore has eaten.
-
-
-        """
-        # TODO: Add test for prey function!
-        random.shuffle(self.carnivores)
-        self.herbivores.sort(key=lambda x: "fitness")
-
-        for carnivore in self.carnivores:
-            ate = 0
-
-            for herbivore in self.herbivores:
-                kill_prob = carnivore.kill_probability(herbivore)
-
-                if herbivore.death:
-                    continue
-                if random.random() < kill_prob:
-                    herbivore.death = True
-                    ate += herbivore.weight
-                if ate >= carnivore.parameters_animal["F"]:
-                    break
-            carnivore.weight_increase(ate)
-            # carnivore.fitness_animal()
-            self.herbivores = [herbivore for herbivore in self.herbivores if not herbivore.death]
-
     def migrated_animals(self):
         """
         This is not how it should be done, but I have done it for now. Ask TA about a better way
@@ -274,6 +252,36 @@ class Landscape:
                     self.carnivores.remove(carnivore)
                 else:
                     break
+
+    def aging_population(self):
+        """
+        This function will age all the living population on Rossumøya
+        every year since it common for both carnivores and herbivores.
+        Uses animals.py method aging.
+        """
+
+        for individual in self.herbivores:
+            individual.aging()
+
+        for individual in self.carnivores:
+            individual.aging()
+
+    def weight_loss(self):
+        """
+        The animals on the island will lose a specific amount of weight.
+
+        :return: New weight after decreasing
+        """
+
+        for individual in self.herbivores + self.carnivores:
+            individual.weight_decrease()
+
+    def death_population(self):
+        """Remove the animals that have died from the population list"""
+        self.herbivores = [individual for individual in self.herbivores
+                           if not individual.death_animal()]
+        self.carnivores = [individual for individual in self.carnivores
+                           if not individual.death_animal()]
 
     def annual_cycle(self):
         r"""
