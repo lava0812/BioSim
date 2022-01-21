@@ -133,9 +133,11 @@ class Visualization:
 
         self._fig.canvas.flush_events()
         plt.pause(1e-5)
+        plt.tight_layout()
         if self.save_years is not None:
             if step % self.save_years == 0:
                 self._save_graphics()
+
 
     def make_movie(self, movie_fmt=None):
         """
